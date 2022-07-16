@@ -1,7 +1,7 @@
 
-#include <math/vector.h>
-#include <math/matrix.h>
-#include "math/transform.h"
+#include "Just/Math/Vector.h"
+#include "Just/Math/Matrix.h"
+#include "Just/Graphic/Transform.h"
 
 using namespace Just;
 
@@ -10,37 +10,37 @@ static void TestVector() {
     std::cout << "TEST: VECTOR" << std::endl;
     std::cout << "===========================================================" << std::endl;
 
-    Vector3f v0;//È±Ê¡¹¹Ôì
+    Vector3f v0;//ç¼ºçœæž„é€ 
     std::cout << "v0 = " << v0 << std::endl;
 
-    Vector3f v1(1);//²ÎÊý¹¹Ôì
+    Vector3f v1(1);//å‚æ•°æž„é€ 
     std::cout << "v1 = " << v1 << std::endl;
 
-    Vector3f v2{2, 2, 2};//¿½±´¹¹Ôì
+    Vector3f v2{2, 2, 2};//æ‹·è´æž„é€ 
     std::cout << "v2 = " << v2 << std::endl;
 
-    Vector3f v3;//¿½±´¸³Öµ
+    Vector3f v3;//æ‹·è´èµ‹å€¼
     v3 = v2 + v1;
     std::cout << "v3 = " << v3 << std::endl;
 
-    Vector3f v4{1, 1, -1};//³õÊ¼»¯ÁÐ±í
+    Vector3f v4{1, 1, -1};//åˆå§‹åŒ–åˆ—è¡¨
     std::cout << "v4 = " << v4 << std::endl;
 
     std::cout << "===========================================================" << std::endl;
 
-    //ËÄÔòÔËËã
+    //å››åˆ™è¿ç®—
     std::cout << "v0 + v1 = " << v0 + v1 << std::endl;
     std::cout << "v2 - v1= " << v2 - v1 << std::endl;
     std::cout << "v2 * v3= " << v2 * v3 << std::endl;
 
-    //Êý³Ë
+    //æ•°ä¹˜
     std::cout << "2 * v1 = " << 2.0f * v1 << std::endl;
     std::cout << "v1 * 2 = " << v1 * 2.0f << std::endl;
     std::cout << "v1 / 2 = " << v1 / 2.0f << std::endl;
 
     std::cout << "===========================================================" << std::endl;
 
-    //¸³ÖµËÄÔò
+    //èµ‹å€¼å››åˆ™
     v1 += v2;
     std::cout << "v1 += v2 = " << v1 << std::endl;
     v1 -= v2;
@@ -48,7 +48,7 @@ static void TestVector() {
     v1 *= v2;
     std::cout << "v1 *= v2 = " << v1 << std::endl;
 
-    //¸³ÖµÊý³Ë
+    //èµ‹å€¼æ•°ä¹˜
     v1 *= 2.0f;
     std::cout << "v1 *= 2 = " << v1 << std::endl;
     v1 /= 2.0f;
@@ -56,17 +56,17 @@ static void TestVector() {
 
     std::cout << "===========================================================" << std::endl;
 
-    //³¤¶È/Ä£
+    //é•¿åº¦/æ¨¡
     std::cout << "Length(v1) = " << Length(v1) << std::endl;
     std::cout << "Norm(v1) = " << Norm(v1) << std::endl;
 
-    //µã»ý
+    //ç‚¹ç§¯
     std::cout << "Dot(v1, v2) = " << Dot(v1, v2) << std::endl;
 
-    //²æ»ý
+    //å‰ç§¯
     std::cout << "Cross(v1, v4) = " << Cross(v1, v4) << std::endl;
 
-    //¹éÒ»»¯
+    //å½’ä¸€åŒ–
     std::cout << "Normalize(v1) = " << Normalize(v1) << std::endl;
     std::cout << "Length(Normalize(v1)) = " << Length(Normalize(v1)) << std::endl;
 }
@@ -87,10 +87,10 @@ static void TestMatrix() {
     std::cout << "mat1.Col(0) = " << mat1.Col(0) << std::endl;
 
     std::cout << "===========================================================" << std::endl;
-    //¼Ó¼õ
+    //åŠ å‡
     std::cout << "mat1 + mat0 = \n" << mat1 + mat0 << std::endl;
     std::cout << "mat0 - mat1 = \n" << mat0 - mat1 << std::endl;
-    //Êý³Ë
+    //æ•°ä¹˜
     std::cout << "2 * mat1 = \n" << 2.0f * mat1 << std::endl;
     std::cout << "mat1 * 2 = \n" << mat1 * 2.0f << std::endl;
     std::cout << "mat1 / 2 = \n" << mat1 / 2.0f << std::endl;
@@ -104,9 +104,9 @@ static void TestMatrix() {
             {5,  0,  0, -3}
     };
     std::cout << "mat2 = \n" << mat2 << std::endl;
-    //Óà×ÓÊ½
+    //ä½™å­å¼
     std::cout << "Minor(mat2, 1, 1) = \n" << Minor(mat2, 1, 1) << std::endl;
-    //´úÊýÓà×ÓÊ½
+    //ä»£æ•°ä½™å­å¼
     std::cout << "Cofactor(mat2, 0, 0) = " << Cofactor(mat2, 0, 0) << std::endl;
     std::cout << "Cofactor(mat2, 0, 1) = " << Cofactor(mat2, 0, 1) << std::endl;
     std::cout << "Cofactor(mat2, 0, 2) = " << Cofactor(mat2, 0, 2) << std::endl;
@@ -121,11 +121,11 @@ static void TestMatrix() {
             {3, 4, 3}
     };
     std::cout << "mat3 = \n" << mat3 << std::endl;
-    //×ªÖÃ¾ØÕó
+    //è½¬ç½®çŸ©é˜µ
     std::cout << "Transpose(mat3) = \n" << Transpose(mat3) << std::endl;
-    //°éËæ¾ØÕó
+    //ä¼´éšçŸ©é˜µ
     std::cout << "Adjoint(mat3) = \n" << Adjoint(mat3) << std::endl;
-    //Äæ¾ØÕó
+    //é€†çŸ©é˜µ
     std::cout << "Invert(mat3) = \n" << Invert(mat3) << std::endl;
 
     std::cout << "===========================================================" << std::endl;
@@ -143,11 +143,11 @@ static void TestMatrix() {
     std::cout << "v0 = " << v0 << std::endl;
     std::cout << "mat5 = \n" << mat5 << std::endl;
     std::cout << "mat6 = \n" << mat6 << std::endl;
-    //¾ØÕó×ó³Ë
+    //çŸ©é˜µå·¦ä¹˜
     std::cout << "mat5 * mat6 = \n" << mat5 * mat6 << std::endl;
-    //ÁÐÏòÁ¿×ó³Ë
+    //åˆ—å‘é‡å·¦ä¹˜
     std::cout << "mat5 * v0 = " << mat5 * v0 << std::endl;
-    //ÐÐÏòÁ¿ÓÒ³Ë
+    //è¡Œå‘é‡å³ä¹˜
     std::cout << "v0 * mat6 = " << v0 * mat6 << std::endl;
 }
 

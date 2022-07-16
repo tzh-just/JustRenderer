@@ -1,7 +1,6 @@
 #pragma once
 
-#include "definition.h"
-#include "vector.h"
+#include "Just/Math/Vector.h"
 
 namespace Just {
     struct Transform {

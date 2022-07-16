@@ -1,7 +1,7 @@
 #pragma once
 
-#include "definition.h"
-#include "vector.h"
+#include "Global.h"
+#include "Vector.h"
 
 namespace Just {
     template<size_t ROW, size_t COL, typename T>
