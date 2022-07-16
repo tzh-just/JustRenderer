@@ -27,4 +27,15 @@ namespace Just {
     }
 
     using Ray3f = Ray<3, float>;
+
+    struct HitRecord {
+        Vector3f position;
+        Vector3f normal;
+
+        HitRecord() : position(0), normal(0) {}
+    };
+
+    struct Hitable {
+        virtual HitRecord Intersect(const Ray3f &ray) = 0;
+    };
 }

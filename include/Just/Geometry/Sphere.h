@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Just/Math/Vector.h"
-#include "Just/Graphic/Transform.h"
+#include "Transform.h"
+#include "Ray.h"
 
 namespace Just {
 
-    struct Sphere {
+    struct Sphere : Hitable{
         Transform transform;
         float radius;
 

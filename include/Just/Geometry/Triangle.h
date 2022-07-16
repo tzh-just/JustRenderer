@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Just/Math/Vector.h"
-#include "Just/Graphic/Transform.h"
+#include "Transform.h"
 
 namespace Just {
 
     template<size_t N, typename T>
-    struct Triangle {
+    struct Triangle : Hitable{
         union {
             Vertex<N, T> vertices[3];
             Vertex<N, T> a, b, c;
