@@ -1,5 +1,5 @@
 
-#include <just/array.h>
+#include <math/array.h>
 
 using namespace Just;
 
@@ -89,10 +89,18 @@ static void TestMatrix() {
     mat1.SetCol(2, {1, 1, 1});
     std::cout << "mat0 = \n" << mat0 << std::endl;
     std::cout << "mat1 = \n" << mat1 << std::endl;
-    std::cout << "mat1.Row(0) = \n" << mat1.Row(0) << std::endl;
-    std::cout << "mat1.Col(0) = \n" << mat1.Col(0) << std::endl;
+
+    std::cout << "mat1.Row(0) = " << mat1.Row(0) << std::endl;
+    std::cout << "mat1.Col(0) = " << mat1.Col(0) << std::endl;
+
+    std::cout << "===========================================================" << std::endl;
+
     std::cout << "mat1 + mat0 = \n" << mat1 + mat0 << std::endl;
     std::cout << "mat0 - mat1 = \n" << mat0 - mat1 << std::endl;
+
+    std::cout << "2 * mat1 = \n" << 2.0f * mat1 << std::endl;
+    std::cout << "mat1 * 2 = \n" << mat1 * 2.0f << std::endl;
+    std::cout << "mat1 / 2 = \n" << mat1 / 2.0f << std::endl;
 
     std::cout << "===========================================================" << std::endl;
 
