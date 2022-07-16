@@ -199,7 +199,7 @@ namespace Just {
         return tmp;
     }
 
-    //乘法
+    //矩阵左乘
     template<size_t ROW, size_t COM, size_t COL, typename T>
     inline Matrix<ROW, COL, T> operator*(const Matrix<ROW, COM, T> &mat1, const Matrix<COM, COL, T> &mat2) {
         Matrix<ROW, COL, T> tmp;
@@ -213,7 +213,7 @@ namespace Just {
 
     //列向量左乘
     template<size_t ROW, size_t COL, typename T>
-    inline Vector<ROW, T> operator*(const Matrix<ROW, COL,T> &mat, const Vector<COL, T> &v1) {
+    inline Vector<ROW, T> operator*(const Matrix<ROW, COL, T> &mat, const Vector<COL, T> &v1) {
         Vector<ROW, T> v2;
         for (size_t row = 0; row < ROW; row++) {
             v2[row] = Dot(v1, mat.Row(row));
@@ -223,9 +223,9 @@ namespace Just {
 
     //行向量右乘
     template<size_t ROW, size_t COL, typename T>
-    inline Vector<COL, T> operator*(const Matrix<ROW, COL,T> &mat, const Vector<ROW, T> &v1) {
-        Vector<ROW, T> v2;
-        for (size_t col = 0; col < ROW; col++) {
+    inline Vector<COL, T> operator*(const Vector<ROW, T> &v1, const Matrix<ROW, COL, T> &mat) {
+        Vector<COL, T> v2;
+        for (size_t col = 0; col < COL; col++) {
             v2[col] = Dot(v1, mat.Col(col));
         }
         return v2;
@@ -302,7 +302,7 @@ namespace Just {
     //代数余子式
     template<size_t N, typename T>
     inline T Cofactor(const Matrix<N, N, T> &mat, size_t row, size_t col) {
-        return Det(Minor(mat, row, col)) * ((row + col ) % 2 ? -1 : 1);
+        return Det(Minor(mat, row, col)) * ((row + col) % 2 ? -1 : 1);
     }
 
     //转置矩阵
@@ -334,7 +334,7 @@ namespace Just {
     inline Matrix<N, N, T> Invert(const Matrix<N, N, T> &mat) {
         //return Adjoint(mat) / Det(mat);
         auto adjoint = Adjoint(mat);
-        return adjoint/ Dot(mat.Row(0), adjoint.Col(0));
+        return adjoint / Dot(mat.Row(0), adjoint.Col(0));
     }
 
 
