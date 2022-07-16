@@ -95,7 +95,7 @@ namespace Just {
             return data[i];
         }
     };
-    
+
     template<typename T>
     struct Vector<4, T> {
         union {
@@ -111,13 +111,9 @@ namespace Just {
         //有参构造函数
         explicit Vector(T value) : x(value), y(value), z(value), w(1) {}
 
-        Vector(T v1, T v2, T v3) : x(v1), y(v2), z(v3), w(1) {}
-
-        explicit Vector(Vector<3,T> v) : x(v.x), y(v.y), z(v.z), w(1) {}
-
         Vector(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
 
-        Vector(Vector<3,T> v, T v4) : x(v.x), y(v.y), z(v.z), w(v4) {}
+        Vector(Vector<3, T> v, T v4) : x(v.x), y(v.y), z(v.z), w(v4) {}
 
         //索引操作符重载
         T &operator[](size_t i) {
@@ -151,9 +147,8 @@ namespace Just {
     template<size_t N, typename T>
     inline Vector<N, T> operator-(const Vector<N, T> &v) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = -v[i];
-        }
         return tmp;
     }
 
@@ -161,9 +156,8 @@ namespace Just {
     template<size_t N, typename T>
     inline Vector<N, T> operator+(const Vector<N, T> &v1, const Vector<N, T> &v2) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = v1[i] + v2[i];
-        }
         return tmp;
     }
 
@@ -171,19 +165,17 @@ namespace Just {
     template<typename T>
     inline Vector<4, T> operator+(const Vector<4, T> &p1, const Vector<4, T> &p2) {
         Vector<4, T> tmp;
-        for (size_t i = 0; i < 3; i++) {
+        for (size_t i = 0; i < 3; i++)
             tmp[i] = (p1[i] + p2[i]) * 0.5;
-        }
         tmp.w = 1;
         return tmp;
     }
 
     //赋值加
     template<size_t N, typename T>
-    inline Vector<N, T>& operator+=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-        for (size_t i = 0; i < N; i++) {
+    inline Vector<N, T> &operator+=(Vector<N, T> &v1, const Vector<N, T> &v2) {
+        for (size_t i = 0; i < N; i++)
             v1[i] += v2[i];
-        }
         return v1;
     }
 
@@ -192,9 +184,8 @@ namespace Just {
     template<size_t N, typename T>
     inline Vector<N, T> operator-(const Vector<N, T> &v1, const Vector<N, T> &v2) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = v1[i] - v2[i];
-        }
         return tmp;
     }
 
@@ -202,15 +193,14 @@ namespace Just {
     template<typename T>
     inline Vector<3, T> operator-(const Vector<4, T> &p1, const Vector<4, T> &p2) {
         Vector<3, T> tmp;
-        for (size_t i = 0; i < 3; i++) {
+        for (size_t i = 0; i < 3; i++)
             tmp[i] = p1[i] - p2[i];
-        }
         return tmp;
     }
 
     //赋值减
     template<size_t N, typename T>
-    inline Vector<N, T>& operator-=(Vector<N, T> &v1, const Vector<N, T> &v2) {
+    inline Vector<N, T> &operator-=(Vector<N, T> &v1, const Vector<N, T> &v2) {
         for (size_t i = 0; i < N; i++) {
             v1[i] -= v2[i];
         }
@@ -221,18 +211,16 @@ namespace Just {
     template<size_t N, typename T>
     inline Vector<N, T> operator*(const Vector<N, T> &v1, const Vector<N, T> &v2) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = v1[i] * v2[i];
-        }
         return tmp;
     }
 
     //赋值乘
     template<size_t N, typename T>
-    inline Vector<N, T>& operator*=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-        for (size_t i = 0; i < N; i++) {
+    inline Vector<N, T> &operator*=(Vector<N, T> &v1, const Vector<N, T> &v2) {
+        for (size_t i = 0; i < N; i++)
             v1[i] *= v2[i];
-        }
         return v1;
     }
 
@@ -240,44 +228,39 @@ namespace Just {
     template<size_t N, typename T>
     inline Vector<N, T> operator*(const Vector<N, T> &v1, T k) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = v1[i] * k;
-        }
         return tmp;
     }
 
     template<size_t N, typename T>
     inline Vector<N, T> operator*(T k, const Vector<N, T> &v1) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = v1[i] * k;
-        }
         return tmp;
     }
 
     template<size_t N, typename T>
     inline Vector<N, T> operator/(const Vector<N, T> &v1, T k) {
         Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             tmp[i] = v1[i] / k;
-        }
         return tmp;
     }
 
     //赋值数乘
     template<size_t N, typename T>
-    inline Vector<N, T>& operator*=(Vector<N, T> &v, T k) {
-        for (size_t i = 0; i < N; i++) {
+    inline Vector<N, T> &operator*=(Vector<N, T> &v, T k) {
+        for (size_t i = 0; i < N; i++)
             v[i] *= k;
-        }
         return v;
     }
 
     template<size_t N, typename T>
-    inline Vector<N, T>& operator/=(Vector<N, T> &v, T k) {
-        for (size_t i = 0; i < N; i++) {
+    inline Vector<N, T> &operator/=(Vector<N, T> &v, T k) {
+        for (size_t i = 0; i < N; i++)
             v[i] /= k;
-        }
         return v;
     }
 
@@ -285,18 +268,16 @@ namespace Just {
     template<size_t N, typename T>
     T Length(const Vector<N, T> &v) {
         T sum = 0;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             sum += v[i] * v[i];
-        }
         return std::sqrt(sum);
     }
 
     template<size_t N, typename T>
     T Norm(const Vector<N, T> &v) {
         T sum = 0;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             sum += v[i] * v[i];
-        }
         return std::sqrt(sum);
     }
 
@@ -304,9 +285,8 @@ namespace Just {
     template<size_t N, typename T>
     T Dot(const Vector<N, T> &v1, const Vector<N, T> &v2) {
         T sum = 0;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             sum += v1[i] * v2[i];
-        }
         return sum;
     }
 
@@ -326,9 +306,8 @@ namespace Just {
     template<size_t N, typename T>
     Vector<N, T> Normalize(const Vector<N, T> &v) {
         T sum = 0;
-        for (size_t i = 0; i < N; i++) {
+        for (size_t i = 0; i < N; i++)
             sum += v[i] * v[i];
-        }
         return v / std::sqrt(sum);
     }
 
