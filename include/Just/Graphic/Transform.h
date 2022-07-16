@@ -13,10 +13,10 @@ namespace Just {
     //输出
     //----------------------------------------------------------------------------------------------------------
     inline std::ostream &operator<<(std::ostream &os, const Transform &trans) {
-        return os << "Position: | " << trans.position << std::endl
+        return os << "position: | " << trans.position << std::endl
                   << "-----------------------------------------------------------" << std::endl
-                  << "Rotation: | " << trans.rotation << std::endl
+                  << "rotation: | " << trans.rotation << std::endl
                   << "-----------------------------------------------------------" << std::endl
-                  << "Scale:    | " << trans.scale << std::endl;
+                  << "scale:    | " << trans.scale << std::endl;
     }
 }
