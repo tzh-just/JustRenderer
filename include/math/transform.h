@@ -2,23 +2,22 @@
 
 #include "definition.h"
 #include "vector.h"
-#include "point.h"
-#include "matrix.h"
 
 namespace Just {
-    struct Transform{
+    struct Transform {
         Vector3f position;
-
-
-
-        void Rotate(){
-
-        }
-        void Translate(){
-
-        }
-        void Scale(){
-
-        }
+        Vector3f rotation;
+        Vector3f scale;
+        Transform() : position(0), rotation(0), scale(1) {}
     };
+
+    //输出
+    //----------------------------------------------------------------------------------------------------------
+    inline std::ostream &operator<<(std::ostream &os, const Transform &trans) {
+        return os << "Position: | " << trans.position << std::endl
+                  << "-----------------------------------------------------------" << std::endl
+                  << "Rotation: | " << trans.rotation << std::endl
+                  << "-----------------------------------------------------------" << std::endl
+                  << "Scale:    | " << trans.scale << std::endl;
+    }
 }
