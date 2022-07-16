@@ -47,7 +47,7 @@ namespace Just {
         Vector<ROW, T> Col(size_t col) const {
             assert(col < COL);
             Vector<ROW, T> tmp;
-            for (size_t row = 0; row < COL; row++)
+            for (size_t row = 0; row < ROW; row++)
                 tmp[row] = data[row][col];
             return tmp;
         }

@@ -102,15 +102,14 @@ static void TestMatrix() {
     //运算符
     std::cout << "mat2 + mat1 = \n" << mat1 + mat2 << std::endl;
     std::cout << "mat2 - mat1 = \n" << mat2 - mat1 << std::endl;
-    std::cout << "mat2 * mat1 = \n" << mat2 * mat1 << std::endl;
     std::cout << "--------------------------" << std::endl;
 
     //余子式/代数余子式
     Matrix4f mat3 = {
-            {2, -1, 1, 3},
-            {1, 4, 0, 0},
-            {-2, 0, 2, 0},
-            {5, 0, 0, -3}
+            {2,  -1, 1, 3},
+            {1,  4,  0, 0},
+            {-2, 0,  2, 0},
+            {5,  0,  0, -3}
     };
     std::cout << "mat3 = \n" << mat3 << std::endl;
     std::cout << "--------------------------" << std::endl;
@@ -126,9 +125,9 @@ static void TestMatrix() {
     std::cout << "--------------------------" << std::endl;
 
     Matrix3f mat4 = {
-            {1,2,3},
-            {2,2,1},
-            {3,4,3}
+            {1, 2, 3},
+            {2, 2, 1},
+            {3, 4, 3}
     };
     std::cout << "mat4 = \n" << mat4 << std::endl;
     std::cout << "--------------------------" << std::endl;
@@ -140,6 +139,22 @@ static void TestMatrix() {
     std::cout << "--------------------------" << std::endl;
     //逆矩阵
     std::cout << "Invert(mat4) = \n" << Invert(mat4) << std::endl;
+
+    //矩阵乘法
+    Matrix<2, 3, float> mat5 = {
+            {1, 2, 5},
+            {2, 4, 6}
+    };
+    std::cout << "mat5 = \n" << mat5 << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    Matrix<3, 2, float> mat6 = {
+            {1, 2},
+            {3, 2},
+            {4, 1}
+    };
+    std::cout << "mat6 = \n" << mat6 << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    std::cout << "mat5 * mat6 = \n" << mat5 * mat6 << std::endl;
 }
 
 int main() {

@@ -6,6 +6,51 @@
 #include "matrix.h"
 
 namespace Just {
+    //坐标
+    //----------------------------------------------------------------------------------------------------------
+    //加法
+    template<size_t N, typename T>
+    inline Point<N, T> operator+(const Point<N, T> &p1, const Point<N, T> &p2) {
+
+        Point<N, T> tmp;
+        for (size_t i = 0; i < N; i++) {
+            tmp[i] = p1[i] + p2[i];
+        }
+        return tmp;
+    }
+
+    //特化齐次坐标加法
+    template<typename T>
+    inline Point<4, T> operator+(const Point<4, T> &p1, const Point<4, T> &p2) {
+        Point<4, T> tmp;
+        for (size_t i = 0; i < 3; i++) {
+            tmp[i] = (p1[i] + p2[i]) * 0.5;
+        }
+        tmp.w = 1;
+        return tmp;
+    }
+
+    //减法
+    template<size_t N, typename T>
+    inline Vector<N, T> operator-(const Point<N, T> &p1, const Point<N, T> &p2) {
+
+        Vector<N, T> tmp;
+        for (size_t i = 0; i < N; i++) {
+            tmp[i] = p1[i] - p2[i];
+        }
+        return tmp;
+    }
+
+    //特化齐次坐标减法
+    template<typename T>
+    inline Vector<3, T> operator-(const Point<4, T> &p1, const Point<4, T> &p2) {
+        Vector<3, T> tmp;
+        for (size_t i = 0; i < 3; i++) {
+            tmp[i] = p1[i] - p2[i];
+        }
+        return tmp;
+    }
+
     //向量
     //----------------------------------------------------------------------------------------------------------
     //取反
@@ -127,50 +172,6 @@ namespace Just {
         return v / std::sqrt(sum);
     }
 
-    //坐标
-    //----------------------------------------------------------------------------------------------------------
-    //加法
-    template<size_t N, typename T>
-    inline Point<N, T> operator+(const Point<N, T> &p1, const Point<N, T> &p2) {
-
-        Point<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
-            tmp[i] = p1[i] + p2[i];
-        }
-        return tmp;
-    }
-
-    //特化齐次坐标加法
-    template<typename T>
-    inline Point<4, T> operator+(const Point<4, T> &p1, const Point<4, T> &p2) {
-        Point<4, T> tmp;
-        for (size_t i = 0; i < 3; i++) {
-            tmp[i] = (p1[i] + p2[i]) * 0.5;
-        }
-        tmp.w = 1;
-        return tmp;
-    }
-
-    //减法
-    template<size_t N, typename T>
-    inline Vector<N, T> operator-(const Point<N, T> &p1, const Point<N, T> &p2) {
-
-        Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++) {
-            tmp[i] = p1[i] - p2[i];
-        }
-        return tmp;
-    }
-
-    //特化齐次坐标减法
-    template<typename T>
-    inline Vector<3, T> operator-(const Point<4, T> &p1, const Point<4, T> &p2) {
-        Vector<3, T> tmp;
-        for (size_t i = 0; i < 3; i++) {
-            tmp[i] = p1[i] - p2[i];
-        }
-        return tmp;
-    }
 
     //矩阵
     //----------------------------------------------------------------------------------------------------------
@@ -199,8 +200,8 @@ namespace Just {
     }
 
     //乘法
-    template<size_t ROW, size_t COL, typename T>
-    inline Matrix<ROW, COL, T> operator*(const Matrix<ROW, COL, T> &mat1, const Matrix<ROW, COL, T> &mat2) {
+    template<size_t ROW, size_t COM, size_t COL, typename T>
+    inline Matrix<ROW, COL, T> operator*(const Matrix<ROW, COM, T> &mat1, const Matrix<COM, COL, T> &mat2) {
         Matrix<ROW, COL, T> tmp;
         for (size_t row = 0; row < ROW; row++) {
             for (size_t col = 0; col < COL; col++) {
@@ -208,6 +209,26 @@ namespace Just {
             }
         }
         return tmp;
+    }
+
+    //列向量左乘
+    template<size_t ROW, size_t COL, typename T>
+    inline Vector<ROW, T> operator*(const Matrix<ROW, COL,T> &mat, const Vector<COL, T> &v1) {
+        Vector<ROW, T> v2;
+        for (size_t row = 0; row < ROW; row++) {
+            v2[row] = Dot(v1, mat.Row(row));
+        }
+        return v2;
+    }
+
+    //行向量右乘
+    template<size_t ROW, size_t COL, typename T>
+    inline Vector<COL, T> operator*(const Matrix<ROW, COL,T> &mat, const Vector<ROW, T> &v1) {
+        Vector<ROW, T> v2;
+        for (size_t col = 0; col < ROW; col++) {
+            v2[col] = Dot(v1, mat.Col(col));
+        }
+        return v2;
     }
 
     //数乘
