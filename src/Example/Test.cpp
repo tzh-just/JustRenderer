@@ -2,7 +2,9 @@
 #include "Just/Math/Vector.h"
 #include "Just/Math/Matrix.h"
 #include "Just/Graphic/Transform.h"
-#include "Just/Geometry/Ray.h"
+#include "Just/Graphic/Ray.h"
+#include "Just/Graphic/Vertex.h"
+#include "Just/Graphic/Triangle.h"
 
 using namespace Just;
 
@@ -129,21 +131,19 @@ static void TestMatrix() {
     std::cout << "v0 * mat6 = " << v0 * mat6 << std::endl;
 }
 
-static void TestTransform() {
-    Transform t0;
-    std::cout << t0 << std::endl;
-}
-
-static void TestRay() {
+static void TestAny() {
     Ray3f ray;
-    ray.direction += {1.1f, 2.1f, 3.1f};
-    std::cout << ray << std::endl;
-    std::cout << "ray.At(3.2f) = " << ray.At(3.2f) << std::endl;
+    std::cout << "ray = " << std::endl << ray << std::endl;
+    Vertex3f a({-10, 0, 0});
+    Vertex3f b({10, 0, 0});
+    Vertex3f c({0, 10, 0});
+    std::cout << "a = " << std::endl << a << std::endl;
+    Triangle3f t(a, b, c);
+    std::cout << "t = " << std::endl << t << std::endl;
 }
 
 int main() {
     //TestVector();
     //TestMatrix();
-    //TestTransform();
-    //TestRay();
+    TestAny();
 }

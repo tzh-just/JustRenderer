@@ -90,9 +90,7 @@ namespace Just {
                 if (col + 1 != COL)
                     os << ",";
             }
-            os << "]";
-            if (row + 1 != ROW)
-                os << std::endl;;
+            os << "]" << std::endl;;
         }
         return os;
     }

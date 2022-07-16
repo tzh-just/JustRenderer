@@ -20,10 +20,10 @@ namespace Just {
     //输出
     //----------------------------------------------------------------------------------------------------------
     template<size_t N, typename T>
-    inline std::ostream &operator<<(std::ostream &os, const Ray<N,T> &ray) {
-        return os << "origin:    | " << ray.origin << std::endl
-                  << "-----------------------------------------------------------" << std::endl
-                  << "direction: | " << ray.direction << std::endl;
+    inline std::ostream &operator<<(std::ostream &os, const Ray<N, T> &ray) {
+        return os << "-----------------------------------------------" << std::endl
+                  << "origin    = " << ray.origin << std::endl
+                  << "direction = " << ray.direction << std::endl;
     }
 
     using Ray3f = Ray<3, float>;
