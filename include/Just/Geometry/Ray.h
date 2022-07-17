@@ -23,7 +23,7 @@ namespace Just {
     inline std::ostream &operator<<(std::ostream &os, const Ray<N, T> &ray) {
         return os << "-----------------------------------------------" << std::endl
                   << "origin    = " << ray.origin << std::endl
-                  << "direction = " << ray.direction << std::endl;
+                  << "direction = " << ray.direction;
     }
 
     using Ray3f = Ray<3, float>;
@@ -40,11 +40,10 @@ namespace Just {
 
     //输出
     //----------------------------------------------------------------------------------------------------------
-    template<size_t N, typename T>
     inline std::ostream &operator<<(std::ostream &os, const HitRecord &record) {
         return os << "-----------------------------------------------" << std::endl
                   << "position = " << record.position << std::endl
-                  << "normal   = " << record.normal << std::endl;
+                  << "normal   = " << record.normal;
     }
 
     struct Hittable {

@@ -30,4 +30,23 @@ namespace Just {
             return record;
         }
     };
+
+    //输出
+    //----------------------------------------------------------------------------------------------------------
+    template<size_t N, typename T>
+    inline std::ostream &operator<<(std::ostream &os, const Rectangle<N, T> &rect) {
+        return os << "===============================================" << std::endl
+                  << "Vertex A" << std::endl
+                  << rect[0] << std::endl
+                  << "-----------------------------------------------" << std::endl
+                  << "Vertex B" << std::endl
+                  << rect[1] << std::endl
+                  << "-----------------------------------------------" << std::endl
+                  << "Vertex C" << std::endl
+                  << rect[2] << std::endl
+                  << "-----------------------------------------------" << std::endl
+                  << "Vertex D" << std::endl
+                  << rect[3] << std::endl
+                  << "===============================================" << std::endl;
+    }
 }

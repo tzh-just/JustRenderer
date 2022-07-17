@@ -26,7 +26,7 @@ namespace Just {
         return os << "-----------------------------------------------" << std::endl
                   << "position = " << vertex.position << std::endl
                   << "normal   = " << vertex.normal << std::endl
-                  << "uv       = " << vertex.uv << std::endl;
+                  << "uv       = " << vertex.uv;
     }
 
     using Vertex2i = Vertex<2, int>;

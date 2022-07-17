@@ -25,7 +25,7 @@ namespace Just {
         return os << "-----------------------------------------------" << std::endl
                   << "position = " << trans.position << std::endl
                   << "rotation = " << trans.rotation << std::endl
-                  << "scale    = " << trans.scale << std::endl;
+                  << "scale    = " << trans.scale;
     }
 
 

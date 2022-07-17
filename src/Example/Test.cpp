@@ -5,6 +5,7 @@
 #include "Just/Geometry/Ray.h"
 #include "Just/Geometry/Vertex.h"
 #include "Just/Geometry/Triangle.h"
+#include "Just/Geometry/Sphere.h"
 
 using namespace Just;
 
@@ -131,22 +132,25 @@ static void TestMatrix() {
     std::cout << "v0 * mat6 = " << v0 * mat6 << std::endl;
 }
 
-static void TestAny() {
+static void TestGeometry() {
     Ray3f ray;
-    std::cout << "ray = " << std::endl << ray << std::endl;
-    Vertex3f a({-10, 0, 0});
+    std::cout << "RAY ray" << std::endl << ray << "\n\n";
+    Vertex3f vertex({-10, 0, 0});
     Vertex3f b({10, 0, 0});
     Vertex3f c({0, 10, 0});
-    std::cout << "a = " << std::endl << a << std::endl;
-    Triangle3f t(a, b, c);
-    std::cout << "t = " << std::endl << t << std::endl;
+    std::cout << "VERTEX vertex" << std::endl << vertex << "\n\n";
+    Triangle3f tri(vertex, b, c);
+    std::cout << "TRIANGLE tri" << std::endl << tri << "\n\n";
 
     HitRecord record;
+    std::cout << "RECORD record" << std::endl << record << "\n\n";
 
+    Sphere sphere(10);
+    std::cout << "SPHERE sphere" << std::endl << sphere << "\n\n";
 }
 
 int main() {
     //TestVector();
     //TestMatrix();
-    TestAny();
+    TestGeometry();
 }

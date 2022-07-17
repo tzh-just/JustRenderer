@@ -94,10 +94,6 @@ namespace Just {
         };
     }
 
-    inline Matrix4f ObjectToWorld(const Transform &transform) {
-        return TranslationMatrix(transform.position) * ScaleMatrix(transform.scale) * RotationMatrix(transform.rotation);
-    }
-
     inline Matrix4f ObjectToWorld(const Vector3f &position, const Vector3f &scale, const Vector3f &rotation) {
         return TranslationMatrix(position) * ScaleMatrix(scale) * RotationMatrix(rotation);
     }
