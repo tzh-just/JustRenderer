@@ -11,5 +11,10 @@ namespace Just {
         float radius;
 
         Sphere(const Transform &trans, float r) : transform(trans), radius(r) {}
+
+        HitRecord Intersect(const Ray3f &ray) override {
+            HitRecord record;
+            return record;
+        }
     };
 }
