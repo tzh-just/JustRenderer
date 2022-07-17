@@ -23,26 +23,10 @@ namespace Just {
         Ray3f CastRay(){
 
         }
-
-        Matrix4f LookAt() {
-
-        }
-
-        virtual Matrix4f Projection() = 0;
     };
 
     struct PerspectiveCamera : public Camera {
-        Matrix4f Projection() override{
-            float t = Tan(fov / 2) * n;
-            float r = t * aspectRatio;
 
-            return {
-                    {n / r, 0,     0,                  0},
-                    {0,     n / t, 0,                  0},
-                    {0,     0,     -(n + f) / (f - n), -2 * f * n / (f - n)},
-                    {0,     0,     -1,                 0}
-            };
-        }
     };
     struct OrthogonalCamera : public Camera {
 

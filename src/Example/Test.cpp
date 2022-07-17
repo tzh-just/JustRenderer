@@ -140,6 +140,9 @@ static void TestAny() {
     std::cout << "a = " << std::endl << a << std::endl;
     Triangle3f t(a, b, c);
     std::cout << "t = " << std::endl << t << std::endl;
+
+    HitRecord record;
+
 }
 
 int main() {

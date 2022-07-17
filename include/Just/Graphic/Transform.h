@@ -17,11 +17,6 @@ namespace Just {
 
         Transform(const Vector3f &position_, const Vector3f &rotation_, const Vector3f &scale_)
                 : position(position_), rotation(rotation_), scale(scale_) {}
-
-        inline Matrix4f ModelMatrix() {
-
-            return RotationMatrix(rotation) * scaleMatrix * rotationMat;
-        }
     };
 
     //输出

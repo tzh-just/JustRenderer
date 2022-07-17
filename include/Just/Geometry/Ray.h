@@ -33,7 +33,19 @@ namespace Just {
         Vector3f normal;
 
         HitRecord() : position(0), normal(0) {}
+
+        HitRecord(const Vector3f &position_, const Vector3f &normal_)
+                : position(position_), normal(normal_) {}
     };
+
+    //输出
+    //----------------------------------------------------------------------------------------------------------
+    template<size_t N, typename T>
+    inline std::ostream &operator<<(std::ostream &os, const HitRecord &record) {
+        return os << "-----------------------------------------------" << std::endl
+                  << "position = " << record.position << std::endl
+                  << "normal   = " << record.normal << std::endl;
+    }
 
     struct Hittable {
         virtual HitRecord Intersect(const Ray3f &ray) = 0;

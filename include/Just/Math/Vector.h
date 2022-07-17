@@ -311,6 +311,7 @@ namespace Just {
         return v / std::sqrt(sum);
     }
 
+    using Vector2i = Vector<2,int>;
     using Vector2f = Vector<2, float>;
     using Vector3f = Vector<3, float>;
 }
