@@ -1,7 +1,7 @@
 
 #include "Just/Math/Vector.h"
 #include "Just/Math/Matrix.h"
-#include "Just/Geometry/Transform.h"
+#include "Just/Graphic/Transform.h"
 #include "Just/Geometry/Ray.h"
 #include "Just/Geometry/Vertex.h"
 #include "Just/Geometry/Triangle.h"

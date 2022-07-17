@@ -35,7 +35,7 @@ namespace Just {
         HitRecord() : position(0), normal(0) {}
     };
 
-    struct Hitable {
+    struct Hittable {
         virtual HitRecord Intersect(const Ray3f &ray) = 0;
     };
 }

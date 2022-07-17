@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Just/Math/Vector.h"
-#include "Transform.h"
+#include "Just/Graphic/Transform.h"
 
 namespace Just {
 
     template<size_t N, typename T>
-    struct Triangle : Hitable{
+    struct Triangle : Hittable {
         union {
             Vertex<N, T> vertices[3];
             Vertex<N, T> a, b, c;
@@ -22,6 +22,11 @@ namespace Just {
         const Vertex<N, T> &operator[](size_t i) const {
             assert(i < 3);
             return vertices[i];
+        }
+
+        HitRecord Intersect(const Ray3f &ray) override {
+            HitRecord record;
+            return record;
         }
     };
 

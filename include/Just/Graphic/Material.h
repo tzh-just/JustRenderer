@@ -2,5 +2,7 @@
 
 namespace Just{
 
+    struct Material{
 
+    };
 }

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Global.h"
+#include "Just/Global.h"
 
 namespace Just {
     template<size_t N, typename T>

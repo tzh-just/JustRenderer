@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Global.h"
+#include "Just/Global.h"
 #include "Vector.h"
 
 namespace Just {
