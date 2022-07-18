@@ -1,27 +1,30 @@
+//================================================
+// 三角形
+//================================================
+
 #pragma once
 
-#include "Just/Math/Vector.h"
-#include "Just/Graphic/Transform.h"
-#include "Vertex.h"
-#include "Ray.h"
+#include "Vector.h"
+#include "Transform.h"
 
 namespace Just {
+
     template<size_t N, typename T>
-    struct Rectangle : Hittable {
+    struct Triangle : Hittable {
         union {
-            Vertex<N, T> vertices[4];
-            Vertex<N, T> a, b, c, d;
+            Vertex<N, T> vertices[3];
+            Vertex<N, T> a, b, c;
         };
 
-        Rectangle(const Vertex<N, T> &v1, const Vertex<N, T> &v2, const Vertex<N, T> &v3, const Vertex<N, T> &v4) : vertices{v1, v2, v3, v4} {}
+        Triangle(const Vertex<N, T> &v1, const Vertex<N, T> &v2, const Vertex<N, T> &v3) : vertices{v1, v2, v3} {}
 
         Vertex<N, T> &operator[](size_t i) {
-            assert(i < 4);
+            assert(i < 3);
             return vertices[i];
         }
 
         const Vertex<N, T> &operator[](size_t i) const {
-            assert(i < 4);
+            assert(i < 3);
             return vertices[i];
         }
 
@@ -34,19 +37,19 @@ namespace Just {
     //输出
     //----------------------------------------------------------------------------------------------------------
     template<size_t N, typename T>
-    inline std::ostream &operator<<(std::ostream &os, const Rectangle<N, T> &rect) {
+    inline std::ostream &operator<<(std::ostream &os, const Triangle<N, T> &triangle) {
         return os << "===============================================" << std::endl
                   << "Vertex A" << std::endl
-                  << rect[0] << std::endl
+                  << triangle[0] << std::endl
                   << "-----------------------------------------------" << std::endl
                   << "Vertex B" << std::endl
-                  << rect[1] << std::endl
+                  << triangle[1] << std::endl
                   << "-----------------------------------------------" << std::endl
                   << "Vertex C" << std::endl
-                  << rect[2] << std::endl
-                  << "-----------------------------------------------" << std::endl
-                  << "Vertex D" << std::endl
-                  << rect[3] << std::endl
-                  << "===============================================" << std::endl;
+                  << triangle[2] << std::endl
+                  << "===============================================";
     }
+
+    using Triangle2i = Triangle<2, int>;
+    using Triangle3f = Triangle<3, float>;
 }

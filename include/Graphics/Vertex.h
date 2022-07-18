@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "Just/Math/Vector.h"
-#include "Just/Graphic/Transform.h"
+#include "Vector.h"
+#include "Transform.h"
 
 namespace Just {
 

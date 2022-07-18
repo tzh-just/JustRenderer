@@ -7,7 +7,7 @@
 #include "Just/Global.h"
 #include "Vector.h"
 #include "Matrix.h"
-#include "Just/Graphic/Transform.h"
+#include "Transform.h"
 
 namespace Just {
 

@@ -1,9 +1,13 @@
+//================================================
+// 变换
+//================================================
+
 #pragma once
 
 #include "Just/Global.h"
-#include "Just/Math/Vector.h"
-#include "Just/Math/Matrix.h"
-#include "Just/Math/Math.h"
+#include "Vector.h"
+#include "Matrix.h"
+#include "Math.h"
 
 namespace Just {
     struct Transform {
@@ -22,8 +26,7 @@ namespace Just {
     //输出
     //----------------------------------------------------------------------------------------------------------
     inline std::ostream &operator<<(std::ostream &os, const Transform &trans) {
-        return os << "-----------------------------------------------" << std::endl
-                  << "position = " << trans.position << std::endl
+        return os << "position = " << trans.position << std::endl
                   << "rotation = " << trans.rotation << std::endl
                   << "scale    = " << trans.scale;
     }

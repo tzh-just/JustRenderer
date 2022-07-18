@@ -1,10 +1,14 @@
+//================================================
+// 相机
+//================================================
+
 #pragma once
 
 #include "Just/Global.h"
-#include "Just/Math/Vector.h"
-#include "Just/Math/Matrix.h"
+#include "Vector.h"
+#include "Matrix.h"
 #include "Transform.h"
-#include "Just/Geometry/Ray.h"
+#include "Ray.h"
 
 namespace Just {
 

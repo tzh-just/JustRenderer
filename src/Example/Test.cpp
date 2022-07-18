@@ -1,10 +1,10 @@
 
-#include "Just/Math/Vector.h"
-#include "Just/Math/Matrix.h"
-#include "Just/Geometry/Ray.h"
-#include "Just/Geometry/Vertex.h"
-#include "Just/Geometry/Triangle.h"
-#include "Just/Geometry/Sphere.h"
+#include "Just/Vector.h"
+#include "Just/Matrix.h"
+#include "Just/Ray.h"
+#include "Just/Vertex.h"
+#include "Just/Triangle.h"
+#include "Just/Sphere.h"
 
 using namespace Just;
 
@@ -64,11 +64,11 @@ static void TestGeometry() {
 
     Sphere sphere(10);
     Print(
-            ray,
-            v1,
-            tri,
-            record,
-            sphere
+            "ray : ", ray,
+            "v1 : ", v1,
+            "tri : ", tri,
+            "record : ", record,
+            "sphere : ", sphere
     );
 }
 
@@ -76,15 +76,15 @@ static void TestMath() {
     Print(
             "ConvertDegreesToRadians(180) : ", ConvertDegreesToRadians(180),
             "ConvertRadiansToDegrees(1) : ", ConvertRadiansToDegrees(1),
-            "Sin(60)(1) : ", Sin(30),
-            "Cos(60)(1) : ", Cos(60),
-            "Tan(60)(1) : ", Tan(60)
+            "Sin(60) : ", Sin(30),
+            "Cos(60) : ", Cos(60),
+            "Tan(60) : ", Tan(60)
     );
 }
 
 int main() {
-    TestVector();
-    TestMatrix();
+    //TestVector();
+    //TestMatrix();
     TestGeometry();
-    TestMath();
+    //TestMath();
 }

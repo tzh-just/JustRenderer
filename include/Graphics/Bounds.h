@@ -1,7 +1,12 @@
+//================================================
+// 边界模板
+//================================================
+
 #pragma once
 
-#include "Just/Math/Vector.h"
+#include "Vector.h"
 #include "Ray.h"
+#include "Hittable.h"
 
 namespace Just {
     template<size_t N, typename T>

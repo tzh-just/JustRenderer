@@ -1,8 +1,13 @@
+//================================================
+// 球体
+//================================================
+
 #pragma once
 
-#include "Just/Math/Vector.h"
-#include "Just/Graphic/Transform.h"
+#include "Vector.h"
+#include "Transform.h"
 #include "Ray.h"
+#include "Hittable.h"
 
 namespace Just {
 
