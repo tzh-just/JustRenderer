@@ -1,9 +1,15 @@
+//================================================
+// 矩形形模板
+//================================================
+
 #pragma once
 
+#include "Global.h"
 #include "Vector.h"
 #include "Transform.h"
 #include "Vertex.h"
 #include "Ray.h"
+#include "Hittable.h"
 
 namespace Just {
     template<size_t N, typename T>

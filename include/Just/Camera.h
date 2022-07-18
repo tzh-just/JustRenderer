@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Just/Global.h"
+#include "Global.h"
 #include "Vector.h"
 #include "Matrix.h"
 #include "Transform.h"
