@@ -1,3 +1,7 @@
+//================================================
+// 矩阵模板
+//================================================
+
 #pragma once
 
 #include "Just/Global.h"
@@ -62,6 +66,7 @@ namespace Just {
                 data[row][col] = v[row];
         }
 
+        //单位矩阵
         static Matrix Identity() {
             Matrix mat;
             for (size_t row = 0; row < ROW; row++)
@@ -70,6 +75,7 @@ namespace Just {
             return mat;
         }
 
+        //零矩阵
         static Matrix Zero() {
             Matrix mat;
             for (size_t row = 0; row < ROW; row++)
@@ -90,7 +96,9 @@ namespace Just {
                 if (col + 1 != COL)
                     os << ",";
             }
-            os << "]" << std::endl;;
+            os << "]";
+            if (row + 1 != ROW)
+                os << std::endl;
         }
         return os;
     }

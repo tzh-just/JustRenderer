@@ -1,5 +1,5 @@
 //================================================
-// 矢量模板类
+// 矢量模板
 //================================================
 
 #pragma once
@@ -7,6 +7,7 @@
 #include "Just/Global.h"
 
 namespace Just {
+
     template<size_t N, typename T>
     struct Vector {
         T data[N];
@@ -125,6 +126,7 @@ namespace Just {
             assert(i < 4);
             return data[i];
         }
+
     };
 
     //输出
@@ -311,7 +313,7 @@ namespace Just {
         return v / std::sqrt(sum);
     }
 
-    using Vector2i = Vector<2,int>;
+    using Vector2i = Vector<2, int>;
     using Vector2f = Vector<2, float>;
     using Vector3f = Vector<3, float>;
 }

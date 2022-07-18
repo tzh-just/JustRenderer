@@ -1,41 +1,15 @@
+//================================================
+// 向量和矩阵工具函数
+//================================================
+
 #pragma once
 
+#include "Just/Global.h"
 #include "Vector.h"
 #include "Matrix.h"
 #include "Just/Graphic/Transform.h"
 
 namespace Just {
-
-    //角度和弧度互转
-    template<typename T>
-    inline T ConvertDegreesToRadians(T degree) {
-        return degree * PI / 180.0f;
-    }
-
-    template<typename T>
-    inline T ConvertRadiansToDegrees(T radian) {
-        return radian * 180.0f / PI;
-    }
-
-
-    //三角函数
-    template<typename T>
-    inline T Sin(T degree) {
-        auto radian = ConvertDegreesToRadians(degree);
-        return std::sin(radian);
-    }
-
-    template<typename T>
-    inline T Cos(T degree) {
-        auto radian = ConvertDegreesToRadians(degree);
-        return std::cos(radian);
-    }
-
-    template<typename T>
-    inline T Tan(T degree) {
-        auto radian = ConvertDegreesToRadians(degree);
-        return std::tan(radian);
-    }
 
     //绕x轴旋转矩阵
     inline Matrix4f XRotationMatrix(float angle) {
@@ -195,5 +169,4 @@ namespace Just {
                 {0,          0,          0, 1}
         };
     }
-
 }
