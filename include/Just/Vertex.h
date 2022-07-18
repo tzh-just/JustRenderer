@@ -27,8 +27,7 @@ namespace Just {
     //----------------------------------------------------------------------------------------------------------
     template<size_t N, typename T>
     inline std::ostream &operator<<(std::ostream &os, const Vertex<N, T> &vertex) {
-        return os << "-----------------------------------------------" << std::endl
-                  << "position = " << vertex.position << std::endl
+        return os << "position = " << vertex.position << std::endl
                   << "normal   = " << vertex.normal << std::endl
                   << "uv       = " << vertex.uv;
     }

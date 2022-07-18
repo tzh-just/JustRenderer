@@ -39,16 +39,12 @@ namespace Just {
     //----------------------------------------------------------------------------------------------------------
     template<size_t N, typename T>
     inline std::ostream &operator<<(std::ostream &os, const Triangle<N, T> &triangle) {
-        return os << "===============================================" << std::endl
-                  << "Vertex A" << std::endl
+        return os << "-----------------------------------------------" << std::endl
                   << triangle[0] << std::endl
                   << "-----------------------------------------------" << std::endl
-                  << "Vertex B" << std::endl
                   << triangle[1] << std::endl
                   << "-----------------------------------------------" << std::endl
-                  << "Vertex C" << std::endl
-                  << triangle[2] << std::endl
-                  << "===============================================";
+                  << triangle[2] << std::endl;
     }
 
     using Triangle2i = Triangle<2, int>;
