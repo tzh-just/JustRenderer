@@ -6,6 +6,7 @@
 
 #include "Vector.h"
 #include "Transform.h"
+#include "Hittable.h"
 
 namespace Just {
 
