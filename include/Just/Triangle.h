@@ -29,7 +29,7 @@ namespace Just {
             return vertices[i];
         }
 
-        HitRecord Intersect(const Ray3f &ray) override {
+        HitRecord Intersect(Ray3f &ray) override {
             HitRecord record;
             return record;
         }

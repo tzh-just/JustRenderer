@@ -9,4 +9,4 @@ include_directories(
     include
 )
 
-add_executable(include src/Example/Test.cpp)
+add_executable(include test/Test.cpp)
