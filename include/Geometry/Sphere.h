@@ -5,26 +5,25 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Math/Transform.h"
 #include "Geometry/Object.h"
 #include "Ray.h"
 
 namespace Just {
 
     struct Sphere : Object {
-        Transform transform;
+        Vector3f position;
         float radius;
 
-        explicit Sphere(float r) : transform(), radius(r) {}
+        explicit Sphere(float r) : position(0), radius(r) {}
 
-        Sphere(const Transform &trans, float r) : transform(trans), radius(r) {}
+        Sphere(const Vector3f &pos_, float r) : position(pos_), radius(r) {}
 
         HitRecord Intersect(Ray3f &ray) override {
             HitRecord record;
 
             //计算相交
             //t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
-            Vector3f op = ray.origin - transform.position;
+            Vector3f op = ray.origin - position;
             //h=b/2
             float h = Dot(op, ray.direction);
             float det = h * h - Dot(op, op) + radius * radius;
@@ -46,7 +45,7 @@ namespace Just {
             //记录交点信息
             record.isHit = true;
             record.position = ray.At(record.time);
-            record.normal = Normalize(record.position - transform.position);
+            record.normal = Normalize(record.position - position);
 
             return record;
         }
@@ -55,7 +54,7 @@ namespace Just {
     //输出
     //----------------------------------------------------------------------------------------------------------
     inline std::ostream &operator<<(std::ostream &os, const Sphere &sphere) {
-        return os << sphere.transform << std::endl
+        return os << sphere.position << std::endl
                   << "radius   = " << sphere.radius << std::endl;
     }
 }

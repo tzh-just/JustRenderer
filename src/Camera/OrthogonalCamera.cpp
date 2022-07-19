@@ -1,10 +1,11 @@
-
-#include "Renderer/Camera.h"
+#include <Renderer/Camera.h>
 
 namespace Just{
-    struct OrthogonalCamera : public Camera {
+    Ray3f OrthogonalCamera::CastRay(){
+        Ray3f ray;
+        return ray;
+    }
 
-        Ray3f CastRay () override;
-    };
+
 }
 

@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Math/Transform.h"
 #include "Geometry/Object.h"
 #include "Vertex.h"
 
