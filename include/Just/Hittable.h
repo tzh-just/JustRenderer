@@ -12,10 +12,10 @@ namespace Just {
         Vector3f position;
         Vector3f normal;
 
-        HitRecord() : position(0), normal(0) {}
+        float time;
+        bool isHit;
 
-        HitRecord(const Vector3f &position_, const Vector3f &normal_)
-                : position(position_), normal(normal_) {}
+        HitRecord() : position(0), normal(0), time(0), isHit(false) {}
     };
 
 //输出
@@ -26,6 +26,6 @@ namespace Just {
     }
 
     struct Hittable {
-        virtual HitRecord Intersect(const Ray3f &ray) = 0;
+        virtual HitRecord Intersect(Ray3f &ray) = 0;
     };
 }

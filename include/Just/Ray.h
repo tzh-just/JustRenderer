@@ -12,12 +12,15 @@ namespace Just {
         Vector<N, T> origin;
         Vector<N, T> direction;
 
-        Ray() : origin(0), direction(0) {}
+        float time;
 
-        Ray(const Vector<N, T> &orig, const Vector<N, T> &dir) : origin(orig), direction(dir) {}
+        Ray() : origin(0), direction(0), time(0) {}
 
-        Vector<N, T> At(T time) const {
-            return origin + direction * time;
+        Ray(const Vector<N, T> &orig, const Vector<N, T> &dir) : origin(orig), direction(dir), time(0) {}
+
+        Vector<N, T> At(T t) {
+            time = t;
+            return origin + direction * t;
         }
     };
 
