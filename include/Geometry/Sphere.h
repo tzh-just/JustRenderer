@@ -6,7 +6,7 @@
 
 #include "Math/Vector.h"
 #include "Math/Transform.h"
-#include "Graphics/Object.h"
+#include "Geometry/Object.h"
 #include "Ray.h"
 
 namespace Just {

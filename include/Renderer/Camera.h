@@ -29,11 +29,11 @@ namespace Just {
 
     struct PerspectiveCamera : public Camera {
 
-        Ray3f CastRay () override{}
+        Ray3f CastRay () override;
     };
 
     struct OrthogonalCamera : public Camera {
 
-        Ray3f CastRay () override{}
+        Ray3f CastRay () override;
     };
 }

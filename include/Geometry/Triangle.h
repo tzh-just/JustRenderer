@@ -6,8 +6,8 @@
 
 #include "Math/Vector.h"
 #include "Math/Transform.h"
+#include "Geometry/Object.h"
 #include "Vertex.h"
-#include "Graphics/Object.h"
 
 namespace Just {
 
@@ -45,7 +45,7 @@ namespace Just {
                   << "-----------------------------------------------" << std::endl
                   << triangle[1] << std::endl
                   << "-----------------------------------------------" << std::endl
-                  << triangle[2] << std::endl;
+                  << triangle[2];
     }
 
     using Triangle2i = Triangle<2, int>;

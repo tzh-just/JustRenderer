@@ -1,12 +1,11 @@
 
 #include "Global.h"
-#include "Graphics/Vertex.h"
-#include "Graphics/Ray.h"
-#include "Graphics/Triangle.h"
-#include "Graphics/Sphere.h"
+#include "Geometry/Vertex.h"
+#include "Geometry/Ray.h"
+#include "Geometry/Triangle.h"
+#include "Geometry/Sphere.h"
 
 using namespace Just;
-
 
 static void TestGeometry() {
     Ray3f ray;
@@ -20,6 +19,7 @@ static void TestGeometry() {
     HitRecord record;
 
     Sphere sphere(10);
+
     Print(
             "ray : ", ray,
             "v1 : ", v1,
