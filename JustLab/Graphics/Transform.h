@@ -5,9 +5,9 @@
 #pragma once
 
 #include "Just/Global.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "Math.h"
+#include "Math/Vector.h"
+#include "Math/Matrix.h"
+#include "Math/Math.h"
 
 namespace Just {
     struct Transform {

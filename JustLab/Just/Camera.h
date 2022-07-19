@@ -5,10 +5,10 @@
 #pragma once
 
 #include "Global.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "Transform.h"
-#include "Ray.h"
+#include "Math/Vector.h"
+#include "Math/Matrix.h"
+#include "Graphics/Transform.h"
+#include "Geometry/Ray.h"
 
 namespace Just {
 

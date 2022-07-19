@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include "Global.h"
-#include "Vector.h"
-#include "Transform.h"
-#include "Vertex.h"
-#include "Ray.h"
+#include "Just/Global.h"
+#include "Math/Vector.h"
+#include "Graphics/Transform.h"
+#include "Graphics/Vertex.h"
+#include "Geometry/Ray.h"
 #include "Hittable.h"
 
 namespace Just {
