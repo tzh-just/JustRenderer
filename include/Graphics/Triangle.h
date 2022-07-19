@@ -5,13 +5,14 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Graphics/Transform.h"
-#include "Hittable.h"
+#include "Math/Transform.h"
+#include "Math/Vertex.h"
+#include "Graphics/Object.h"
 
 namespace Just {
 
     template<size_t N, typename T>
-    struct Triangle : Hittable {
+    struct Triangle : Object {
         union {
             Vertex<N, T> vertices[3];
             Vertex<N, T> a, b, c;

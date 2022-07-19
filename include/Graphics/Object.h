@@ -4,7 +4,9 @@
 
 #pragma once
 
+#include "Global.h"
 #include "Math/Vector.h"
+#include "Ray.h"
 
 namespace Just {
 
@@ -25,7 +27,7 @@ namespace Just {
                   << "normal   = " << record.normal;
     }
 
-    struct Hittable {
+    class Object {
         virtual HitRecord Intersect(Ray3f &ray) = 0;
     };
 }

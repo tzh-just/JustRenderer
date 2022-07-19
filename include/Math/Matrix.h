@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Just/Global.h"
+#include "Global.h"
 #include "Vector.h"
 
 namespace Just {

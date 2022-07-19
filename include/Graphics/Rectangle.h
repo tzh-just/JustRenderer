@@ -4,16 +4,16 @@
 
 #pragma once
 
-#include "Just/Global.h"
+#include "Global.h"
 #include "Math/Vector.h"
-#include "Graphics/Transform.h"
-#include "Graphics/Vertex.h"
-#include "Geometry/Ray.h"
-#include "Hittable.h"
+#include "Math/Transform.h"
+#include "Math/Vertex.h"
+#include "Object.h"
+#include "Ray.h"
 
 namespace Just {
     template<size_t N, typename T>
-    struct Rectangle : Hittable {
+    struct Rectangle : Object {
         union {
             Vertex<N, T> vertices[4];
             Vertex<N, T> a, b, c, d;

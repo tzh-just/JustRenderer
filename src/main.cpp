@@ -1,12 +1,12 @@
 
-#include "Just/Global.h"
-#include "Math/Vector.h"
-#include "Math/Matrix.h"
-#include "Math/Math.h"
-#include "Geometry/Ray.h"
-#include "Graphics/Vertex.h"
-#include "Geometry/Triangle.h"
-#include "Geometry/Sphere.h"
+#include <Global.h>
+#include <Math/Vector.h>
+#include <Math/Matrix.h>
+#include <Math/Math.h>
+#include <Math/Vertex.h>
+#include <Graphics/Ray.h>
+#include <Graphics/Triangle.h>
+#include <Graphics/Sphere.h>
 
 using namespace Just;
 

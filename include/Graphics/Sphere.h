@@ -5,13 +5,13 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Graphics/Transform.h"
+#include "Math/Transform.h"
+#include "Graphics/Object.h"
 #include "Ray.h"
-#include "Hittable.h"
 
 namespace Just {
 
-    struct Sphere : Hittable {
+    struct Sphere : Object {
         Transform transform;
         float radius;
 
