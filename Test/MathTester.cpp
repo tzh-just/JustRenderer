@@ -3,7 +3,7 @@
 #include "Math/Vector.h"
 #include "Math/Matrix.h"
 #include "Math/Transform.h"
-
+#include "Math/Quaternion.h"
 using namespace Just;
 
 static void TestVector() {
@@ -59,8 +59,18 @@ static void TestMath() {
     );
 }
 
+static void TestTransform(){
+
+}
+
+static void TestQuaternion(){
+    Quaternion<float> q1(1,2,3,4);
+    Print(q1,q1[0]);
+}
+
 int main() {
     TestVector();
-    TestMatrix();
-    TestMath();
+    //TestMatrix();
+    //TestMath();
+    //TestQuaternion();
 }

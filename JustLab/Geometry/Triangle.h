@@ -5,7 +5,7 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Geometry/Object.h"
+#include "Object.h"
 #include "Vertex.h"
 
 namespace Just {
