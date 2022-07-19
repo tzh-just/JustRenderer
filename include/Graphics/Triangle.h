@@ -6,7 +6,7 @@
 
 #include "Math/Vector.h"
 #include "Math/Transform.h"
-#include "Math/Vertex.h"
+#include "Vertex.h"
 #include "Graphics/Object.h"
 
 namespace Just {

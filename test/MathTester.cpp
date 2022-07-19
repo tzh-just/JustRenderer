@@ -1,12 +1,8 @@
 
-#include <Global.h>
-#include <Math/Vector.h>
-#include <Math/Matrix.h>
-#include <Math/Math.h>
-#include <Math/Vertex.h>
-#include <Graphics/Ray.h>
-#include <Graphics/Triangle.h>
-#include <Graphics/Sphere.h>
+#include "Global.h"
+#include "Math/Vector.h"
+#include "Math/Matrix.h"
+#include "Math/Math.h"
 
 using namespace Just;
 
@@ -53,27 +49,6 @@ static void TestMatrix() {
     );
 }
 
-static void TestGeometry() {
-    Ray3f ray;
-
-    Vertex3f v1({-10, 0, 0});
-    Vertex3f v2({10, 0, 0});
-    Vertex3f v3({0, 10, 0});
-
-    Triangle3f tri(v1, v2, v3);
-
-    HitRecord record;
-
-    Sphere sphere(10);
-    Print(
-            "ray : ", ray,
-            "v1 : ", v1,
-            "tri : ", tri,
-            "record : ", record,
-            "sphere : ", sphere
-    );
-}
-
 static void TestMath() {
     Print(
             "ConvertDegreesToRadians(180) : ", ConvertDegreesToRadians(180),
@@ -85,8 +60,7 @@ static void TestMath() {
 }
 
 int main() {
-    //TestVector();
-    //TestMatrix();
-    TestGeometry();
-    //TestMath();
+    TestVector();
+    TestMatrix();
+    TestMath();
 }

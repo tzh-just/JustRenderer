@@ -10,6 +10,21 @@ include_directories(
 )
 
 add_executable(
-        JustLab
-        src/main.cpp
+        TestMath
+        test/MathTester.cpp
+)
+
+add_executable(
+        TestGraphics
+        test/GraphicsTester.cpp
+)
+
+add_executable(
+        ExampleRasterizer01
+        example/rasterizer/african_head.cpp
+)
+
+add_executable(
+        ExampleRayTracer01
+        example/tracer/cornell_box.cpp
 )

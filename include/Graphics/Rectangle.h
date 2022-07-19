@@ -7,7 +7,7 @@
 #include "Global.h"
 #include "Math/Vector.h"
 #include "Math/Transform.h"
-#include "Math/Vertex.h"
+#include "Vertex.h"
 #include "Object.h"
 #include "Ray.h"
 
