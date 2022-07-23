@@ -41,10 +41,10 @@ namespace Just {
     //----------------------------------------------------------------------------------------------------------
     template<typename T>
     inline std::ostream &operator<<(std::ostream &os, const Quaternion<T> &q) {
-        return os << "{" << "real: " << q.real << ", image: " << q.image << "}" << std::endl;
+        return os << "{" << "real: " << q.real << ", image: " << q.image << "}";
     }
 
-    //共轭
+    //四元数的共轭
     template<typename T>
     inline Quaternion<T> Conjugate(const Quaternion<T> &q) {
         return {q.real, -q.image};
@@ -87,6 +87,7 @@ namespace Just {
         };
     }
 
+    //加法
     template<typename T>
     inline Quaternion<T> operator+(const Quaternion<T> &q, T value) {
         return {q.real + value, q.image * value};
@@ -97,6 +98,7 @@ namespace Just {
         return {q.real + value, q.image * value};
     }
 
+    //乘法
     template<typename T>
     inline Quaternion<T> operator*(const Quaternion<T> &q1, const Quaternion<T> &q2) {
         return {

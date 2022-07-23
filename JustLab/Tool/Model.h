@@ -5,7 +5,17 @@
 #pragma once
 
 namespace Just{
-    struct Model{
+    class Model{
 
+    public:
+        Model() = default;
+
+        explicit Model(const char *path) {
+
+        }
+
+        void Load() {
+
+        }
     };
 }
