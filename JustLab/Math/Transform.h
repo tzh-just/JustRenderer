@@ -104,7 +104,7 @@ namespace Just::Transform {
     //正交投影变换矩阵
     inline Matrix4f Orthogonal(float aspectRatio, float fov, float n, float f) {
         //参数far和near为远近平面的长度，即正值
-        float t = Tan(ConvertDegreesToRadians(fov / 2)) * n;
+        float t = Tan(Radians(fov / 2)) * n;
         float r = t * aspectRatio;
 
         //直接构建
@@ -134,7 +134,7 @@ namespace Just::Transform {
     //透视投影变换矩阵
     inline Matrix4f Perspective(float aspectRatio, float fov, float n, float f) {
         //参数far和near为远近平面的长度，即正值
-        float t = Tan(ConvertDegreesToRadians(fov / 2)) * n;
+        float t = Tan(Radians(fov / 2)) * n;
         float r = t * aspectRatio;
 
         //直接构建

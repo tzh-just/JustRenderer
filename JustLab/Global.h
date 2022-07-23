@@ -11,7 +11,8 @@
 namespace Just {
     //全局变量
     //-------------------------------------------------------------------------
-    constexpr float PI = 3.1415926f;
+    constexpr float PI = 3.14159265358979323846;
+    constexpr float PI_INV = 0.31830988618379067154;
     constexpr float EPS = 0.001f;
 
     //全局函数
@@ -29,27 +30,27 @@ namespace Just {
     }
 
     //角度和弧度互转
-    inline float ConvertDegreesToRadians(float degree) {
-        return degree * PI / 180.0f;
+    inline float Radians(float deg) {
+        return PI / 180.0f * deg;
     }
 
-    inline float ConvertRadiansToDegrees(float radian) {
-        return radian * 180.0f / PI;
+    inline float Degrees(float rad) {
+        return 180.0f / PI * rad;
     }
 
     //三角函数
     inline float Sin(float degree) {
-        auto radian = ConvertDegreesToRadians(degree);
+        auto radian = Radians(degree);
         return std::sin(radian);
     }
 
     inline float Cos(float degree) {
-        auto radian = ConvertDegreesToRadians(degree);
+        auto radian = Radians(degree);
         return std::cos(radian);
     }
 
     inline float Tan(float degree) {
-        auto radian = ConvertDegreesToRadians(degree);
+        auto radian = Radians(degree);
         return std::tan(radian);
     }
 }

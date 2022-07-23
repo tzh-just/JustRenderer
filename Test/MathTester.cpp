@@ -51,8 +51,8 @@ static void TestMatrix() {
 
 static void TestMath() {
     Print(
-            "ConvertDegreesToRadians(180) : ", ConvertDegreesToRadians(180),
-            "ConvertRadiansToDegrees(1) : ", ConvertRadiansToDegrees(1),
+            "Radians(180) : ", Radians(180),
+            "Degrees(1) : ", Degrees(1),
             "Sin(60) : ", Sin(30),
             "Cos(60) : ", Cos(60),
             "Tan(60) : ", Tan(60)
