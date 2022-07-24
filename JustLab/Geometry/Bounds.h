@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Math/VectorExtension.h"
+#include "Math/VectorExt.h"
 #include "Hittable.h"
 #include "Ray.h"
 
