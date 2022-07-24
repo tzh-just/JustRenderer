@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Math/Vector.h"
+#include "Math/VectorExtension.h"
 #include "Hittable.h"
 #include "Ray.h"
 
@@ -14,7 +14,7 @@ namespace Just {
         Vector3f position;
         float radius;
 
-        explicit Sphere(float r) : position(0), radius(r) {}
+        explicit Sphere(float r) : position(), radius(r) {}
 
         Sphere(const Vector3f &pos_, float r) : position(pos_), radius(r) {}
 
@@ -51,10 +51,7 @@ namespace Just {
         }
     };
 
-    //输出
-    //----------------------------------------------------------------------------------------------------------
     inline std::ostream &operator<<(std::ostream &os, const Sphere &sphere) {
-        return os << sphere.position << std::endl
-                  << "radius   = " << sphere.radius << std::endl;
+        return os << sphere.position << ", " << "radius   = " << sphere.radius;
     }
 }

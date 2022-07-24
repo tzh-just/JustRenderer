@@ -17,7 +17,7 @@ namespace Just {
         float time;
         bool isHit;
 
-        HitRecord() : position(0), normal(0), time(0), isHit(false) {}
+        HitRecord() : position(), normal(), time(), isHit(false) {}
     };
 
     inline std::ostream &operator<<(std::ostream &os, const HitRecord &record) {

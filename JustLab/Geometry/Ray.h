@@ -14,22 +14,19 @@ namespace Just {
 
         float time;
 
-        Ray() : origin(0), direction(0), time(0) {}
+        Ray() : origin(), direction(), time() {}
 
-        Ray(const Vector<N, T> &orig, const Vector<N, T> &dir) : origin(orig), direction(dir), time(0) {}
+        Ray(const Vector<N, T> &orig, const Vector<N, T> &dir) : origin(orig), direction(dir), time() {}
 
         Vector<N, T> At(T t) {
             time = t;
-            return origin + direction * t;
+            return origin + direction * time;
         }
     };
 
-    //输出
-    //----------------------------------------------------------------------------------------------------------
     template<size_t N, typename T>
     inline std::ostream &operator<<(std::ostream &os, const Ray<N, T> &ray) {
-        return os << "origin    = " << ray.origin << std::endl
-                  << "direction = " << ray.direction;
+        return os << "origin    = " << ray.origin << ", " << "direction = " << ray.direction;
     }
 
     using Ray3f = Ray<3, float>;

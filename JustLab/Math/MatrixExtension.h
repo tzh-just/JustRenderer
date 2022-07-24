@@ -5,17 +5,9 @@
 namespace Just{
     //输出
     template<size_t ROW, size_t COL, typename T>
-    inline std::ostream &operator<<(std::ostream &os, const Matrix<ROW, COL, T> &v) {
-        for (size_t row = 0; row < ROW; row++) {
-            os << "{";
-            for (size_t col = 0; col < COL; col++) {
-                os << v.data[row][col];
-                if (col + 1 != COL)
-                    os << ",";
-            }
-            os << "}";
-            if (row + 1 != ROW)
-                os << std::endl;
+    inline std::ostream &operator<<(std::ostream &os, const Matrix<ROW, COL, T> &mat) {
+        for(auto& row : mat){
+            os << "{"  << row << "}";
         }
         return os;
     }

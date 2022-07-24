@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Geometry/Bounds.h"
 #include "Accelerator.h"
 
@@ -7,7 +9,7 @@ namespace Just {
     struct BVHNode{
         unsigned int child = 0;
         Bounds3f bbox;
-        std::vector<unsigned int> indices;
+        std::vector<uint32_t> indices;
 
         BVHNode() : bbox() {}
 
