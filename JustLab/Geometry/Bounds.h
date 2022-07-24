@@ -34,7 +34,15 @@ namespace Just {
     //取包围盒中心点坐标
     template<size_t N, typename T>
     inline Vector<N, T> Centroid(const Bounds<N, T> &bbox) {
-        return (bbox.max + bbox.max) * 0.5f;
+        return (bbox.max + bbox.min) * 0.5f;
+    }
+
+    //取包围盒拐角点
+    template<size_t N, typename T>
+    inline Vector<N, T> Corner(const Bounds<N, T> &bbox, uint32_t index) {
+        Vector<N, T> corner;
+        for (int i = 0; i < N; i++)
+            corner[i] = (index & (1 << i)) ? bbox.max[i] : bbox.min[i];
     }
 
     //合并包围盒
