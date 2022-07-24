@@ -12,34 +12,17 @@
 
 namespace Just {
 
-    class Camera {
+    struct Camera {
     public:
-        Transform trans;
+        Vector3f position;
         Vector3f target, up;
-        float aspectRatio;
-        float near, far;
-        float fov;
+        float aspectRatio = 0;
+        float near = 0, far = 0;
+        float fov = 0;
     public:
-        Camera(const Vector3f &position_, const Vector3f &target_, const Vector3f &up_, float near_, float far_, float ratio_, float fov_);
+        Camera() : position(), target(), up() {};
 
         virtual Ray3f CastRay() = 0;
     };
 
-    class PerspectiveCamera : public Camera {
-    public:
-        Transform trans;
-        Vector3f target, up;
-        float aspectRatio;
-        float near, far;
-        float fov;
-    public:
-        PerspectiveCamera(const Vector3f &position_, const Vector3f &target_, const Vector3f &up_, float near_, float far_, float ratio_, float fov_);
-
-        Ray3f CastRay() override;
-    };
-
-    struct OrthogonalCamera : public Camera {
-
-        Ray3f CastRay() override;
-    };
 }
