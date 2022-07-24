@@ -11,9 +11,11 @@
 namespace Just {
     //全局变量
     //-------------------------------------------------------------------------
-    constexpr float PI = 3.14159265358979323846;
-    constexpr float PI_INV = 0.31830988618379067154;
-    constexpr float EPS = 0.001f;
+    constexpr float M_PI = 3.14159265358979323846f;
+    constexpr float INV_PI = 0.31830988618379067154f;
+    constexpr float INV_PI2 = 0.15915494309189533577f;
+    constexpr float INV_PI4 = 0.07957747154594766788f;
+    constexpr float EPS = 1e-4f;
 
     //全局函数
     //-------------------------------------------------------------------------
@@ -31,11 +33,11 @@ namespace Just {
 
     //角度和弧度互转
     inline float Radians(float deg) {
-        return PI / 180.0f * deg;
+        return M_PI / 180.0f * deg;
     }
 
     inline float Degrees(float rad) {
-        return 180.0f / PI * rad;
+        return 180.0f / M_PI * rad;
     }
 
     //三角函数

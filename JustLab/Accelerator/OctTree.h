@@ -21,8 +21,6 @@ namespace Just {
         int m_maxDepth = 0;//最大深度
         int m_leafCount = 0;//叶子节点数量
         int m_nodeCount = 0;//节点总数
-        static constexpr int MINCOUNT = 16;
-        static constexpr int MAXDEPTH = 8;
     public:
         void Build(){
 

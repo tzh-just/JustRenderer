@@ -54,11 +54,20 @@ static void TestMath() {
 }
 
 static void TestTransform() {
-    Vector4f point(1, 0, 0, 1);
-    auto M = Transform::RotateX(90);
-    auto n = M * point;
+    Vector4f p(1, 0, 0, 1);
+
+    auto M = Transform::RotateZ(90);
+    auto r = M * p;
+
+    auto T = Transform::Translate(0, 1, 0);
+    auto t = T * r;
+
     Print(
-            "n = ", n
+            "p = ", p,
+            "M = ", M,
+            "r = M * p", r,
+            "T = ", T,
+            "t = T * r", t
     );
 }
 
@@ -68,8 +77,8 @@ static void TestQuaternion() {
 
 int main() {
     //TestVector();
-    TestMatrix();
-    TestMath();
+    //TestMatrix();
+    //TestMath();
     //TestQuaternion();
     TestTransform();
 }
