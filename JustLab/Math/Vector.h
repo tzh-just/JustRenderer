@@ -163,13 +163,21 @@ namespace Just {
         return tmp;
     }
 
-    //特化齐次坐标加法
-    template<typename T>
-    inline Vector<4, T> operator+(const Vector<4, T> &p1, const Vector<4, T> &p2) {
-        Vector<4, T> tmp;
-        for (size_t i = 0; i < 3; i++)
-            tmp[i] = (p1[i] + p2[i]) * 0.5;
-        tmp.w = 1;
+    //减法
+    template<size_t N, typename T>
+    inline Vector<N, T> operator-(const Vector<N, T> &v1, const Vector<N, T> &v2) {
+        Vector<N, T> tmp;
+        for (size_t i = 0; i < N; i++)
+            tmp[i] = v1[i] - v2[i];
+        return tmp;
+    }
+
+    //乘法
+    template<size_t N, typename T>
+    inline Vector<N, T> operator*(const Vector<N, T> &v1, const Vector<N, T> &v2) {
+        Vector<N, T> tmp;
+        for (size_t i = 0; i < N; i++)
+            tmp[i] = v1[i] * v2[i];
         return tmp;
     }
 
@@ -181,25 +189,6 @@ namespace Just {
         return v1;
     }
 
-
-    //减法
-    template<size_t N, typename T>
-    inline Vector<N, T> operator-(const Vector<N, T> &v1, const Vector<N, T> &v2) {
-        Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++)
-            tmp[i] = v1[i] - v2[i];
-        return tmp;
-    }
-
-    //特化齐次坐标减法
-    template<typename T>
-    inline Vector<3, T> operator-(const Vector<4, T> &p1, const Vector<4, T> &p2) {
-        Vector<3, T> tmp;
-        for (size_t i = 0; i < 3; i++)
-            tmp[i] = p1[i] - p2[i];
-        return tmp;
-    }
-
     //赋值减
     template<size_t N, typename T>
     inline Vector<N, T> &operator-=(Vector<N, T> &v1, const Vector<N, T> &v2) {
@@ -209,14 +198,6 @@ namespace Just {
         return v1;
     }
 
-    //乘法
-    template<size_t N, typename T>
-    inline Vector<N, T> operator*(const Vector<N, T> &v1, const Vector<N, T> &v2) {
-        Vector<N, T> tmp;
-        for (size_t i = 0; i < N; i++)
-            tmp[i] = v1[i] * v2[i];
-        return tmp;
-    }
 
     //赋值乘
     template<size_t N, typename T>
@@ -299,17 +280,9 @@ namespace Just {
         return true;
     }
 
-    //向量的长度/模
+    //向量的长度
     template<size_t N, typename T>
     inline T Length(const Vector<N, T> &v) {
-        T sum = 0;
-        for (size_t i = 0; i < N; i++)
-            sum += v[i] * v[i];
-        return std::sqrt(sum);
-    }
-
-    template<size_t N, typename T>
-    inline T Norm(const Vector<N, T> &v) {
         T sum = 0;
         for (size_t i = 0; i < N; i++)
             sum += v[i] * v[i];
@@ -364,7 +337,6 @@ namespace Just {
         return max;
     }
 
-    using Vector2i = Vector<2, int>;
     using Vector2f = Vector<2, float>;
     using Vector3f = Vector<3, float>;
 }
