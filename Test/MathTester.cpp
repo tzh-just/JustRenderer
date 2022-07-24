@@ -39,8 +39,7 @@ static void TestMatrix() {
             "Invert(mat1) = ", Invert(mat1),
             "v1 = ", v1,
             "mat1 * mat1 = ", mat1 * mat1,
-            "mat1 * v1 = ", mat1 * v1,
-            "v1 * mat1 = ", v1 * mat1
+            "mat1 * v1 = ", mat1 * v1
     );
 }
 
@@ -48,14 +47,19 @@ static void TestMath() {
     Print(
             "Radians(180) = ", Radians(180),
             "Degrees(1) = ", Degrees(1),
-            "Sin(60) = ", Sin(30),
+            "Sin(30) = ", Sin(30),
             "Cos(60) = ", Cos(60),
-            "Tan(60) = ", Tan(60)
+            "Tan(45) = ", Tan(45)
     );
 }
 
 static void TestTransform() {
-
+    Vector4f point(1, 0, 0, 1);
+    auto M = Transform::RotateX(90);
+    auto n = M * point;
+    Print(
+            "n = ", n
+    );
 }
 
 static void TestQuaternion() {
@@ -65,6 +69,7 @@ static void TestQuaternion() {
 int main() {
     //TestVector();
     TestMatrix();
-    //TestMath();
+    TestMath();
     //TestQuaternion();
+    TestTransform();
 }

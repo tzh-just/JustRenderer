@@ -114,6 +114,7 @@ namespace Just {
 
     using Vector2f = Vector<2, float>;
     using Vector3f = Vector<3, float>;
+    using Vector4f = Vector<4, float>;
 }
 
 

@@ -55,15 +55,6 @@ namespace Just {
         return v2;
     }
 
-    //行向量右乘
-    template<uint32_t ROW, uint32_t COL, typename T>
-    inline Vector<COL, T> operator*(const Vector<ROW, T> &v1, const Matrix<ROW, COL, T> &mat) {
-        Vector<COL, T> v2;
-        for (uint32_t col = 0; col < COL; col++)
-            v2[col] = Dot(v1, mat.Col(col));
-        return v2;
-    }
-
     //数乘
     template<uint32_t ROW, uint32_t COL, typename T>
     inline Matrix<ROW, COL, T> operator*(const Matrix<ROW, COL, T> &mat, T k) {
