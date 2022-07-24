@@ -14,7 +14,7 @@ namespace Just {
 
         Vector() {
             for (size_t i = 0; i < N; i++)
-                data[i] = T();
+                data[i] = 0;
         }
 
         Vector(const Vector<N, T> &other) {
@@ -33,7 +33,7 @@ namespace Just {
             return data[i];
         }
 
-        const T &operator[](size_t i) const {
+        T operator[](size_t i) const {
             assert(i < N);
             return data[i];
         }
@@ -48,17 +48,16 @@ namespace Just {
             T data[2];
         };
 
-        Vector() : x(T()), y(T()) {}
+        Vector() : x(0), y(0) {}
 
         Vector(T v1, T v2) : x(v1), y(v2) {}
 
-        //索引操作符重载
         T &operator[](size_t i) {
             assert(i < 2);
             return data[i];
         }
 
-        const T &operator[](size_t i) const {
+        T operator[](size_t i) const {
             assert(i < 2);
             return data[i];
         }
@@ -77,13 +76,12 @@ namespace Just {
 
         Vector(T v1, T v2, T v3) : x(v1), y(v2), z(v3) {}
 
-        //索引操作符重载
         T &operator[](size_t i) {
             assert(i < 3);
             return data[i];
         }
 
-        const T &operator[](size_t i) const {
+        T operator[](size_t i) const {
             assert(i < 3);
             return data[i];
         }
@@ -102,13 +100,12 @@ namespace Just {
 
         Vector(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
 
-        //索引操作符重载
         T &operator[](size_t i) {
             assert(i < 4);
             return data[i];
         }
 
-        const T &operator[](size_t i) const {
+        T operator[](size_t i) const {
             assert(i < 4);
             return data[i];
         }
