@@ -26,12 +26,12 @@ namespace Just {
 
         Quaternion(T w_, T x_, T y_, T z_) : w(w_), x(x_), y(y_), z(z_) {}
 
-        T &operator[](size_t i) {
+        T &operator[](uint32_t i) {
             assert(i < 4);
             return data[i];
         }
 
-        const T &operator[](size_t i) const {
+        const T &operator[](uint32_t i) const {
             assert(i < 4);
             return data[i];
         }

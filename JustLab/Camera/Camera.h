@@ -5,8 +5,8 @@
 #pragma once
 
 #include "../Global.h"
-#include "Math/Vector.h"
-#include "Math/Matrix.h"
+#include "Math/VectorExt.h"
+#include "Math/MatrixExt.h"
 #include "Math/Transform.h"
 #include "Geometry/Ray.h"
 

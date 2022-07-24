@@ -8,32 +8,32 @@
 
 namespace Just {
 
-    template<size_t N, typename T>
+    template<uint32_t N, typename T>
     struct Vector {
         T data[N];
 
         Vector() {
-            for (size_t i = 0; i < N; i++)
+            for (uint32_t i = 0; i < N; i++)
                 data[i] = 0;
         }
 
         Vector(const Vector<N, T> &other) {
-            for (size_t i = 0; i < N; i++)
+            for (uint32_t i = 0; i < N; i++)
                 data[i] = other.data[i];
         }
 
         Vector(const std::initializer_list<T> &list) {
             auto it = list.begin();
-            for (size_t i = 0; i < N; i++)
+            for (uint32_t i = 0; i < N; i++)
                 data[i] = *it++;
         }
 
-        T &operator[](size_t i) {
+        T &operator[](uint32_t i) {
             assert(i < N);
             return data[i];
         }
 
-        T operator[](size_t i) const {
+        T operator[](uint32_t i) const {
             assert(i < N);
             return data[i];
         }
@@ -52,12 +52,12 @@ namespace Just {
 
         Vector(T v1, T v2) : x(v1), y(v2) {}
 
-        T &operator[](size_t i) {
+        T &operator[](uint32_t i) {
             assert(i < 2);
             return data[i];
         }
 
-        T operator[](size_t i) const {
+        T operator[](uint32_t i) const {
             assert(i < 2);
             return data[i];
         }
@@ -76,12 +76,12 @@ namespace Just {
 
         Vector(T v1, T v2, T v3) : x(v1), y(v2), z(v3) {}
 
-        T &operator[](size_t i) {
+        T &operator[](uint32_t i) {
             assert(i < 3);
             return data[i];
         }
 
-        T operator[](size_t i) const {
+        T operator[](uint32_t i) const {
             assert(i < 3);
             return data[i];
         }
@@ -100,12 +100,12 @@ namespace Just {
 
         Vector(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
 
-        T &operator[](size_t i) {
+        T &operator[](uint32_t i) {
             assert(i < 4);
             return data[i];
         }
 
-        T operator[](size_t i) const {
+        T operator[](uint32_t i) const {
             assert(i < 4);
             return data[i];
         }

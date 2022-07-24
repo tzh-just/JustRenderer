@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "../Global.h"
-#include "Math/Vector.h"
+#include "Global.h"
+#include "Math/VectorExt.h"
 #include "Ray.h"
 
 namespace Just {
@@ -21,8 +21,7 @@ namespace Just {
     };
 
     inline std::ostream &operator<<(std::ostream &os, const HitRecord &record) {
-        return os << "position = " << record.position << std::endl
-                  << "normal   = " << record.normal;
+        return os << "{position = " << record.position << ", normal   = " << record.normal << "}";
     }
 
     class Hittable {

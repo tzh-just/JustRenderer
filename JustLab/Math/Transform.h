@@ -4,38 +4,40 @@
 
 #pragma once
 
-#include "../Global.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "Transform.h"
+#include "Global.h"
+#include "VectorExt.h"
+#include "MatrixExt.h"
 
 namespace Just::Transform {
 
+    inline Matrix4f RotateX(float angle) {
+        return {{1, 0,          0,           0},
+                {0, Cos(angle), -Sin(angle), 0},
+                {0, Sin(angle), Cos(angle),  0},
+                {0, 0,          0,           1}};
+    }
+
+    inline Matrix4f RotateY(float angle) {
+        return {{Cos(angle),  0, Sin(angle), 0},
+                {0,           1, 0,          0},
+                {-Sin(angle), 0, Cos(angle), 0},
+                {0,           0, 0,          1}};
+    }
+
+    inline Matrix4f RotateZ(float angle) {
+        return {{Cos(angle), -Sin(angle), 0, 0},
+                {Sin(angle), Cos(angle),  0, 0},
+                {0,          0,           1, 0},
+                {0,          0,           0, 1}};
+    }
+
     //旋转矩阵
     inline Matrix4f Rotate(float x, float y, float z) {
-        Matrix4f matX{
-                {Cos(y),  0, Sin(y), 0},
-                {0,       1, 0,      0},
-                {-Sin(y), 0, Cos(y), 0},
-                {0,       0, 0,      1}
-        };
-        Matrix4f matY{
-                {Cos(y),  0, Sin(y), 0},
-                {0,       1, 0,      0},
-                {-Sin(y), 0, Cos(y), 0},
-                {0,       0, 0,      1}
-        };
-        Matrix4f matZ{
-                {1, 0,      0,       0},
-                {0, Cos(x), -Sin(x), 0},
-                {0, Sin(x), Cos(x),  0},
-                {0, 0,      0,       1}
-        };
-        return matZ * matY * matZ;
+        return RotateZ(z) * RotateY(y) * RotateX(x);
     }
 
     inline Matrix4f Rotate(const Vector3f &rotation) {
-        return Rotate(rotation.x, rotation.y, rotation.z);
+        return RotateZ(rotation.z) * RotateY(rotation.y) * RotateX(rotation.x);
     }
 
     inline Matrix4f Rotate(const Vector3f &i, const Vector3f &j, const Vector3f &k) {
@@ -88,10 +90,6 @@ namespace Just::Transform {
         };
     }
 
-    inline Matrix4f ObjectToWorld(const Vector3f &position, const Vector3f &scale, const Vector3f &rotation) {
-        return Translate(position) * Scale(scale) * Rotate(rotation);
-    }
-
     //视图矩阵
     inline Matrix4f LookAt(const Vector3f &origin, const Vector3f &target, const Vector3f &up) {
         Vector3f g = Normalize(target - origin);
@@ -114,22 +112,8 @@ namespace Just::Transform {
                 {0,     0,     2 / (f - n), -(f + n) / (f - n)},
                 {0,     0,     0,           1}
         };
-
-        //先位移后缩放
-        Vector3f translation(0, 0, -(n + f) / 2);
-        Vector3f scale(1 / r, 1 / t, 2 / (f - n));
-        return Scale(scale) * Translate(translation);
     }
 
-    //透视转正交矩阵
-    inline Matrix4f PerspToOrtho(float n, float f) {
-        return {
-                {n, 0, 0,        0},
-                {0, n, 0,        0},
-                {0, 0, -(n + f), -n * f},
-                {0, 0, 1,        0}
-        };
-    }
 
     //透视投影变换矩阵
     inline Matrix4f Perspective(float aspectRatio, float fov, float n, float f) {
@@ -144,9 +128,6 @@ namespace Just::Transform {
                 {0,     0,     -(n + f) / (f - n), -2 * f * n / (f - n)},
                 {0,     0,     -1,                 0}
         };
-
-        //先透视转正交再正交投影
-        return Orthogonal(aspectRatio, fov, n, f) * PerspToOrtho(n, f);
     }
 
     //视口变换矩阵
