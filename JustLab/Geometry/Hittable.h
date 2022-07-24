@@ -27,7 +27,7 @@ namespace Just {
                   << "normal   = " << record.normal;
     }
 
-    class Object {
+    class Hittable {
         virtual HitRecord Intersect(Ray3f &ray) = 0;
     };
 }

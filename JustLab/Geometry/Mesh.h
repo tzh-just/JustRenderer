@@ -4,9 +4,22 @@
 
 #pragma once
 
-namespace Just{
+#include <vector>
+#include "Hittable.h"
+#include "Triangle.h"
+#include "Bounds.h"
 
-    class Mesh{
+namespace Just {
 
+    class Mesh : Hittable {
+    private:
+        std::vector<Triangle3f> triangles;
+        Bounds3f bbox;
+    public:
+        Mesh() : triangles() {}
+
+        HitRecord Intersect(Ray3f &ray) override {
+
+        }
     };
 }

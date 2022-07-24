@@ -8,12 +8,12 @@
 #include "Math/Vector.h"
 #include "Math/Transform.h"
 #include "Vertex.h"
-#include "Object.h"
+#include "Hittable.h"
 #include "Ray.h"
 
 namespace Just {
     template<size_t N, typename T>
-    struct Rectangle : Object {
+    struct Rectangle : Hittable {
         union {
             Vertex<N, T> vertices[4];
             Vertex<N, T> a, b, c, d;

@@ -5,12 +5,12 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Object.h"
+#include "Hittable.h"
 #include "Ray.h"
 
 namespace Just {
 
-    struct Sphere : Object {
+    struct Sphere : Hittable {
         Vector3f position;
         float radius;
 
