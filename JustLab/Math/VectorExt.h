@@ -210,4 +210,10 @@ namespace Just {
             max[i] = std::max(v1[i], v2[i]);
         return max;
     }
+
+    //插值
+    template<uint32_t N, typename T, typename U>
+    inline Vector<N, T> Lerp(const Vector<N, T> &v1, const Vector<N, T> &v2, U alpha) {
+        return v1 * (1 - alpha) + v2;
+    }
 }

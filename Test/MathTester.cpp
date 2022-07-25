@@ -47,9 +47,6 @@ static void TestMath() {
     Print(
             "Radians(180) = ", Radians(180),
             "Degrees(1) = ", Degrees(1),
-            "Sin(30) = ", Sin(30),
-            "Cos(60) = ", Cos(60),
-            "Tan(45) = ", Tan(45)
     );
 }
 

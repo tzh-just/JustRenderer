@@ -29,34 +29,34 @@ namespace Just {
     //圆盘均匀采样
     Vector2f SamplingUniformDisk(const Vector2f &sample) {
         auto radius = sqrt(sample.x);
-        auto angle = sample.y * M_PI * 2;
+        auto angle = sample.y * PI * 2;
         return {radius * cos(angle), radius * sin(angle)};
     }
 
     float SamplingUniformDiskPdf(const Vector2f &p) {
-        return sqrt(p.x * p.x + p.y * p.y) <= 1 ? INV_PI : 0.0f;
+        return sqrt(p.x * p.x + p.y * p.y) <= 1 ? InvPI : 0.0f;
     }
 
     //球体表面均匀采样
     Vector3f SamplingUniformSphere(const Vector2f &sample) {
-        auto phi = sample.x * M_PI * 2;
+        auto phi = sample.x * PI * 2;
         auto theta = acos(1 - 2 * sample.y);
         return {sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)};
     }
 
     float SamplingUniformSpherePdf(const Vector3f &v) {
-        return INV_PI4;
+        return Inv4PI;
     }
 
     //半球均匀采样
     Vector3f SamplingUniformHemisphere(const Vector2f &sample) {
-        auto phi = sample.x * M_PI * 2;
+        auto phi = sample.x * PI * 2;
         auto theta = acos(1 - sample.y);
         return {sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)};
     }
 
     float SamplingUniformHemispherePdf(const Vector3f &v) {
-        return v.z >= 0 ? INV_PI4 : 0;
+        return v.z >= 0 ? Inv4PI : 0;
     }
 
     //cosine-weight 半球采样
@@ -66,6 +66,6 @@ namespace Just {
     }
 
     float SamplingCosineHemispherePdf(const Vector3f &v) {
-        return v.z >= 0 ? v.z * INV_PI : 0;
+        return v.z >= 0 ? v.z * InvPI : 0;
     }
 }

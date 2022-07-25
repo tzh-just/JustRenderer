@@ -37,9 +37,9 @@ namespace Just {
             record.time = -h - det;
 
             //相交但交点都为负或者不是最近的交点都直接返回
-            if (record.time < EPS || record.time > ray.time)
+            if (record.time < EPSILON || record.time > ray.time)
                 record.time = -h + det;
-            if (record.time < EPS || record.time > ray.time)
+            if (record.time < EPSILON || record.time > ray.time)
                 return record;
 
             //记录交点信息

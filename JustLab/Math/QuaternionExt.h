@@ -49,7 +49,7 @@ namespace Just {
     template<typename T>
     inline Matrix<4, 4, T> Rotate(T angle, const Vector<3, T> &axis) {
         angle /= 2;
-        Quaternion<T> q(Cos(angle), Sin(angle) * axis);
+        Quaternion<T> q(std::cos(Radians(angle)), std::sin(Radians(angle)) * axis);
         return {
                 {1 - 2 * q.y * q.y - 2 * q.z * q.z, 2 * q.x * q.y - 2 * q.w * q.z,     2 * q.x * q.z + 2 * q.w * q.y},
                 {2 * q.x * q.y + 2 * q.w * q.z,     1 - 2 * q.x * q.x - 2 * q.z * q.z, 2 * q.y * q.z - 2 * q.w * q.x},
