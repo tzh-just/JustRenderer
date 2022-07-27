@@ -6,8 +6,8 @@
 
 #include <vector>
 #include <Global.h>
+#include <Scene/Ray.h>
 #include <Geometry/Bounds.h>
-
 
 namespace just {
 
@@ -23,19 +23,12 @@ struct AccelNode {
 struct Accel {
  public:
   virtual void Build() const = 0;
+  virtual void Intersect(const Ray3f &ray) = 0;
  private:
   std::vector<AccelNode> m_tree;
   int depth_max = 0;//最大深度
   int count_leaf = 0;//叶子节点数量
   int count_node = 0;//节点总数
-};
-
-struct BVH : Accel {
-
-};
-
-struct OctTree : Accel {
-
 };
 
 }
