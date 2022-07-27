@@ -7,7 +7,7 @@
 #include "Math/Vector.h"
 
 namespace Just {
-    template<uint32_t N, typename T>
+    template<int N, typename T>
     struct Ray {
         Vector<N, T> origin;
         Vector<N, T> direction;
@@ -24,7 +24,7 @@ namespace Just {
         }
     };
 
-    template<uint32_t N, typename T>
+    template<int N, typename T>
     inline std::ostream &operator<<(std::ostream &os, const Ray<N, T> &ray) {
         return os << "origin    = " << ray.origin << ", " << "direction = " << ray.direction;
     }

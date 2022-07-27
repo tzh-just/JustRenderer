@@ -9,7 +9,7 @@ namespace Just {
     struct BVHNode{
         unsigned int child = 0;
         Bounds3f bbox;
-        std::vector<uint32_t> indices;
+        std::vector<int> indices;
 
         BVHNode() : bbox() {}
 
