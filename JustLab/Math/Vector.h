@@ -18,10 +18,9 @@ struct Vector {
     }
   }
 
-  template<typename U>
-  explicit Vector(U val) {
+  explicit Vector(T val) {
     for (int i = 0; i < N; ++i) {
-      data[i] = static_cast<T>(val);
+      data[i] = val;
     }
   }
 
@@ -60,6 +59,8 @@ struct Vector<2, T> {
 
   Vector() : x(0), y(0) {}
 
+  explicit Vector(T val) : x(val), y(val) {}
+
   Vector(T v1, T v2) : x(v1), y(v2) {}
 
   T &operator[](int i) {
@@ -84,6 +85,8 @@ struct Vector<3, T> {
 
   Vector() : x(0), y(0), z(0) {}
 
+  explicit Vector(T val) : x(val), y(val), z(val) {}
+
   Vector(T v1, T v2, T v3) : x(v1), y(v2), z(v3) {}
 
   T &operator[](int i) {
@@ -107,6 +110,8 @@ struct Vector<4, T> {
   };
 
   Vector() : x(0), y(0), z(0), w(0) {}
+
+  explicit Vector(T val) : x(val), y(val), z(val), w(val) {}
 
   Vector(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
 

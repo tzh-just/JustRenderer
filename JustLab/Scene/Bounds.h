@@ -15,7 +15,7 @@ struct Bounds {
   Vector<N, T> min;
   Vector<N, T> max;
 
-  Bounds() : min(MinValue<T>()), max(MaxValue<T>()) {}
+  Bounds() : min(MaxValue<T>()), max(MinValue<T>()) {}
 
   Bounds(const Vector<N, T> &v1, const Vector<N, T> &v2) : min(v1), max(v2) {}
 
