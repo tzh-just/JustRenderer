@@ -4,24 +4,19 @@
 
 #pragma once
 
-#include "Math/Vector.h"
+#include <Math/Vector.h>
 
-namespace Just {
+namespace just{
+
     template<int N, typename T>
     struct Ray {
         Vector<N, T> origin;
         Vector<N, T> direction;
-
         float time;
 
         Ray() : origin(), direction(), time() {}
 
         Ray(const Vector<N, T> &orig, const Vector<N, T> &dir) : origin(orig), direction(dir), time() {}
-
-        Vector<N, T> At(T t) {
-            time = t;
-            return origin + direction * time;
-        }
     };
 
     template<int N, typename T>
@@ -30,4 +25,5 @@ namespace Just {
     }
 
     using Ray3f = Ray<3, float>;
+
 }

@@ -1,11 +1,10 @@
 
-#include "Global.h"
-#include "Math/VectorExt.h"
-#include "Math/MatrixExt.h"
-#include "Math/Transform.h"
-#include "Math/Quaternion.h"
+#include <Global.h>
+#include <Math/Vector.h>
+#include <Math/Matrix.h>
+#include <Math/Transform.h>
 
-using namespace Just;
+using namespace just;
 
 static void TestVector() {
     Vector3f v1(2, 0, 0), v2(0, 2, 0);
@@ -46,17 +45,17 @@ static void TestMatrix() {
 static void TestMath() {
     Print(
             "Radians(180) = ", Radians(180),
-            "Degrees(1) = ", Degrees(1),
+            "Degrees(1) = ", Degrees(1)
     );
 }
 
 static void TestTransform() {
     Vector4f p(1, 0, 0, 1);
 
-    auto M = Transform::RotateZ(90);
+    auto M = RotateZ(90);
     auto r = M * p;
 
-    auto T = Transform::Translate(0, 1, 0);
+    auto T = Translate(0, 1, 0);
     auto t = T * r;
 
     Print(
@@ -73,9 +72,9 @@ static void TestQuaternion() {
 }
 
 int main() {
-    //TestVector();
-    //TestMatrix();
-    //TestMath();
-    //TestQuaternion();
+    TestVector();
+    TestMatrix();
+    TestMath();
+    TestQuaternion();
     TestTransform();
 }

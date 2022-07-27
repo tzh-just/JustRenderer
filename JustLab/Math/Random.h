@@ -4,6 +4,10 @@
 
 #pragma once
 
-namespace Just {
+#include <Global.h>
+
+namespace just{
+
+
 
 }
