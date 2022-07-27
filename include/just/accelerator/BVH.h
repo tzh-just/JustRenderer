@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Geometry/Bounds.h"
-#include "Accelerator.h"
+#include "Accel.h"
 
 namespace Just {
     struct BVHNode{
@@ -16,7 +16,7 @@ namespace Just {
         explicit BVHNode(Bounds3f bbox) : bbox(std::move(bbox)) {}
     };
 
-    class BVH : Accelerator {
+    class BVH : Accel {
 
     };
 }

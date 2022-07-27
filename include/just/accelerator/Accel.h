@@ -8,7 +8,7 @@
 #include "Geometry/Hittable.h"
 
 namespace Just {
-    class Accelerator : Hittable {
+    class Accel : Hittable {
     public:
         virtual void Build() const = 0;
 

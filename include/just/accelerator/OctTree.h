@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Geometry/Bounds.h"
-#include "Accelerator.h"
+#include "Accel.h"
 
 namespace Just {
 
@@ -15,7 +15,7 @@ namespace Just {
         explicit OctTreeNode(Bounds3f bbox) : bbox(std::move(bbox)) {}
     };
 
-    class OctTree  : Accelerator{
+    class OctTree  : Accel{
     private:
         std::vector<OctTreeNode> m_tree;
         int m_maxDepth = 0;//最大深度
