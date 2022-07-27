@@ -1,5 +1,5 @@
 
-#include <Scene/Bounds.h>
+#include <Geometry/Bounds.h>
 
 namespace just {
 

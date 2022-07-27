@@ -6,7 +6,7 @@
 
 #include <vector>
 #include <Global.h>
-#include <Scene/Bounds.h>
+#include <Geometry/Bounds.h>
 
 
 namespace just {

@@ -1,5 +1,5 @@
 
-#include <Scene/Sphere.h>
+#include <Geometry/Sphere.h>
 
 namespace just{
 
