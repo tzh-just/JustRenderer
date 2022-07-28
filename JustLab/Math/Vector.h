@@ -254,7 +254,7 @@ inline Vector<N, T> &operator/=(Vector<N, T> &v, U k) {
 
 //比较
 template<size_t N, typename T>
-inline bool operator<(Vector<N, T> &v1, const Vector<N, T> &v2) {
+inline bool operator<(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   for (size_t i = 0; i < N; ++i) {
     if (v1[i] >= v2[i]) {
       return false;
@@ -264,7 +264,7 @@ inline bool operator<(Vector<N, T> &v1, const Vector<N, T> &v2) {
 }
 
 template<size_t N, typename T>
-inline bool operator>(Vector<N, T> &v1, const Vector<N, T> &v2) {
+inline bool operator>(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   for (size_t i = 0; i < N; ++i) {
     if (v1[i] <= v2[i]) {
       return false;
@@ -274,7 +274,7 @@ inline bool operator>(Vector<N, T> &v1, const Vector<N, T> &v2) {
 }
 
 template<size_t N, typename T>
-inline bool operator<=(Vector<N, T> &v1, const Vector<N, T> &v2) {
+inline bool operator<=(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   for (size_t i = 0; i < N; ++i) {
     if (v1[i] > v2[i]) {
       return false;
@@ -284,7 +284,7 @@ inline bool operator<=(Vector<N, T> &v1, const Vector<N, T> &v2) {
 }
 
 template<size_t N, typename T>
-inline bool operator>=(Vector<N, T> &v1, const Vector<N, T> &v2) {
+inline bool operator>=(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   for (size_t i = 0; i < N; ++i) {
     if (v1[i] < v2[i]) {
       return false;
@@ -360,6 +360,8 @@ template<size_t N, typename T, typename U>
 inline Vector<N, T> Lerp(const Vector<N, T> &v1, const Vector<N, T> &v2, U alpha) {
   return v1 * (1 - alpha) + v2;
 }
+
+using Vector3i = Vector<3, int>;
 
 using Vector2f = Vector<2, float>;
 using Vector3f = Vector<3, float>;

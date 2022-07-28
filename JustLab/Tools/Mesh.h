@@ -1,6 +1,3 @@
-//================================================
-// 网格
-//================================================
 
 #pragma once
 
@@ -8,18 +5,18 @@
 #include <Math/Vector.h>
 #include <Geometry/Bounds.h>
 
-namespace just{
+namespace just {
 
-struct Face {
-  Vector3f indices[3];
-};
 
 struct Mesh {
-  std::vector<Face> faces;
+  std::vector<Vector3i> faces;
   std::vector<Vector3f> positions;
   std::vector<Vector3f> normals;
   std::vector<Vector2f> uvs;
   Bounds3f bbox;
+
+  Bounds3f GetFaceBBox(size_t index);
+
 };
 
 }

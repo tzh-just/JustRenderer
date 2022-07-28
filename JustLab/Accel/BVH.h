@@ -8,9 +8,9 @@
 
 namespace just {
 
-struct BVH : Accel {
+struct BVH : public Accel {
 
-  void Build() const override = 0;
+  void Divide(size_t n) override = 0;
   void Intersect(const Ray3f &ray) override = 0;
 
 };

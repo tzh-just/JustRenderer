@@ -12,5 +12,15 @@ include_directories(
 
 add_executable(
         TestMath
+        JustLab/Math/Vector.h
+        JustLab/Math/Matrix.h
+        JustLab/Math/Transform.h
+        JustLab/Math/Distribution.h
+        JustLab/Math/RNG.h
         Test/MathTester.cpp
+)
+
+add_executable(
+        Application
+        Test/App.cpp
 )
