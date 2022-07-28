@@ -34,11 +34,11 @@ struct Accel {
 
   virtual void Divide(size_t n, std::vector<AccelNode> *children) = 0;
 
-  bool RayIntersect(const Ray3f &ray, HitRecord *it);
+  bool Intersect(const Ray3f &ray, HitRecord *it, bool shadow);
 
-  bool ShadowIntersect(const Ray3f &ray);
+  bool Intersect(const Ray3f &ray, bool shadow);
 
-  virtual void Traverse(const Ray3f &ray) = 0;
+  bool Traverse(size_t n, Ray3f *ray);
 
   virtual std::pair<size_t, size_t> GetLimits() = 0;
 

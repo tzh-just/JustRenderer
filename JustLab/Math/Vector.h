@@ -180,6 +180,16 @@ inline Vector<N, T> operator*(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   return tmp;
 }
 
+//除法
+template<size_t N, typename T>
+inline Vector<N, T> operator/(const Vector<N, T> &v1, const Vector<N, T> &v2) {
+  Vector<N, T> tmp;
+  for (size_t i = 0; i < N; ++i) {
+    tmp[i] = v1[i] / v2[i];
+  }
+  return tmp;
+}
+
 //赋值加
 template<size_t N, typename T>
 inline Vector<N, T> &operator+=(Vector<N, T> &v1, const Vector<N, T> &v2) {
@@ -203,6 +213,15 @@ template<size_t N, typename T>
 inline Vector<N, T> &operator*=(Vector<N, T> &v1, const Vector<N, T> &v2) {
   for (size_t i = 0; i < N; ++i) {
     v1[i] *= v2[i];
+  }
+  return v1;
+}
+
+//赋值除
+template<size_t N, typename T>
+inline Vector<N, T> &operator/=(Vector<N, T> &v1, const Vector<N, T> &v2) {
+  for (size_t i = 0; i < N; ++i) {
+    v1[i] /= v2[i];
   }
   return v1;
 }

@@ -70,9 +70,6 @@ void BVH::DivideBySAH(AccelNode *node, AccelNode *node_left, AccelNode *node_rig
   }
 }
 
-void BVH::Traverse(const Ray3f &ray) {
-
-}
 
 std::pair<size_t, size_t> BVH::GetLimits() {
   return {12, 32};

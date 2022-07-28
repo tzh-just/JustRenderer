@@ -8,9 +8,9 @@
 #include <Math/Vector.h>
 #include <Scene/Ray.h>
 
-namespace just{
+namespace just {
 
-template<int N, typename T>
+template<size_t N, typename T>
 struct Bounds {
   Vector<N, T> min;
   Vector<N, T> max;
@@ -18,24 +18,45 @@ struct Bounds {
   Bounds() : min(MaxValue<T>()), max(MinValue<T>()) {}
 
   Bounds(const Vector<N, T> &v1, const Vector<N, T> &v2) : min(v1), max(v2) {}
+};
 
-  bool Intersect(const Ray3f &ray);
+template<typename T>
+struct Bounds<2, T> {
+  Vector<2, T> min;
+  Vector<2, T> max;
 
-  void Expand(const Bounds &bbox);
+  Bounds() : min(MaxValue<T>()), max(MinValue<T>()) {}
 
-  void Expand(const Vector3f &point);
+  Bounds(const Vector<2, T> &v1, const Vector<2, T> &v2) : min(v1), max(v2) {}
 
-  Vector<N, T> Centroid();
+};
 
-  Vector<N, T> Corner(size_t index);
+template<typename T>
+struct Bounds<3, T> {
+
+  Vector<3, T> min;
+  Vector<3, T> max;
+
+  Bounds() : min(MaxValue<T>()), max(MinValue<T>()) {}
+
+  Bounds(const Vector<3, T> &v1, const Vector<3, T> &v2) : min(v1), max(v2) {}
+
+  bool Intersect(const Ray<3,T> &ray);
+
+  void Expand(const Bounds<3,T> &bbox);
+
+  void Expand(const Vector<3,T> &point);
+
+  Vector<3, T> Centroid();
+
+  Vector<3, T> Corner(size_t index);
 
   T SurfaceArea() const;
 
-  size_t MajorAxis() const;
+  size_t MajorAxis();
 
-  size_t MinorAxis() const;
+  size_t MinorAxis();
 };
-
 
 //输出
 //----------------------------------------------------------------------------------------------------------

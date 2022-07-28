@@ -9,7 +9,7 @@ void Accel::InitMesh(Mesh *mesh) {
 }
 
 void Accel::Build() {
-  if (!mesh_) return;
+  assert(mesh_);
 
   //初始化根节点
   auto root = AccelNode(mesh_->bbox, mesh_->faces.size());
@@ -25,13 +25,17 @@ void Accel::Build() {
   std::queue<size_t> q;
   q.push(0);
 
-  auto children = std::vector<AccelNode>();
+  //初始化子节点集合
+  std::vector<AccelNode> children;
+
+  //获取构建的限制常量
   auto [kMinNumFaces, kMaxDepth] = GetLimits();
+
   //构建树
   while (!q.empty()) {
     size_t size = q.size();//层次遍历
     for (size_t i = 0; i < size; ++i) {
-      auto& node = tree_[q.front()];
+      auto &node = tree_[q.front()];
       //判断深度和图元数量是否超过符合限制
       if (node.faces_index.size() > kMinNumFaces &&
           depth_curr_ > kMaxDepth) {
@@ -56,18 +60,50 @@ void Accel::Build() {
     depth_curr_++;//记录树深度
   }
 
+  //统计数据
   std::cout << "[max depth]: " << depth_curr_ << std::endl;
   std::cout << "[node count]: " << count_node_ << std::endl;
   std::cout << "[leaf count]: " << count_leaf_ << std::endl;
 }
 
-bool Accel::RayIntersect(const Ray3f &ray, HitRecord *it) {
+bool Accel::Intersect(const Ray3f &ray, HitRecord *it, bool shadow = false) {
+  Ray tmp = ray;
+  bool found = Traverse(0, &tmp);
 
+  //检测阴影则直接返回相交结果
+  if (shadow) {
+    return found;
+  }
+
+  //记录相交信息
+  if (found) {
+    //本地坐标系
+
+    //
+  }
+
+  return found;
 }
 
-bool Accel::ShadowIntersect(const Ray3f &ray){
-  HitRecord record;
-  return RayIntersect(ray, &record);
+bool Accel::Intersect(const Ray3f &ray, bool shadow = true) {
+  HitRecord unused;
+  return Intersect(ray, &unused, shadow);
+}
+
+bool Accel::Traverse(size_t n, Ray3f *ray) {
+  auto &node = tree_[n];
+
+  if (!node.bbox.Intersect(*ray)) {
+    return false;
+  }
+
+  bool hit = false;
+
+  if (node.child == 0) {
+    for (auto &f : node.faces_index){
+
+    }
+  }
 }
 
 }

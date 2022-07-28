@@ -27,7 +27,7 @@ void OctTree::Divide(size_t n, std::vector<AccelNode> *children) {
     children->emplace_back(node_sub);
   }
 }
-void OctTree::Traverse(const Ray3f &ray) {
+bool OctTree::Traverse(size_t n, Ray3f *ray) {
 
 }
 

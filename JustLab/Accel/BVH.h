@@ -17,7 +17,6 @@ class BVH : public Accel {
  public:
   void Divide(size_t n, std::vector<AccelNode> *children) override = 0;
   void DivideBySAH(AccelNode *node, AccelNode *node_left, AccelNode *node_right);
-  void Traverse(const Ray3f &ray) override;
   std::pair<size_t, size_t> GetLimits() override;
 
   BVHMode mode = BVHMode::SAH;
