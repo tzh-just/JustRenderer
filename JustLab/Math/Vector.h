@@ -8,42 +8,42 @@
 
 namespace just {
 
-template<int N, typename T>
+template<size_t N, typename T>
 struct Vector {
   T data[N];
 
   Vector() {
-    for (int i = 0; i < N; ++i) {
+    for (size_t i = 0; i < N; ++i) {
       data[i] = 0;
     }
   }
 
   explicit Vector(T val) {
-    for (int i = 0; i < N; ++i) {
+    for (size_t i = 0; i < N; ++i) {
       data[i] = val;
     }
   }
 
   Vector(const Vector<N, T> &other) {
-    for (int i = 0; i < N; ++i) {
+    for (size_t i = 0; i < N; ++i) {
       data[i] = other.data[i];
     }
   }
 
   Vector(const std::initializer_list<T> &list) {
     auto it = list.begin();
-    for (int i = 0; i < N; ++i) {
+    for (size_t i = 0; i < N; ++i) {
       data[i] = *it++;
     }
   }
 
-  T &operator[](int i) {
-    assert(i < N && i >= 0);
+  T &operator[](size_t i) {
+    assert(i < N);
     return data[i];
   }
 
-  T operator[](int i) const {
-    assert(i < N && i >= 0);
+  T operator[](size_t i) const {
+    assert(i < N);
     return data[i];
   }
 };
@@ -63,13 +63,13 @@ struct Vector<2, T> {
 
   Vector(T v1, T v2) : x(v1), y(v2) {}
 
-  T &operator[](int i) {
-    assert(i < 2 && i >= 0);
+  T &operator[](size_t i) {
+    assert(i < 2);
     return data[i];
   }
 
-  T operator[](int i) const {
-    assert(i < 2 && i >= 0);
+  T operator[](size_t i) const {
+    assert(i < 2);
     return data[i];
   }
 };
@@ -89,13 +89,13 @@ struct Vector<3, T> {
 
   Vector(T v1, T v2, T v3) : x(v1), y(v2), z(v3) {}
 
-  T &operator[](int i) {
-    assert(i < 3 && i >= 0);
+  T &operator[](size_t i) {
+    assert(i < 3);
     return data[i];
   }
 
-  T operator[](int i) const {
-    assert(i < 3 && i >= 0);
+  T operator[](size_t i) const {
+    assert(i < 3);
     return data[i];
   }
 };
@@ -115,23 +115,23 @@ struct Vector<4, T> {
 
   Vector(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
 
-  T &operator[](int i) {
-    assert(i < 4 && i >= 0);
+  T &operator[](size_t i) {
+    assert(i < 4);
     return data[i];
   }
 
-  T operator[](int i) const {
-    assert(i < 4 && i >= 0);
+  T operator[](size_t i) const {
+    assert(i < 4);
     return data[i];
   }
 
 };
 
 //输出
-template<int N, typename T>
+template<size_t N, typename T>
 inline std::ostream &operator<<(std::ostream &os, const Vector<N, T> &v) {
   os << "(";
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     os << v.data[i];
     if (i + 1 != N)
       os << ",";
@@ -141,121 +141,121 @@ inline std::ostream &operator<<(std::ostream &os, const Vector<N, T> &v) {
 }
 
 //取反
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> operator-(const Vector<N, T> &v) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = -v[i];
   }
   return tmp;
 }
 
 //加法
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> operator+(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = v1[i] + v2[i];
   }
   return tmp;
 }
 
 //减法
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> operator-(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = v1[i] - v2[i];
   }
   return tmp;
 }
 
 //乘法
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> operator*(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = v1[i] * v2[i];
   }
   return tmp;
 }
 
 //赋值加
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> &operator+=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     v1[i] += v2[i];
   }
   return v1;
 }
 
 //赋值减
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> &operator-=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     v1[i] -= v2[i];
   }
   return v1;
 }
 
 //赋值乘
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> &operator*=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     v1[i] *= v2[i];
   }
   return v1;
 }
 
 //数乘
-template<int N, typename T, typename U>
+template<size_t N, typename T, typename U>
 inline Vector<N, T> operator*(const Vector<N, T> &v1, U k) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = v1[i] * static_cast<T>(k);
   }
   return tmp;
 }
 
-template<int N, typename T, typename U>
+template<size_t N, typename T, typename U>
 inline Vector<N, T> operator*(U k, const Vector<N, T> &v1) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = v1[i] * static_cast<T>(k);
   }
   return tmp;
 }
 
-template<int N, typename T, typename U>
+template<size_t N, typename T, typename U>
 inline Vector<N, T> operator/(const Vector<N, T> &v1, U k) {
   Vector<N, T> tmp;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     tmp[i] = v1[i] / static_cast<T>(k);
   }
   return tmp;
 }
 
 //赋值数乘
-template<int N, typename T, typename U>
+template<size_t N, typename T, typename U>
 inline Vector<N, T> &operator*=(Vector<N, T> &v, U k) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     v[i] *= static_cast<T>(k);
   }
   return v;
 }
 
-template<int N, typename T, typename U>
+template<size_t N, typename T, typename U>
 inline Vector<N, T> &operator/=(Vector<N, T> &v, U k) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     v[i] /= static_cast<T>(k);
   }
   return v;
 }
 
 //比较
-template<int N, typename T>
+template<size_t N, typename T>
 inline bool operator<(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     if (v1[i] >= v2[i]) {
       return false;
     }
@@ -263,9 +263,9 @@ inline bool operator<(Vector<N, T> &v1, const Vector<N, T> &v2) {
   return true;
 }
 
-template<int N, typename T>
+template<size_t N, typename T>
 inline bool operator>(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     if (v1[i] <= v2[i]) {
       return false;
     }
@@ -273,9 +273,9 @@ inline bool operator>(Vector<N, T> &v1, const Vector<N, T> &v2) {
   return true;
 }
 
-template<int N, typename T>
+template<size_t N, typename T>
 inline bool operator<=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     if (v1[i] > v2[i]) {
       return false;
     }
@@ -283,9 +283,9 @@ inline bool operator<=(Vector<N, T> &v1, const Vector<N, T> &v2) {
   return true;
 }
 
-template<int N, typename T>
+template<size_t N, typename T>
 inline bool operator>=(Vector<N, T> &v1, const Vector<N, T> &v2) {
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     if (v1[i] < v2[i]) {
       return false;
     }
@@ -294,20 +294,20 @@ inline bool operator>=(Vector<N, T> &v1, const Vector<N, T> &v2) {
 }
 
 //长度
-template<int N, typename T>
+template<size_t N, typename T>
 inline T Length(const Vector<N, T> &v) {
   T sum = 0;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     sum += v[i] * v[i];
   }
   return std::sqrt(sum);
 }
 
 //点积
-template<int N, typename T>
+template<size_t N, typename T>
 inline T Dot(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   T sum = 0;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     sum += v1[i] * v2[i];
   }
   return sum;
@@ -326,37 +326,37 @@ inline Vector<3, T> Cross(const Vector<3, T> &v1, const Vector<3, T> &v2) {
 }
 
 //归一化
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> Normalize(const Vector<N, T> &v) {
   T sum = 0;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     sum += v[i] * v[i];
   }
   return v / std::sqrt(sum);
 }
 
 //各维度最小值
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> MinVector(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   Vector<N, T> min;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     min[i] = std::min(v1[i], v2[i]);
   }
   return min;
 }
 
 //各维度最大值
-template<int N, typename T>
+template<size_t N, typename T>
 inline Vector<N, T> MaxVector(const Vector<N, T> &v1, const Vector<N, T> &v2) {
   Vector<N, T> max;
-  for (int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     max[i] = std::max(v1[i], v2[i]);
   }
   return max;
 }
 
 //插值
-template<int N, typename T, typename U>
+template<size_t N, typename T, typename U>
 inline Vector<N, T> Lerp(const Vector<N, T> &v1, const Vector<N, T> &v2, U alpha) {
   return v1 * (1 - alpha) + v2;
 }
