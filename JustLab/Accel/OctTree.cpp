@@ -4,14 +4,11 @@
 namespace just {
 
 void OctTree::Divide(size_t n) {
-
+  //判断深度和图元数量是否超过符合限制
   if (tree_[n].faces_index.size() < COUNT_FACE_OCT_MIN)
     return;
   if (depth_curr_ > DEPTH_OCT_MAX)
     return;
-
-  //设置子节点索引
-  tree_[n].child = tree_.size();
 
   //划分八个子节点的包围盒
   Vector3f center = tree_[n].bbox.Centroid();
@@ -34,6 +31,9 @@ void OctTree::Divide(size_t n) {
 
     }
 
+    //设置子节点索引
+    tree_[n].child = tree_.size();
+
     //辅助队列将子节点索引入队
     queue_.push(tree_.size());
     //将子节点加入树
@@ -43,7 +43,7 @@ void OctTree::Divide(size_t n) {
   count_node_ += 8;
   count_node_ += 7;
 }
-void OctTree::Intersect(const Ray3f &ray) {
+void OctTree::Traverse(const Ray3f &ray) {
 
 }
 

@@ -11,7 +11,7 @@ namespace just {
 struct BVH : public Accel {
 
   void Divide(size_t n) override = 0;
-  void Intersect(const Ray3f &ray) override = 0;
+  void Traverse(const Ray3f &ray) override = 0;
 
 };
 }

@@ -73,7 +73,7 @@ void BVH::Divide(size_t n){
 }
 
 
-void BVH::Intersect(const Ray3f &ray){
+void BVH::Traverse(const Ray3f &ray){
 
 }
 

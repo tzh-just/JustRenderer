@@ -39,4 +39,9 @@ void Accel::Build() {
   std::cout << "[node count]: " << count_node_ << std::endl;
   std::cout << "[leaf count]: " << count_leaf_ << std::endl;
 }
+
+void Accel::Intersect(const Ray3f &ray){
+
+}
+
 }

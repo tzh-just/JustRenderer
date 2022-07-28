@@ -35,7 +35,9 @@ struct Accel {
 
   virtual void Divide(size_t n) = 0;
 
-  virtual void Intersect(const Ray3f &ray) = 0;
+  void Intersect(const Ray3f &ray);
+
+  virtual void Traverse(const Ray3f &ray) = 0;
 
  protected:
 
