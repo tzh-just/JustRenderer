@@ -8,12 +8,20 @@
 
 namespace just {
 
+enum BVHMode{
+  BVH = 0x01,
+  SAH = 0x02,
+};
+
 class BVH : public Accel {
  public:
   void Divide(size_t n, std::vector<AccelNode> *children) override = 0;
+  void DivideBySAH(AccelNode *node, AccelNode *node_left, AccelNode *node_right);
   void Traverse(const Ray3f &ray) override;
-  std::pair<int, int> GetLimits() override;
+  std::pair<size_t, size_t> GetLimits() override;
+
+  BVHMode mode = BVHMode::SAH;
  protected:
-  size_t COUNT_BUCKET = 10;
+  const size_t kNumBuckets = 10;
 };
 }

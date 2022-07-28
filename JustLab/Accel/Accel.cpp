@@ -17,42 +17,39 @@ void Accel::Build() {
     root.faces_index[i] = i;
   }
 
-  count_leaf_ = 1;
-  count_node_ = 1;
-  depth_curr_ = 1;
-
   //初始化树
   tree_ = std::vector<AccelNode>();
   tree_.emplace_back(root);
 
   //初始化辅助队列
-  queue_ = std::queue<size_t>();
-  queue_.push(0);
+  std::queue<size_t> q;
+  q.push(0);
 
   auto children = std::vector<AccelNode>();
-  auto [COUNT_LIMIT, DEPTH_LIMIT] = GetLimits();
+  auto [kMinNumFaces, kMaxDepth] = GetLimits();
   //构建树
-  while (!queue_.empty()) {
-    size_t size = queue_.size();//层次遍历
+  while (!q.empty()) {
+    size_t size = q.size();//层次遍历
     for (size_t i = 0; i < size; ++i) {
+      auto& node = tree_[q.front()];
       //判断深度和图元数量是否超过符合限制
-      if (tree_[queue_.front()].faces_index.size() > COUNT_LIMIT &&
-          depth_curr_ > DEPTH_LIMIT) {
+      if (node.faces_index.size() > kMinNumFaces &&
+          depth_curr_ > kMaxDepth) {
         //设置子节点起始索引
-        tree_[queue_.front()].child = tree_.size();
+        node.child = tree_.size();
         //检测是否可以分割当前节点的空间
-        Divide(queue_.front(), &children);
+        Divide(q.front(), &children);
         --count_leaf_;
         //将分离的子节点加入树，索引入队
         for (auto &child : children) {
-          queue_.push(tree_.size());
+          q.push(tree_.size());
           tree_.emplace_back(child);
           ++count_leaf_;
           ++count_node_;
         }
       }
       //清理无用数据
-      queue_.pop();
+      q.pop();
       children.clear();
       children.shrink_to_fit();
     }
@@ -64,8 +61,13 @@ void Accel::Build() {
   std::cout << "[leaf count]: " << count_leaf_ << std::endl;
 }
 
-void Accel::Intersect(const Ray3f &ray) {
+bool Accel::RayIntersect(const Ray3f &ray, HitRecord *it) {
 
+}
+
+bool Accel::ShadowIntersect(const Ray3f &ray){
+  HitRecord record;
+  return RayIntersect(ray, &record);
 }
 
 }

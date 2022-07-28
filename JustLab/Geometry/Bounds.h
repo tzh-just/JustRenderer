@@ -29,11 +29,11 @@ struct Bounds {
 
   Vector<N, T> Corner(size_t index);
 
-  T SurfaceArea();
+  T SurfaceArea() const;
 
-  size_t MajorAxis();
+  size_t MajorAxis() const;
 
-  size_t MinorAxis();
+  size_t MinorAxis() const;
 };
 
 

@@ -10,6 +10,7 @@
 #include <Scene/Ray.h>
 #include <Geometry/Bounds.h>
 #include <Tools/Mesh.h>
+#include "Scene/HitRecord.h"
 
 namespace just {
 
@@ -27,28 +28,27 @@ struct AccelNode {
 struct Accel {
  public:
 
-  Accel() : mesh_(), tree_(), queue_() {}
-
   void Build();
 
   void InitMesh(Mesh *mesh);
 
   virtual void Divide(size_t n, std::vector<AccelNode> *children) = 0;
 
-  void Intersect(const Ray3f &ray);
+  bool RayIntersect(const Ray3f &ray, HitRecord *it);
+
+  bool ShadowIntersect(const Ray3f &ray);
 
   virtual void Traverse(const Ray3f &ray) = 0;
 
-  virtual std::pair<int, int> GetLimits() = 0;
+  virtual std::pair<size_t, size_t> GetLimits() = 0;
 
  protected:
   std::shared_ptr<Mesh> mesh_;
   std::vector<AccelNode> tree_;
-  std::queue<size_t> queue_;
 
-  int depth_curr_ = 0;
-  int count_leaf_ = 0;
-  int count_node_ = 0;
+  int depth_curr_ = 1;
+  int count_leaf_ = 1;
+  int count_node_ = 1;
 };
 
 }

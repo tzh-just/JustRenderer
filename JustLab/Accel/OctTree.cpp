@@ -31,7 +31,7 @@ void OctTree::Traverse(const Ray3f &ray) {
 
 }
 
-std::pair<int, int> OctTree::GetLimits() {
+std::pair<size_t, size_t> OctTree::GetLimits() {
   return {16, 12};
 }
 

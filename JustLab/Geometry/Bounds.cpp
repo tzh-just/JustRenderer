@@ -5,7 +5,7 @@ namespace just {
 
 template<int N, typename T>
 //求包围盒最长的维度
-size_t Bounds<N, T>::MajorAxis() {
+size_t Bounds<N, T>::MajorAxis() const{
   T major;
   Vector3f diff = max - min;
   for (int i = 1; i < N; ++i) {
@@ -18,7 +18,7 @@ size_t Bounds<N, T>::MajorAxis() {
 
 //求包围盒最短的维度
 template<int N, typename T>
-size_t Bounds<N, T>::MinorAxis() {
+size_t Bounds<N, T>::MinorAxis() const{
   T minor;
   Vector3f diff = max - min;
   for (int i = 1; i < N; ++i) {
@@ -31,7 +31,7 @@ size_t Bounds<N, T>::MinorAxis() {
 
 template<int N, typename T>
 //求包围盒表面积
-T Bounds<N, T>::SurfaceArea() {
+T Bounds<N, T>::SurfaceArea() const{
   T area = 0;
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
