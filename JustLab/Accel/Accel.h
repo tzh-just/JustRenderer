@@ -33,20 +33,15 @@ struct Accel {
 
   void InitMesh(Mesh *mesh);
 
-  virtual void Divide(size_t n) = 0;
+  virtual void Divide(size_t n, std::vector<AccelNode> *children) = 0;
 
   void Intersect(const Ray3f &ray);
 
   virtual void Traverse(const Ray3f &ray) = 0;
 
+  virtual std::pair<int, int> GetLimits() = 0;
+
  protected:
-
-  static constexpr size_t COUNT_FACE_OCT_MIN = 16;
-  static constexpr size_t COUNT_FACE_BVH_MIN = 16;
-  static constexpr size_t DEPTH_OCT_MAX = 12;
-  static constexpr size_t DEPTH_BVH_MAX = 32;
-  static constexpr size_t COUNT_BUCKET = 10;
-
   std::shared_ptr<Mesh> mesh_;
   std::vector<AccelNode> tree_;
   std::queue<size_t> queue_;
