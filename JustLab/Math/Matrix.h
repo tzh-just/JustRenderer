@@ -109,7 +109,7 @@ inline Matrix<ROW, COL, T> operator-(const Matrix<ROW, COL, T> &mat1, const Matr
 }
 
 //矩阵左乘
-template<size_t ROW, int COM, size_t COL, typename T>
+template<size_t ROW, size_t COM, size_t COL, typename T>
 inline Matrix<ROW, COL, T> operator*(const Matrix<ROW, COM, T> &mat1, const Matrix<COM, COL, T> &mat2) {
   Matrix<ROW, COL, T> tmp;
   for (size_t row = 0; row < ROW; row++) {
@@ -178,7 +178,7 @@ inline T Det(const Matrix<2, 2, T> &mat) {
 }
 
 //多阶行列式
-template<int N, typename T>
+template<size_t N, typename T>
 inline T Det(const Matrix<N, N, T> &mat) {
   T sum = 0;
   for (size_t col = 0; col < N; col++) {
@@ -189,7 +189,7 @@ inline T Det(const Matrix<N, N, T> &mat) {
 
 //余子式
 template<size_t ROW, size_t COL, typename T>
-inline Matrix<ROW - 1, COL - 1, T> Minor(const Matrix<ROW, COL, T> &mat, int i, int j) {
+inline Matrix<ROW - 1, COL - 1, T> Minor(const Matrix<ROW, COL, T> &mat, size_t i, size_t j) {
   Matrix<ROW - 1, COL - 1, T> minor;
   for (size_t row = 0; row < ROW - 1; row++) {
     for (size_t col = 0; col < COL - 1; col++) {
@@ -200,7 +200,7 @@ inline Matrix<ROW - 1, COL - 1, T> Minor(const Matrix<ROW, COL, T> &mat, int i, 
 }
 
 //代数余子式
-template<int N, typename T>
+template<size_t N, typename T>
 inline T Cofactor(const Matrix<N, N, T> &mat, size_t row, size_t col) {
   return Det(Minor(mat, row, col)) * ((row + col) % 2 ? -1 : 1);
 }
@@ -218,7 +218,7 @@ inline Matrix<COL, ROW, T> Transpose(const Matrix<ROW, COL, T> &mat) {
 };
 
 //伴随矩阵：元素下标对应代数余子式组成的矩阵的转置
-template<int N, typename T>
+template<size_t N, typename T>
 inline Matrix<N, N, T> Adjoint(const Matrix<N, N, T> &mat) {
   Matrix<N, N, T> adjoint;
   for (size_t row = 0; row < N; row++) {
@@ -230,7 +230,7 @@ inline Matrix<N, N, T> Adjoint(const Matrix<N, N, T> &mat) {
 }
 
 //逆矩阵
-template<int N, typename T>
+template<size_t N, typename T>
 inline Matrix<N, N, T> Invert(const Matrix<N, N, T> &mat) {
   return Adjoint(mat) / Det(mat);
 }
