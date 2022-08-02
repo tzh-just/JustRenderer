@@ -1,25 +1,27 @@
 //================================================
-// 射线与几何体相交的信息
+// 射线与几何体相交信息
 //================================================
 
 #pragma once
 
 #include <Global.h>
-#include <Math/Vector.h>
+#include <Math/Vector3.h>
 
-namespace just {
+namespace just
+{
 
-struct HitRecord {
-  Vector3f position;
-  Vector3f normal;
+    struct HitRecord
+    {
+        Vector3f position;
+        Vector3f normal;
+        float time;
 
-  float time;
+        constexpr HitRecord() : position(), normal(), time() {}
 
-  HitRecord() : position(), normal(), time() {}
-};
-
-inline std::ostream &operator<<(std::ostream &os, const HitRecord &record) {
-  return os << "{position = " << record.position << ", normal   = " << record.normal << "}";
-}
+        friend std::ostream& operator<<(std::ostream& os, const HitRecord& record)
+        {
+            return os << "{position = " << record.position << ", normal   = " << record.normal << "}";
+        }
+    };
 
 }

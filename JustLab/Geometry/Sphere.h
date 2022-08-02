@@ -5,25 +5,51 @@
 #pragma once
 
 #include <Global.h>
-#include <Math/Vector.h>
+#include <Math/Vector3.h>
 #include <Scene/HitRecord.h>
-#include <Scene/Ray.h>
+#include <Scene/Ray3.h>
 
-namespace just{
+namespace just
+{
 
-struct Sphere {
-  Vector3f position;
-  float radius;
+    struct Sphere
+    {
+        Vector3f position;
+        float radius;
 
-  Sphere() : position(), radius() {}
+        constexpr Sphere() : position(), radius() {}
 
-  Sphere(const Vector3f &pos_, float r) : position(pos_), radius(r) {}
+        constexpr Sphere(const Vector3f& pos_, float r) : position(pos_), radius(r) {}
 
-  bool Intersect(const Ray3f &ray, HitRecord *record) const; //球体与光线求交
-};
+        //球体与光线求交
+        constexpr bool Sphere::Intersect(const Ray3f& ray, HitRecord* record) const
+        {
+            //t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
+            Vector3f op = ray.origin - position;
+            float h = op.Dot(ray.direction);//h=b/2
+            float det = h * h - op.Dot(op) + radius * radius;
 
-inline std::ostream &operator<<(std::ostream &os, const Sphere &sphere) {
-  return os << sphere.position << ", " << "radius   = " << sphere.radius;
-}
+            //判断交点时间是否最近
+            if (det < 0)
+                return false;
+            det = sqrt(det);
+            record->time = -h - det;
+            if (record->time < kEpsilon || record->time > ray.time)
+                record->time = -h + det;
+            if (record->time < kEpsilon || record->time > ray.time)
+                return false;
+
+            //记录相交信息
+            record->position = ray.origin + ray.direction * record->time;
+            record->normal = (record->position - position).Normalize();
+            return true;
+        }
+
+        //输出
+        friend std::ostream& operator<<(std::ostream& os, const Sphere& sphere)
+        {
+            return os << sphere.position << ", " << "radius   = " << sphere.radius;
+        }
+    };
 
 }
