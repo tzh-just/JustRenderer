@@ -1,5 +1,5 @@
 //================================================
-// 层次包围体
+// 层次包围体（二叉树）
 //================================================
 
 #pragma once
@@ -40,9 +40,10 @@ namespace just
                 }
         );
 
-        //分桶
+        //SAH方法
         float minCost = std::numeric_limits<float>::infinity();
         std::vector<size_t> leftIndexes, rightIndexes;
+        //分桶
         for (size_t i = 1; i < kNumBuckets; i++)
         {
             auto begin = node.facesIndexes.begin();
