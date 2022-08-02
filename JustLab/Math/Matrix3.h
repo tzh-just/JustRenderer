@@ -5,7 +5,6 @@
 #pragma once
 
 #include <Global.h>
-
 #include <Math/Vector3.h>
 #include <Math/Matrix2.h>
 

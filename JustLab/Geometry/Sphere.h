@@ -6,8 +6,8 @@
 
 #include <Global.h>
 #include <Math/Vector3.h>
-#include <Scene/HitRecord.h>
-#include <Scene/Ray3.h>
+#include "HitRecord.h"
+#include "Ray3.h"
 
 namespace just
 {

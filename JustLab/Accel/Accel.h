@@ -7,10 +7,10 @@
 #include <queue>
 #include <vector>
 #include <Global.h>
-#include <Scene/Ray3.h>
+#include "Geometry/Ray3.h"
 #include <Geometry/BoundingBox3.h>
 #include <Tools/Mesh.h>
-#include <Scene/HitRecord.h>
+#include "Geometry/HitRecord.h"
 
 namespace just
 {
