@@ -1,5 +1,5 @@
 //================================================
-// 三维边界
+// 三维包围盒
 //================================================
 
 #pragma once
@@ -11,16 +11,16 @@
 namespace just
 {
     template<typename T>
-    struct Bounds3
+    struct BoundingBox3
     {
-        using Bounds = Bounds3<T>;
+        using BoundingBox = BoundingBox3<T>;
         using Vector = Vector3<T>;
 
         Vector min, max;
 
-        constexpr Bounds3() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
+        constexpr BoundingBox3() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
 
-        constexpr Bounds3(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
+        constexpr BoundingBox3(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
 
         //包围盒最长维度
         constexpr size_t MajorAxis() const
@@ -50,7 +50,7 @@ namespace just
         }
 
         //扩展包围盒
-        constexpr void ExpandBy(const Bounds& bbox)
+        constexpr void ExpandBy(const BoundingBox& bbox)
         {
             for (size_t i = 0; i < 3; ++i)
             {
@@ -86,7 +86,7 @@ namespace just
         }
 
         //包围盒重叠
-        bool Overlaps(const Bounds& bbox)
+        bool Overlaps(const BoundingBox& bbox)
         {
             return min < bbox.max && max > bbox.min;
         }
@@ -116,12 +116,12 @@ namespace just
         }
 
         //输出
-        friend std::ostream& operator<<(std::ostream& os, const Bounds& bbox)
+        friend std::ostream& operator<<(std::ostream& os, const BoundingBox& bbox)
         {
             return os << "{" << "min: " << bbox.min << ", max: " << bbox.max << "}";
         }
     };
 
-    using Bounds3f = Bounds3<float>;
+    using BoundingBox3f = BoundingBox3<float>;
 
 }

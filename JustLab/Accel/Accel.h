@@ -8,7 +8,7 @@
 #include <vector>
 #include <Global.h>
 #include <Scene/Ray3.h>
-#include <Geometry/Bounds3.h>
+#include <Geometry/BoundingBox3.h>
 #include <Tools/Mesh.h>
 #include <Scene/HitRecord.h>
 
@@ -17,14 +17,14 @@ namespace just
     struct AccelNode
     {
         size_t child;
-        Bounds3f bbox;
+        BoundingBox3f bbox;
         std::vector<size_t> facesIndexes;
 
         AccelNode() : bbox(), child(0) {}
 
-        explicit AccelNode(const Bounds3f& bbox) : bbox(bbox), child(0) {}
+        explicit AccelNode(const BoundingBox3f& bbox) : bbox(bbox), child(0) {}
 
-        AccelNode(const Bounds3f& bbox, size_t size)
+        AccelNode(const BoundingBox3f& bbox, size_t size)
                 : bbox(bbox), facesIndexes(size), child(0) {}
     };
 

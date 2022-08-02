@@ -65,6 +65,30 @@ namespace just
 
     };
 
+    //各维度最小值
+    template<typename T>
+    constexpr Vector2<T> MinVector(const Vector2<T>& v1, const Vector2<T>& v2)
+    {
+        Vector2<T> min;
+        for (size_t i = 0; i < 2; ++i)
+        {
+            min[i] = std::min(v1[i], v2[i]);
+        }
+        return min;
+    }
+
+    //各维度最大值
+    template<typename T>
+    constexpr Vector2<T> MaxVector(const Vector2<T>& v1, const Vector2<T>& v2)
+    {
+        Vector2<T> max;
+        for (size_t i = 0; i < 2; ++i)
+        {
+            max[i] = std::max(v1[i], v2[i]);
+        }
+        return max;
+    }
+
     using Vector2i = Vector2<int>;
     using Vector2f = Vector2<float>;
 

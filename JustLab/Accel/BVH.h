@@ -52,7 +52,7 @@ namespace just
             rightIndexes = std::vector<size_t>(mid, end);
 
             //合并左右包围盒
-            Bounds3f leftBBox, rightBBox;
+            BoundingBox3f leftBBox, rightBBox;
             for (auto left: leftIndexes)
             {
                 leftBBox.ExpandBy(mesh->GetFaceBBox(left));

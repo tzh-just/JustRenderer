@@ -29,7 +29,7 @@ namespace just
         {
             //根据八个拐角点确定子包围盒
             Vector3f subPoint = node.bbox.Corner(corner);
-            Bounds3f subBBox;
+            BoundingBox3f subBBox;
             for (uint32_t d = 0; d < 3; d++)
             {
                 subBBox.min[d] = std::min(center[d], subPoint[d]);

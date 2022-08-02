@@ -7,7 +7,7 @@
 #include <vector>
 #include <Math/Vector2.h>
 #include <Math/Vector3.h>
-#include <Geometry/Bounds3.h>
+#include <Geometry/BoundingBox3.h>
 
 namespace just
 {
@@ -17,15 +17,15 @@ namespace just
         std::vector<Vector3f> positions;
         std::vector<Vector3f> normals;
         std::vector<Vector2f> uvs;
-        Bounds3f bbox;
+        BoundingBox3f bbox;
         
-        Bounds3f GetFaceBBox(size_t face_index);
+        BoundingBox3f GetFaceBBox(size_t face_index);
         bool Intersect(size_t face_index, Ray3f* ray) const;
     };
 
-    Bounds3f Mesh::GetFaceBBox(size_t face_index)
+    BoundingBox3f Mesh::GetFaceBBox(size_t face_index)
     {
-        Bounds3f bbox_face;
+        BoundingBox3f bbox_face;
         //查询指定三角面的顶点索引
         auto& face = faces[face_index];
         for (int i = 0; i < 3; ++i)
