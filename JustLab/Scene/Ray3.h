@@ -16,11 +16,15 @@ namespace just
 
         Vector origin, direction;
 
-        T time;
+        union{
+            T hitTime;
+            T distance;
+        };
 
-        constexpr Ray3() : origin(), direction(), time(0) {}
 
-        constexpr Ray3(const Vector& orig, const Vector& dir) : origin(orig), direction(dir), time(0) {}
+        constexpr Ray3() : origin(), direction(), hitTime(0) {}
+
+        constexpr Ray3(const Vector& origin, const Vector& direction) : origin(origin), direction(direction), hitTime(0) {}
 
         friend std::ostream& operator<<(std::ostream& os, const Ray& ray)
         {

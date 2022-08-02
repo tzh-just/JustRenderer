@@ -19,27 +19,27 @@ namespace just
         std::vector<Vector2f> uvs;
         BoundingBox3f bbox;
         
-        BoundingBox3f GetFaceBBox(size_t face_index);
-        bool Intersect(size_t face_index, Ray3f* ray) const;
+        BoundingBox3f GetFaceBBox(size_t faceIndex);
+        bool Intersect(size_t faceIndex, Ray3f* ray) const;
     };
 
-    BoundingBox3f Mesh::GetFaceBBox(size_t face_index)
+    BoundingBox3f Mesh::GetFaceBBox(size_t faceIndex)
     {
-        BoundingBox3f bbox_face;
+        BoundingBox3f faceBBox;
         //查询指定三角面的顶点索引
-        auto& face = faces[face_index];
+        auto& face = faces[faceIndex];
         for (int i = 0; i < 3; ++i)
         {
             //遍历三角面的顶点确定其包围盒
             auto& point = positions[face[i]];
-            bbox_face.ExpandBy(point);
+            faceBBox.ExpandBy(point);
         }
-        return bbox_face;
+        return faceBBox;
     }
 
-    bool Mesh::Intersect(size_t face_index, Ray3f* ray) const
+    bool Mesh::Intersect(size_t faceIndex, Ray3f* ray) const
     {
-        auto& face = faces[face_index];
+        auto& face = faces[faceIndex];
         Vector3f edge1 = positions[face.y] - positions[face.x];
         Vector3f edge2 = positions[face.z] - positions[face.y];
 

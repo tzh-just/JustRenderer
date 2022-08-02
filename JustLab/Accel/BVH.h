@@ -16,15 +16,15 @@ namespace just
     public:
         BVH(const Mesh& mesh) : Accel(mesh), minNumFaces(16), maxDepth(32) {}
 
-        void Divide(size_t n, std::vector<AccelNode>* children) override = 0;
+        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
 
         bool Traverse(Ray3f* ray, HitRecord* record, bool shadow) const override;
 
     };
 
-    void BVH::Divide(size_t n, std::vector<AccelNode>* children)
+    void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children)
     {
-        auto& node = tree[n];
+        auto& node = tree[nodeIndex];
 
         AccelNode leftNode, rightNode;
 
@@ -119,7 +119,7 @@ namespace just
                                 return true;
                             }
                             //记录相交信息
-                            record->time = ray->time;
+                            record->hitTime = ray->hitTime;
                             return true;
                         }
                     }//for遍历图元

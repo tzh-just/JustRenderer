@@ -15,14 +15,14 @@ namespace just
 
         OctTree(const Mesh& mesh) : Accel(mesh), minNumFaces(16), maxDepth(12) {}
 
-        void Divide(size_t n, std::vector<AccelNode>* children) override;
+        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
-        bool Traverse(Ray3f* ray, HitRecord* record, bool shadow) const override;
+        bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const override;
     };
 
-    void OctTree::Divide(size_t n, std::vector<AccelNode>* children)
+    void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children)
     {
-        auto& node = tree[n];
+        auto& node = tree[nodeIndex];
         //划分八个子节点的包围盒
         Vector3f center = node.bbox.Centroid();
         for (uint32_t corner = 0; corner < 8; corner++)
@@ -50,7 +50,7 @@ namespace just
         }//for遍历八个子包围盒
     }
 
-    bool OctTree::Traverse(Ray3f* ray, HitRecord* record, bool shadow) const
+    bool OctTree::Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const
     {
 
     }

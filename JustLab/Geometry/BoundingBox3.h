@@ -75,12 +75,12 @@ namespace just
         }
 
         //取包围盒拐角点
-        constexpr Vector Corner(size_t index)
+        constexpr Vector Corner(size_t cornerIndex)
         {
             Vector corner;
             for (size_t i = 0; i < 3; ++i)
             {
-                corner[i] = (index & (1 << i)) ? max[i] : min[i];
+                corner[i] = (cornerIndex & (1 << i)) ? max[i] : min[i];
             }
             return corner;
         }
@@ -107,7 +107,7 @@ namespace just
             //射线与包围盒不相交或者已经和别的包围盒相交
             if (enterTime > exitTime + kEpsilon ||
                 exitTime < 0.0f ||
-                enterTime < ray.time)
+                enterTime < ray.hitTime)
             {
                 return false;
             }

@@ -33,14 +33,14 @@ namespace just
             if (det < 0)
                 return false;
             det = sqrt(det);
-            record->time = -h - det;
-            if (record->time < kEpsilon || record->time > ray.time)
-                record->time = -h + det;
-            if (record->time < kEpsilon || record->time > ray.time)
+            record->hitTime = -h - det;
+            if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
+                record->hitTime = -h + det;
+            if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
                 return false;
 
             //记录相交信息
-            record->position = ray.origin + ray.direction * record->time;
+            record->position = ray.origin + ray.direction * record->hitTime;
             record->normal = (record->position - position).Normalize();
             return true;
         }

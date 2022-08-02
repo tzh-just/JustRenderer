@@ -14,9 +14,9 @@ namespace just
     {
         Vector3f position;
         Vector3f normal;
-        float time;
+        float hitTime;
 
-        constexpr HitRecord() : position(), normal(), time() {}
+        constexpr HitRecord() : position(), normal(), hitTime() {}
 
         friend std::ostream& operator<<(std::ostream& os, const HitRecord& record)
         {

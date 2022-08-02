@@ -52,13 +52,13 @@ namespace just
         virtual void Divide(size_t n, std::vector<AccelNode>* children) = 0;
 
         //射线相交测试
-        bool Intersect(const Ray3f& ray, HitRecord* it, bool shadow);
+        bool Intersect(const Ray3f& ray, HitRecord* it, bool isShadowRay);
 
         //阴影测试
         bool Intersect(const Ray3f& ray, bool shadow);
 
         //遍历子节点
-        virtual bool Traverse(Ray3f* ray, HitRecord* record, bool shadow) const = 0;
+        virtual bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const = 0;
     };
 
     void Accel::Build()
@@ -122,13 +122,13 @@ namespace just
         std::cout << "[leaf count]: " << leafCount << std::endl;
     }
 
-    bool Accel::Intersect(const Ray3f& ray, HitRecord* it, bool shadow = false)
+    bool Accel::Intersect(const Ray3f& ray, HitRecord* it, bool isShadowRay = false)
     {
         Ray3f tmp = ray;
         bool found = Traverse(&tmp, nullptr, false);
 
         //检测阴影则直接返回相交结果
-        if (shadow)
+        if (isShadowRay)
         {
             return found;
         }
