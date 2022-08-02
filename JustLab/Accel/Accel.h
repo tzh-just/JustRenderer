@@ -106,15 +106,18 @@ namespace just
                         tree.emplace_back(child);
                         ++leafCount;
                         ++nodeCount;
-                    }
+                    }//for遍历子节点
                 }
                 //清理无用数据
                 q.pop();
                 children.clear();
                 children.shrink_to_fit();
-            }
+            }//for遍历层
             currDepth++;//记录树深度
-        }
+        }//while遍历树
+
+        //修正无加速结构时的统计数据
+        currDepth = currDepth < maxDepth ? currDepth : maxDepth;
 
         //统计数据
         std::cout << "[max depth]: " << currDepth << std::endl;
