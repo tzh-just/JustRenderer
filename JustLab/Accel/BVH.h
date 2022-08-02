@@ -67,9 +67,13 @@ namespace just
             float leftSA = leftBBox.SurfaceArea();
             float rightSA = rightBBox.SurfaceArea();
             float SA = node.bbox.SurfaceArea();
+            
+            //IntersectCost = 1
+            //TraverseCost = 0.125
+            //TotalCoast = TraverseCost + LeftCount * LeftSurfaceArea/TotalSurfaceArea +  RightCount * RightSurfaceArea/TotalSurfaceArea
             float cost = 0.125f +
-                         static_cast<float>(leftIndexes.size()) * leftSA / SA +
-                         static_cast<float>(rightIndexes.size()) * rightSA / SA;
+                    leftIndexes.size() * leftSA / SA +
+                    rightIndexes.size() * rightSA / SA;
 
             //选取成本最小的分桶方案
             if (cost < minCost)
