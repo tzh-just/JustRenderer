@@ -10,7 +10,7 @@
 #include <memory>
 #include <numeric>
 
-namespace just
+namespace Just
 {
     //全局变量
     constexpr float kPI = 3.14159265358979323846f;

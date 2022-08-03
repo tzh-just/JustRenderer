@@ -6,7 +6,7 @@
 
 #include <Global.h>
 
-namespace just
+namespace Just
 {
 
     template<typename T>
@@ -139,8 +139,6 @@ namespace just
         constexpr T MaxValue() const { return std::max(std::max(x, y), z); }
 
         constexpr T MinValue() const { return std::min(std::min(x, y), z); }
-
-
     };
 
     //各维度最小值

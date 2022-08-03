@@ -8,7 +8,7 @@
 #include <Math/Vector3.h>
 #include <Math/Matrix4.h>
 
-namespace just
+namespace Just
 {
 
     inline Matrix4f RotateX(float angle)

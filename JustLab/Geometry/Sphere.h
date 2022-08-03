@@ -9,7 +9,7 @@
 #include "HitRecord.h"
 #include "Ray3.h"
 
-namespace just
+namespace Just
 {
 
     struct Sphere
@@ -19,7 +19,7 @@ namespace just
 
         constexpr Sphere() : position(), radius() {}
 
-        constexpr Sphere(const Vector3f& pos_, float r) : position(pos_), radius(r) {}
+        constexpr Sphere(const Vector3f& position, float radius) : position(position), radius(radius) {}
 
         //球体与光线求交
         constexpr bool Sphere::Intersect(const Ray3f& ray, HitRecord* record) const

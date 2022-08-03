@@ -6,7 +6,7 @@
 
 #include <Accel/Accel.h>
 
-namespace just
+namespace Just
 {
 
     class BVH : public Accel
@@ -14,7 +14,7 @@ namespace just
     protected:
         const size_t kNumBuckets = 10;
     public:
-        BVH(const Mesh& mesh) : Accel(mesh), minNumFaces(16), maxDepth(32) {}
+        BVH(const std::shared_ptr<Mesh>& mesh) : Accel(mesh), minNumFaces(16), maxDepth(32) {}
 
         void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
 
@@ -67,13 +67,9 @@ namespace just
             float leftSA = leftBBox.SurfaceArea();
             float rightSA = rightBBox.SurfaceArea();
             float SA = node.bbox.SurfaceArea();
-            
-            //IntersectCost = 1
-            //TraverseCost = 0.125
-            //TotalCoast = TraverseCost + LeftCount * LeftSurfaceArea/TotalSurfaceArea +  RightCount * RightSurfaceArea/TotalSurfaceArea
-            float cost = 0.125f +
-                    leftIndexes.size() * leftSA / SA +
-                    rightIndexes.size() * rightSA / SA;
+            float cost = 0.125f +                               // TraverseCost
+                         leftIndexes.size() * leftSA / SA +     // LeftFacesCount * LeftSurfaceArea/TotalSurfaceArea
+                         rightIndexes.size() * rightSA / SA;    // RightFacesCount * RightSurfaceArea/TotalSurfaceArea
 
             //选取成本最小的分桶方案
             if (cost < minCost)

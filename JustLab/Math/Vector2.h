@@ -6,7 +6,7 @@
 
 #include <Global.h>
 
-namespace just
+namespace Just
 {
 
     template<typename T>
@@ -58,11 +58,6 @@ namespace just
         constexpr T Length() const { return std::sqrt(x * x + y * y); }
 
         constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y; }
-
-        constexpr T Cross(const Vector& v) { return {x * v.y - v.x * y}; }
-
-        constexpr Vector Normalize() const { return (*this) / Length(); }
-
     };
 
     //各维度最小值

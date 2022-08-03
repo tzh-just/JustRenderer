@@ -12,7 +12,7 @@
 #include <Tools/Mesh.h>
 #include "Geometry/HitRecord.h"
 
-namespace just
+namespace Just
 {
     struct AccelNode
     {
@@ -43,7 +43,7 @@ namespace just
 
     public:
 
-        Accel(const Mesh& mesh) : mesh(std::make_shared<Mesh>(&mesh)) {}
+        Accel(const std::shared_ptr<Mesh>& mesh) : mesh(mesh) {}
 
         //构建加速结构
         void Build();

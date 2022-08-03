@@ -7,7 +7,7 @@
 #include <Math/Vector2.h>
 #include <Math/Vector3.h>
 
-namespace just
+namespace Just
 {
 
     //正方形均匀采样

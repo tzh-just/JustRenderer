@@ -7,7 +7,7 @@
 #include <Global.h>
 #include <Math/Vector2.h>
 
-namespace just
+namespace Just
 {
     template<typename T>
     struct Matrix2
@@ -126,7 +126,7 @@ namespace just
             }
             return tmp;
         }
-        
+
         //矩阵左乘
         constexpr Matrix operator*(const Matrix& mat)
         {

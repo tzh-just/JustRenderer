@@ -8,7 +8,7 @@
 #include <Math/Vector4.h>
 #include <Math/Matrix3.h>
 
-namespace just
+namespace Just
 {
     template<typename T>
     struct Matrix4

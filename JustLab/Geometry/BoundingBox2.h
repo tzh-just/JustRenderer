@@ -7,7 +7,7 @@
 #include <Global.h>
 #include <Math/Vector2.h>
 
-namespace just
+namespace Just
 {
     template<typename T>
     struct BoundingBox2

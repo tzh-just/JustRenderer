@@ -8,7 +8,7 @@
 #include <Math/Matrix4.h>
 #include <Math/Transform.h>
 
-using namespace just;
+using namespace Just;
 
 static void TestVector()
 {

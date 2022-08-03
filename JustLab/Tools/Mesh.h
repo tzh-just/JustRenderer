@@ -9,7 +9,7 @@
 #include <Math/Vector3.h>
 #include <Geometry/BoundingBox3.h>
 
-namespace just
+namespace Just
 {
     struct Mesh
     {

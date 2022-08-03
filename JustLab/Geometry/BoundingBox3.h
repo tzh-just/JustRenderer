@@ -8,7 +8,7 @@
 #include <Math/Vector3.h>
 #include "Ray3.h"
 
-namespace just
+namespace Just
 {
     template<typename T>
     struct BoundingBox3

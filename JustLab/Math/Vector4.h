@@ -6,7 +6,7 @@
 
 #include <Global.h>
 
-namespace just
+namespace Just
 {
 
     template<typename T>
@@ -56,9 +56,7 @@ namespace just
         }
 
         constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y + z * v.z + w * v.w; }
-
     };
-
 
     using Vector4f = Vector4<float>;
 

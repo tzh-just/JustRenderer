@@ -7,7 +7,7 @@
 #include "Global.h"
 #include "Math/Vector3.h"
 
-namespace just
+namespace Just
 {
 
     struct HitRecord

@@ -6,14 +6,14 @@
 
 #include <Accel/Accel.h>
 
-namespace just
+namespace Just
 {
 
     class OctTree : public Accel
     {
     public:
 
-        OctTree(const Mesh& mesh) : Accel(mesh), minNumFaces(16), maxDepth(12) {}
+        OctTree(const std::shared_ptr<Mesh>& mesh) : Accel(mesh), minNumFaces(16), maxDepth(12) {}
 
         void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
