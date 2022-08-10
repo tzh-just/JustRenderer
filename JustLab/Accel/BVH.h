@@ -14,7 +14,7 @@ namespace Just
     protected:
         const size_t kNumBuckets = 10;
     public:
-        BVH(const std::shared_ptr<Mesh>& mesh) : Accel(mesh), minNumFaces(16), maxDepth(32) {}
+        BVH() : Accel(), minNumFaces(16), maxDepth(32) {}
 
         void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
 
@@ -31,36 +31,37 @@ namespace Just
         //在最长维度排序
         size_t axis = node.bbox.MajorAxis();
         std::sort(
-                node.facesIndexes.begin(),
-                node.facesIndexes.end(),
-                [this, axis](size_t f1, size_t f2)
+                node.indexes.begin(),
+                node.indexes.end(),
+                [this, axis](std::pair<size_t, size_t> left, std::pair<size_t, size_t> right)
                 {
-                    return mesh->GetFaceBBox(f1).Centroid()[axis] <
-                           mesh->GetFaceBBox(f2).Centroid()[axis];
+                    auto [leftMeshIndex, leftFaceIndex] = left;
+                    auto [rightMeshIndex, rightFaceIndex] = right;
+                    return meshes[leftMeshIndex]->GetFaceBBox(leftFaceIndex).Centroid()[axis] <
+                           meshes[rightMeshIndex]->GetFaceBBox(rightFaceIndex).Centroid()[axis];
                 }
         );
 
         //SAH方法
         float minCost = std::numeric_limits<float>::infinity();
-        std::vector<size_t> leftIndexes, rightIndexes;
         //分桶
         for (size_t i = 1; i < kNumBuckets; i++)
         {
-            auto begin = node.facesIndexes.begin();
-            auto mid = node.facesIndexes.begin() + static_cast<int>((node.facesIndexes.size()) * i / kNumBuckets);
-            auto end = node.facesIndexes.end();
-            leftIndexes = std::vector<size_t>(begin, mid);
-            rightIndexes = std::vector<size_t>(mid, end);
+            auto begin = node.indexes.begin();
+            auto mid = node.indexes.begin() + static_cast<int>((node.indexes.size()) * i / kNumBuckets);
+            auto end = node.indexes.end();
+            auto leftIndexes = std::vector<std::pair<size_t, size_t>>(begin, mid);
+            auto rightIndexes = std::vector<std::pair<size_t, size_t>>(mid, end);
 
             //合并左右包围盒
             BoundingBox3f leftBBox, rightBBox;
-            for (auto left: leftIndexes)
+            for (const auto& [meshIndex, faceIndex]: leftIndexes)
             {
-                leftBBox.ExpandBy(mesh->GetFaceBBox(left));
+                leftBBox.ExpandBy(meshes[meshIndex]->GetFaceBBox(faceIndex));
             }
-            for (auto right: rightIndexes)
+            for (const auto& [meshIndex, faceIndex]: rightIndexes)
             {
-                rightBBox.ExpandBy(mesh->GetFaceBBox(right));
+                rightBBox.ExpandBy(meshes[meshIndex]->GetFaceBBox(faceIndex));
             }
 
             //计算成本
@@ -76,9 +77,9 @@ namespace Just
             {
                 minCost = cost;
                 leftNode.bbox = leftBBox;
-                leftNode.facesIndexes = leftIndexes;
+                leftNode.indexes = leftIndexes;
                 rightNode.bbox = rightBBox;
-                rightNode.facesIndexes = rightIndexes;
+                rightNode.indexes = rightIndexes;
             }
         }
 
@@ -110,9 +111,9 @@ namespace Just
                 if (node.child == 0)
                 {
                     //遍历节点得图元进行相交测试
-                    for (auto& f: node.facesIndexes)
+                    for (const auto& [meshIndex, faceIndex]: node.indexes)
                     {
-                        if (mesh->Intersect(f, ray))
+                        if (meshes[meshIndex]->Intersect(faceIndex, ray))
                         {
                             //阴影测试击中直接返回
                             if (shadow)

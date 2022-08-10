@@ -7,10 +7,10 @@
 #include <queue>
 #include <vector>
 #include <Global.h>
-#include "Geometry/Ray3.h"
+#include <Geometry/Ray3.h>
 #include <Geometry/BoundingBox3.h>
+#include <Geometry/HitRecord.h>
 #include <Tools/Mesh.h>
-#include "Geometry/HitRecord.h"
 
 namespace Just
 {
@@ -18,21 +18,27 @@ namespace Just
     {
         size_t child;
         BoundingBox3f bbox;
-        std::vector<size_t> facesIndexes;
+        std::vector<std::pair<size_t,size_t>> indexes;
 
         AccelNode() : bbox(), child(0) {}
 
         explicit AccelNode(const BoundingBox3f& bbox) : bbox(bbox), child(0) {}
 
         AccelNode(const BoundingBox3f& bbox, size_t size)
-                : bbox(bbox), facesIndexes(size), child(0) {}
+                : bbox(bbox), indexes(size), child(0) {}
     };
 
     class Accel
     {
     protected:
-        std::shared_ptr<Mesh> mesh;
+        //网格指针数组
+        std::vector<std::shared_ptr<Mesh>> meshes;
+        //加速结构树
         std::vector<AccelNode> tree;
+        //场景总包围盒
+        BoundingBox3f bbox;
+        //场景图元索引
+        std::vector<std::pair<size_t,size_t>> indexes;
 
         int currDepth = 1;
         int leafCount = 1;
@@ -41,9 +47,11 @@ namespace Just
         int minNumFaces = 0;
         int maxDepth = 0;
 
+        int maxMeshesCount = 10;
+
     public:
 
-        Accel(const std::shared_ptr<Mesh>& mesh) : mesh(mesh) {}
+        void AddMesh(const std::shared_ptr<Mesh> &mesh);
 
         //构建加速结构
         void Build();
@@ -61,16 +69,22 @@ namespace Just
         virtual bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const = 0;
     };
 
+    void Accel::AddMesh(const std::shared_ptr<Mesh> &mesh) {
+        meshes.push_back(mesh);
+        bbox.ExpandBy(mesh->bbox);
+        for(size_t i =0;i<mesh->faces.size();i++){
+            indexes.emplace_back(meshes.size()-1, i);
+        }
+
+    }
+
     void Accel::Build()
     {
-        assert(mesh);
+        assert(meshes.size()!=0);
 
         //初始化根节点
-        auto root = AccelNode(mesh->bbox, mesh->faces.size());
-        for (size_t i = 0; i < root.facesIndexes.size(); ++i)
-        {
-            root.facesIndexes[i] = i;
-        }
+        auto root = AccelNode(bbox, indexes.size());
+        root.indexes = indexes;
 
         //初始化树
         tree = std::vector<AccelNode>();
@@ -91,7 +105,7 @@ namespace Just
             {
                 auto& node = tree[q.front()];
                 //判断深度和图元数量是否超过符合限制
-                if (node.facesIndexes.size() > minNumFaces &&
+                if (node.indexes.size() > minNumFaces &&
                     currDepth > maxDepth)
                 {
                     //设置子节点起始索引

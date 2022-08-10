@@ -13,7 +13,7 @@ namespace Just
     {
     public:
 
-        OctTree(const std::shared_ptr<Mesh>& mesh) : Accel(mesh), minNumFaces(16), maxDepth(12) {}
+        OctTree() : Accel(), minNumFaces(16), maxDepth(12) {}
 
         void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
@@ -38,12 +38,12 @@ namespace Just
 
             //分配属于各个子节点的图元
             AccelNode subNode(subBBox);
-            for (auto k: node.facesIndexes)
+            for (const auto& [meshIndex, faceIndex]: node.indexes)
             {
                 //检测每个图元与子包围盒是否碰撞
-                if (subNode.bbox.Overlaps(mesh->GetFaceBBox(k)))
+                if (subNode.bbox.Overlaps(meshes[meshIndex]->GetFaceBBox(faceIndex)))
                 {
-                    subNode.facesIndexes.emplace_back(k);
+                    subNode.indexes.emplace_back(meshIndex, faceIndex);
                 }
             }
             children->emplace_back(subNode);
