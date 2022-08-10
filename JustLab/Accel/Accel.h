@@ -141,8 +141,8 @@ namespace Just
 
     bool Accel::Intersect(const Ray3f& ray, HitRecord* it, bool isShadowRay = false)
     {
-        Ray3f tmp = ray;
-        bool found = Traverse(&tmp, nullptr, false);
+        Ray3f temp = ray;
+        bool found = Traverse(&temp, nullptr, false);
 
         //检测阴影则直接返回相交结果
         if (isShadowRay)

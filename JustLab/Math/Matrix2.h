@@ -53,23 +53,23 @@ namespace Just
         constexpr Vector Row(size_t row) const
         {
             assert(row < 2);
-            Vector tmp;
+            Vector temp;
             for (size_t col = 0; col < 2; col++)
             {
-                tmp[col] = data[row][col];
+                temp[col] = data[row][col];
             }
-            return tmp;
+            return temp;
         }
 
         constexpr Vector Col(size_t col) const
         {
             assert(col < 2);
-            Vector tmp;
+            Vector temp;
             for (size_t row = 0; row < 2; row++)
             {
-                tmp[row] = data[row][col];
+                temp[row] = data[row][col];
             }
-            return tmp;
+            return temp;
         }
 
         constexpr void SetRow(size_t row, const Vector& v)
@@ -103,53 +103,53 @@ namespace Just
         //数乘
         constexpr Matrix operator*(T k)
         {
-            Matrix tmp;
+            Matrix temp;
             for (size_t row = 0; row < 2; row++)
             {
                 for (size_t col = 0; col < 2; col++)
                 {
-                    tmp[row][col] = data[row][col] * k;
+                    temp[row][col] = data[row][col] * k;
                 }
             }
-            return tmp;
+            return temp;
         }
 
         constexpr Matrix operator/(T k)
         {
-            Matrix tmp;
+            Matrix temp;
             for (size_t row = 0; row < 2; row++)
             {
                 for (size_t col = 0; col < 2; col++)
                 {
-                    tmp[row][col] = data[row][col] / k;
+                    temp[row][col] = data[row][col] / k;
                 }
             }
-            return tmp;
+            return temp;
         }
 
         //矩阵左乘
         constexpr Matrix operator*(const Matrix& mat)
         {
-            Matrix tmp;
+            Matrix temp;
             for (size_t row = 0; row < 2; row++)
             {
                 for (size_t col = 0; col < 2; col++)
                 {
-                    tmp[row][col] = Row(row).Dot(mat.Col(col));
+                    temp[row][col] = Row(row).Dot(mat.Col(col));
                 }
             }
-            return tmp;
+            return temp;
         }
 
         //列向量左乘
         constexpr Vector operator*(const Vector& v)
         {
-            Vector tmp;
+            Vector temp;
             for (size_t row = 0; row < 2; row++)
             {
-                tmp[row] = v.Dot(Row(row));
+                temp[row] = v.Dot(Row(row));
             }
-            return tmp;
+            return temp;
         }
 
         //行列式
