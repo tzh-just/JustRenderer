@@ -1,5 +1,5 @@
 //================================================
-// 简单分器
+// 直接光源采样积分器
 //================================================
 
 #pragma once
@@ -9,7 +9,7 @@
 namespace Just
 {
     //简单光追积分器
-    struct SimpleIntegrator : Integrator
+    struct EmitterSampling : Integrator
     {
 
     };

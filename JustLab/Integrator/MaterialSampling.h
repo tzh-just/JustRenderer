@@ -1,5 +1,5 @@
 //================================================
-// 简单分器
+// 暴力光线追踪
 //================================================
 
 #pragma once
@@ -9,7 +9,7 @@
 namespace Just
 {
     //简单光追积分器
-    struct SimpleIntegrator : Integrator
+    struct MaterialSampling : Integrator
     {
 
     };
