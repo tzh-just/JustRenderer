@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Global.h"
-#include "Geometry/BoundingBox3.h"
+#include "Hittable/BoundingBox3.h"
 
 namespace Just{
     struct AccelNode
