@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <Global.h>
-#include <Math/Vector4.h>
-#include <Math/Matrix3.h>
+#include "Global.h"
+#include "Math/Vector4.h"
+#include "Math/Matrix3.h"
 
 namespace Just
 {

@@ -2,7 +2,7 @@
 // 暴力光线追踪积分器
 //================================================
 
-#include <Integrator/Integrator.h>
+#include <Integrator/Integrator.h"
 
 namespace Just
 {

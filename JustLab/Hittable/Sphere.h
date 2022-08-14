@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <Global.h>
-#include <Math/Vector3.h>
-#include "HitRecord.h"
-#include "Ray3.h"
+#include "Global.h"
+#include "Math/Vector3.h"
+#include <HitRecord.h"
+#include <Ray3.h"
 
 namespace Just
 {
@@ -22,7 +22,7 @@ namespace Just
         constexpr Sphere(const Vector3f& position, float radius) : position(position), radius(radius) {}
 
         //球体与光线求交
-        constexpr bool Sphere::Intersect(const Ray3f& ray, HitRecord* record) const
+        constexpr bool Intersect(const Ray3f& ray, HitRecord* record) const
         {
             //t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
             Vector3f op = ray.origin - position;

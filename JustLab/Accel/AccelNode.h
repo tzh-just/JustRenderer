@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include <Global.h>
-#include <Geometry/BoundingBox3.h>
+#include "Global.h"
+#include "Geometry/BoundingBox3.h"
 
 namespace Just{
     struct AccelNode

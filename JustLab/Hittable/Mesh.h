@@ -5,9 +5,9 @@
 #pragma once
 
 #include <vector>
-#include <Math/Vector2.h>
-#include <Math/Vector3.h>
-#include <Geometry/BoundingBox3.h>
+#include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "BoundingBox3.h"
 
 namespace Just
 {

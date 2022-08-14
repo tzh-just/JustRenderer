@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <Global.h>
-#include <Math/Vector2.h>
+#include "Global.h"
+#include "Math/Vector2.h"
 
 namespace Just
 {

@@ -6,12 +6,12 @@
 
 #include <queue>
 #include <vector>
-#include <Global.h>
-#include <Geometry/Ray3.h>
-#include <Geometry/BoundingBox3.h>
-#include <Geometry/HitRecord.h>
-#include <Tools/Mesh.h>
-#include <Accel/AccelNode.h>
+#include "Global.h"
+#include "Hittable/Ray3.h"
+#include "Hittable/BoundingBox3.h"
+#include "Hittable/HitRecord.h"
+#include "Hittable/Mesh.h"
+#include "Accel/AccelNode.h"
 
 namespace Just
 {
