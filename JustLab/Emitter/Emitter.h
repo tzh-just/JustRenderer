@@ -3,7 +3,7 @@
 #include <Math/Vector3.h>
 
 namespace Just{
-    struct Light{
+    struct Emitter{
         Vector3 radiance;
 
         virtual float PDF() const = 0;
@@ -11,7 +11,7 @@ namespace Just{
         virtual Vector3 Eval() const = 0;
     };
 
-    struct AreaLight : public Light{
+    struct AreaLight : public Emitter{
         float PDF() const override {
 
         }

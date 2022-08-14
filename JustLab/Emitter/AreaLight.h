@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Light/Light.h>
+#include "Emitter.h"
 
 namespace Just
 {
