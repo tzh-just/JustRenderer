@@ -11,23 +11,10 @@
 #include <Geometry/BoundingBox3.h>
 #include <Geometry/HitRecord.h>
 #include <Tools/Mesh.h>
+#include <Accel/AccelNode.h>
 
 namespace Just
 {
-    struct AccelNode
-    {
-        size_t child;
-        BoundingBox3f bbox;
-        std::vector<std::pair<size_t,size_t>> indexes;
-
-        AccelNode() : bbox(), child(0) {}
-
-        explicit AccelNode(const BoundingBox3f& bbox) : bbox(bbox), child(0) {}
-
-        AccelNode(const BoundingBox3f& bbox, size_t size)
-                : bbox(bbox), indexes(size), child(0) {}
-    };
-
     class Accel
     {
     protected:
@@ -69,102 +56,38 @@ namespace Just
         virtual bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const = 0;
     };
 
-    void Accel::AddMesh(const std::shared_ptr<Mesh> &mesh) {
-        meshes.push_back(mesh);
-        bbox.ExpandBy(mesh->bbox);
-        for(size_t i =0;i<mesh->faces.size();i++){
-            indexes.emplace_back(meshes.size()-1, i);
-        }
-
-    }
-
-    void Accel::Build()
+    class Naive : public Accel
     {
-        assert(meshes.size()!=0);
+    public:
 
-        //初始化根节点
-        auto root = AccelNode(bbox, indexes.size());
-        root.indexes = indexes;
+        Naive(const std::shared_ptr<Mesh>& mesh) : Accel(), minNumFaces(16), maxDepth(1) {}
 
-        //初始化树
-        tree = std::vector<AccelNode>();
-        tree.emplace_back(root);
+        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
-        //初始化辅助队列
-        std::queue<size_t> q;
-        q.push(0);
+        bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const override;
+    };
 
-        //初始化子节点集合
-        std::vector<AccelNode> children;
-
-        //构建树
-        while (!q.empty())
-        {
-            size_t size = q.size();//层次遍历
-            for (size_t i = 0; i < size; ++i)
-            {
-                auto& node = tree[q.front()];
-                //判断深度和图元数量是否超过符合限制
-                if (node.indexes.size() > minNumFaces &&
-                    currDepth > maxDepth)
-                {
-                    //设置子节点起始索引
-                    node.child = tree.size();
-                    //检测是否可以分割当前节点的空间
-                    Divide(q.front(), &children);
-                    --leafCount;
-                    //将分离的子节点加入树，索引入队
-                    for (auto& child: children)
-                    {
-                        q.push(tree.size());
-                        tree.emplace_back(child);
-                        ++leafCount;
-                        ++nodeCount;
-                    }//for遍历子节点
-                }
-                //清理无用数据
-                q.pop();
-                children.clear();
-                children.shrink_to_fit();
-            }//for遍历层
-            currDepth++;//记录树深度
-        }//while遍历树
-
-        //修正无加速结构时的统计数据
-        currDepth = currDepth < maxDepth ? currDepth : maxDepth;
-
-        //统计数据
-        std::cout << "[max depth]: " << currDepth << std::endl;
-        std::cout << "[node count]: " << nodeCount << std::endl;
-        std::cout << "[leaf count]: " << leafCount << std::endl;
-    }
-
-    bool Accel::Intersect(const Ray3f& ray, HitRecord* it, bool isShadowRay = false)
+    class BVH : public Accel
     {
-        Ray3f temp = ray;
-        bool found = Traverse(&temp, nullptr, false);
+    protected:
+        const size_t kNumBuckets = 10;
+    public:
+        BVH() : Accel(), minNumFaces(16), maxDepth(32) {}
 
-        //检测阴影则直接返回相交结果
-        if (isShadowRay)
-        {
-            return found;
-        }
+        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
 
-        //记录相交信息
-        if (found)
-        {
-            //本地坐标系
+        bool Traverse(Ray3f* ray, HitRecord* record, bool shadow) const override;
 
-            //
-        }
+    };
 
-        return found;
-    }
-
-    bool Accel::Intersect(const Ray3f& ray, bool shadow = true)
+    class OctTree : public Accel
     {
-        HitRecord unused;
-        return Intersect(ray, &unused, shadow);
-    }
+    public:
 
+        OctTree() : Accel(), minNumFaces(16), maxDepth(12) {}
+
+        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
+
+        bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const override;
+    };
 }

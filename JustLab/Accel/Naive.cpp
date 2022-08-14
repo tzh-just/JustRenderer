@@ -9,16 +9,7 @@
 namespace Just
 {
 
-    class Naive : public Accel
-    {
-    public:
 
-        Naive(const std::shared_ptr<Mesh>& mesh) : Accel(mesh), minNumFaces(16), maxDepth(1) {}
-
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
-
-        bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const override;
-    };
 
     void Naive::Divide(size_t nodeIndex, std::vector<AccelNode>* children)
     {

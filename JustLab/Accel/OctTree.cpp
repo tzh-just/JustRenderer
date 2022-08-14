@@ -9,16 +9,7 @@
 namespace Just
 {
 
-    class OctTree : public Accel
-    {
-    public:
 
-        OctTree() : Accel(), minNumFaces(16), maxDepth(12) {}
-
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
-
-        bool Traverse(Ray3f* ray, HitRecord* record, bool isShadowRay) const override;
-    };
 
     void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children)
     {
