@@ -1,3 +1,9 @@
-//
-// Created by Tian on 2022/8/14.
-//
+#pragma once
+
+#include "BxDF.h"
+
+namespace Just{
+    struct Diffuse : BxDF{
+
+    };
+}

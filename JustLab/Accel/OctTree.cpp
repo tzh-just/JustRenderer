@@ -8,9 +8,6 @@
 
 namespace Just
 {
-
-
-
     void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children)
     {
         auto& node = tree[nodeIndex];

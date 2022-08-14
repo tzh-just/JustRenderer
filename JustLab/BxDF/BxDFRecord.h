@@ -1,8 +1,7 @@
-//
-// Created by Tian on 2022/8/14.
-//
+#pragma once
 
-#ifndef JUST_BXDFRECORD_H
-#define JUST_BXDFRECORD_H
+namespace Just{
+    struct BxDFRecord{
 
-#endif //JUST_BXDFRECORD_H
+    };
+}
