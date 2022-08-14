@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <Integrator/Integrator.h"
+#include "Integrator/Integrator.h"
 
 namespace Just
 {
