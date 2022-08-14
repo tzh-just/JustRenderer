@@ -1,17 +1,12 @@
 #pragma once
 
-#include <Light/ILight.h>
+#include <Light/Light.h>
 
-namespace Just{
-    struct AreaLight : public ILight{
-        float Pdf() const override {
+namespace Just
+{
+    Vector3 AreaLight::Sample() const {}
 
-        }
-        Vector3 Sample() const override{
+    Vector3 AreaLight::Eval() const {}
 
-        }
-        Vector3 eval() const override{
-
-        }
-    };
+    float AreaLight::PDF() const {}
 }
