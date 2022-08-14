@@ -8,7 +8,7 @@
 #include <vector>
 #include "Global.h"
 #include "Hittable/Ray3.h"
-#include "Hittable/BoundingBox3.h"
+#include "Hittable/Bounds3.h"
 #include "Hittable/HitRecord.h"
 #include "Hittable/Mesh.h"
 #include "Accel/AccelNode.h"

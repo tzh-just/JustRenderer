@@ -10,16 +10,16 @@
 namespace Just
 {
     template<typename T>
-    struct BoundingBox2
+    struct Bounds2
     {
-        using BoundingBox = BoundingBox2<T>;
+        using BoundingBox = Bounds2<T>;
         using Vector = Vector2<T>;
 
         Vector min, max;
 
-        constexpr BoundingBox2() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
+        constexpr Bounds2() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
 
-        constexpr BoundingBox2(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
+        constexpr Bounds2(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
 
         //包围盒被覆盖：截断溢出部分
         void CoveredBy(const BoundingBox& bbox)
@@ -35,6 +35,6 @@ namespace Just
         }
     };
 
-    using BoundingBox2f = BoundingBox2<float>;
+    using BoundingBox2f = Bounds2<float>;
 
 }

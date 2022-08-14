@@ -11,16 +11,16 @@
 namespace Just
 {
     template<typename T>
-    struct BoundingBox3
+    struct Bounds3
     {
-        using BoundingBox = BoundingBox3<T>;
+        using BoundingBox = Bounds3<T>;
         using Vector = Vector3<T>;
 
         Vector min, max;
 
-        constexpr BoundingBox3() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
+        constexpr Bounds3() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
 
-        constexpr BoundingBox3(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
+        constexpr Bounds3(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
 
         //包围盒最长维度
         constexpr size_t MajorAxis() const
@@ -122,6 +122,6 @@ namespace Just
         }
     };
 
-    using BoundingBox3f = BoundingBox3<float>;
+    using BoundingBox3f = Bounds3<float>;
 
 }

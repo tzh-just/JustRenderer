@@ -7,7 +7,7 @@
 #include <vector>
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
-#include "BoundingBox3.h"
+#include "Bounds3.h"
 
 namespace Just
 {
