@@ -161,8 +161,6 @@ namespace Just
 
         constexpr Vector Normalized() const { return (*this) / Length(); }
 
-        constexpr void Normalize() { (*this) /= Length(); }
-
         constexpr T MaxValue() const { return std::max(std::max(x, y), z); }
 
         constexpr T MinValue() const { return std::min(std::min(x, y), z); }
