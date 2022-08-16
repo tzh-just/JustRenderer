@@ -9,6 +9,9 @@
 
 namespace Just
 {
+
+    //矩阵模板类
+    //-----------------------------------------------------------------------------
     template<size_t N, typename T>
     struct Matrix
     {
@@ -16,28 +19,29 @@ namespace Just
 
         constexpr Matrix() : data() {}
 
-        constexpr Matrix(const std::initializer_list<Vector<N, T>>& mat)
+        constexpr Matrix(const std::initializer_list<Vector<N, T>> &A)
         {
-            auto it = mat.begin();
+            auto it = A.begin();
             for (size_t row = 0; row < N; row++)
             {
                 SetRow(row, *it++);
             }
         }
 
-        constexpr T* operator[](size_t i)
+        constexpr T *operator[](size_t i)
         {
             std::cout << "N = " << N << ", i = " << i << " -test \n";
             assert(i < N);
             return data[i];
         }
 
-        constexpr const T* operator[](size_t i) const
+        constexpr const T *operator[](size_t i) const
         {
             assert(i < N);
             return data[i];
         }
 
+        //获取指定行向量
         constexpr Vector<N, T> Row(size_t row) const
         {
             assert(row < N);
@@ -49,6 +53,7 @@ namespace Just
             return temp;
         }
 
+        //获取指定列向量
         constexpr Vector<N, T> Col(size_t col) const
         {
             assert(col < N);
@@ -60,7 +65,8 @@ namespace Just
             return temp;
         }
 
-        constexpr void SetRow(size_t row, const Vector<N, T>& v)
+        //设置指定行向量
+        constexpr void SetRow(size_t row, const Vector<N, T> &v)
         {
             assert(row < N);
             for (size_t col = 0; col < N; col++)
@@ -69,7 +75,8 @@ namespace Just
             }
         }
 
-        constexpr void SetCol(size_t col, const Vector<N, T>& v)
+        //设置指定列向量
+        constexpr void SetCol(size_t col, const Vector<N, T> &v)
         {
             assert(col < N);
             for (size_t row = 0; row < N; row++)
@@ -123,7 +130,7 @@ namespace Just
             return transpose;
         };
 
-        //伴随矩阵：元素下标对应代数余子式组成的矩阵的转置
+        //伴随矩阵
         constexpr Matrix Adjoint()
         {
             Matrix adjoint;
@@ -144,32 +151,32 @@ namespace Just
         }
     };
 
-    //二阶矩阵偏特化
+    //特化二阶矩阵
+    //-----------------------------------------------------------------------------
     template<typename T>
     struct Matrix<2, T>
     {
-
         T data[2][2];
 
         constexpr Matrix() : data() {}
 
-        constexpr Matrix(const std::initializer_list<Vector<2, T>>& mat)
+        constexpr Matrix(const std::initializer_list<Vector<2, T>> &A)
         {
-            auto it = mat.begin();
+            auto it = A.begin();
             for (size_t row = 0; row < 2; row++)
             {
                 SetRow(row, *it++);
             }
         }
 
-        constexpr T* operator[](size_t i)
+        constexpr T *operator[](size_t i)
         {
             std::cout << "2 = " << 2 << ", i = " << i << " -test \n";
             assert(i < 2);
             return data[i];
         }
 
-        constexpr const T* operator[](size_t i) const
+        constexpr const T *operator[](size_t i) const
         {
             assert(i < 2);
             return data[i];
@@ -197,7 +204,7 @@ namespace Just
             return temp;
         }
 
-        constexpr void SetRow(size_t row, const Vector<2, T>& v)
+        constexpr void SetRow(size_t row, const Vector<2, T> &v)
         {
             assert(row < 2);
             for (size_t col = 0; col < 2; col++)
@@ -206,7 +213,7 @@ namespace Just
             }
         }
 
-        constexpr void SetCol(size_t col, const Vector<2, T>& v)
+        constexpr void SetCol(size_t col, const Vector<2, T> &v)
         {
             assert(col < 2);
             for (size_t row = 0; row < 2; row++)
@@ -234,70 +241,74 @@ namespace Just
         }
     };
 
-    //数乘
+    //矩阵重载方法
+    //-----------------------------------------------------------------------------
+    //M=A*k
     template<size_t N, typename T>
-    constexpr Matrix<N, T> operator*(const Matrix<N, T>& mat, T k)
+    constexpr Matrix<N, T> operator*(const Matrix<N, T> &A, T k)
     {
         Matrix<N, T> temp;
         for (size_t row = 0; row < N; row++)
         {
             for (size_t col = 0; col < N; col++)
             {
-                temp[row][col] = mat[row][col] * k;
+                temp[row][col] = A[row][col] * k;
             }
         }
         return temp;
     }
 
+    //M=k*A
     template<size_t N, typename T>
-    constexpr Matrix<N, T> operator*(T k, const Matrix<N, T>& mat)
+    constexpr Matrix<N, T> operator*(T k, const Matrix<N, T> &A)
     {
-        return mat * k;
+        return A * k;
     }
 
+    //M=A/k
     template<size_t N, typename T>
-    constexpr Matrix<N, T> operator/(const Matrix<N, T>& mat, T k)
+    constexpr Matrix<N, T> operator/(const Matrix<N, T> &A, T k)
     {
-        return mat * (1 / k);
+        return A * (1 / k);
     }
 
-    //矩阵左乘
+    //M=A*B
     template<size_t N, typename T>
-    constexpr Matrix<N, T> operator*(const Matrix<N, T>& mat1, const Matrix<N, T>& mat2)
+    constexpr Matrix<N, T> operator*(const Matrix<N, T> &A, const Matrix<N, T> &B)
     {
         Matrix<N, T> temp;
         for (size_t row = 0; row < N; row++)
         {
             for (size_t col = 0; col < N; col++)
             {
-                temp[row][col] = mat1.Row(row).Dot(mat2.Col(col));
+                temp[row][col] = A.Row(row).Dot(B.Col(col));
             }
         }
         return temp;
     }
 
-    //列向量左乘
+    //M=A*v
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator*(const Matrix<N, T>& mat, const Vector<N, T>& v)
+    constexpr Vector<N, T> operator*(const Matrix<N, T> &A, const Vector<N, T> &v)
     {
         Vector<N, T> temp;
         for (size_t row = 0; row < N; row++)
         {
-            temp[row] = v.Dot(mat.Row(row));
+            temp[row] = v.Dot(A.Row(row));
         }
         return temp;
     }
 
     //输出
     template<size_t N, typename T>
-    std::ostream& operator<<(std::ostream& os, const Matrix<N, T>& mat)
+    std::ostream &operator<<(std::ostream &os, const Matrix<N, T> &A)
     {
         for (size_t row = 0; row < N; row++)
         {
             os << "(";
             for (size_t col = 0; col < N; col++)
             {
-                os << mat[row][col] << (col < N - 1 ? "," : "");
+                os << A[row][col] << (col < N - 1 ? "," : "");
 
             }
             os << ")" << "\n";
@@ -305,6 +316,8 @@ namespace Just
         return os;
     }
 
+    //矩阵别名
+    //-----------------------------------------------------------------------------
     using Matrix3f = Matrix<3, float>;
     using Matrix4f = Matrix<4, float>;
 }
