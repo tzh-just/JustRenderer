@@ -15,7 +15,7 @@ namespace Just
 
         constexpr Point() { for (size_t i = 0; i < N; i++) data[i] = T(); }
 
-        constexpr Point(const T* ptr)
+        constexpr Point(const T *ptr)
         {
             for (size_t i = 0; i < N; i++)
             {
@@ -23,24 +23,24 @@ namespace Just
             }
         }
 
-        constexpr Point(const Point<N, T>& a)
+        constexpr Point(const Point<N, T> &p1)
         {
             for (size_t i = 0; i < N; i++)
             {
-                data[i] = a.data[i];
+                data[i] = p1.data[i];
             }
         }
 
-        constexpr Point(const std::initializer_list<T>& a)
+        constexpr Point(const std::initializer_list<T> &p1)
         {
-            auto it = a.begin();
+            auto it = p1.begin();
             for (size_t i = 0; i < N; i++)
             {
                 data[i] = *it++;
             }
         }
 
-        constexpr T& operator[](size_t i)
+        constexpr T &operator[](size_t i)
         {
             assert(i < N);
             return data[i];
@@ -71,9 +71,9 @@ namespace Just
 
         constexpr explicit Point(T val) : x(val), y(val) {}
 
-        constexpr Point(T a, T b) : x(a), y(b) {}
+        constexpr Point(T x, T y) : x(x), y(y) {}
 
-        constexpr Point(const std::initializer_list<T>& list)
+        constexpr Point(const std::initializer_list<T> &list)
         {
             auto it = list.begin();
             for (size_t i = 0; i < 2; i++)
@@ -82,7 +82,7 @@ namespace Just
             }
         }
 
-        constexpr T& operator[](size_t i)
+        constexpr T &operator[](size_t i)
         {
             assert(i < 2);
             return data[i];
@@ -93,8 +93,8 @@ namespace Just
             assert(i < 2);
             return data[i];
         }
-        
-        constexpr T Dot(const Point& a) const { return x * a.x + y * a.y; }
+
+        constexpr T Dot(const Point &p) const { return x * p.x + y * p.y; }
     };
 
     //特化三维坐标
@@ -115,9 +115,9 @@ namespace Just
 
         constexpr explicit Point(T val) : x(val), y(val), z(val) {}
 
-        constexpr Point(T a, T b, T c) : x(a), y(b), z(c) {}
+        constexpr Point(T x, T y, T c) : x(x), y(y), z(c) {}
 
-        constexpr Point(const std::initializer_list<T>& list)
+        constexpr Point(const std::initializer_list<T> &list)
         {
             auto it = list.begin();
             for (size_t i = 0; i < 3; i++)
@@ -126,7 +126,7 @@ namespace Just
             }
         }
 
-        constexpr T& operator[](size_t i)
+        constexpr T &operator[](size_t i)
         {
             assert(i < 3);
             return data[i];
@@ -137,8 +137,8 @@ namespace Just
             assert(i < 3);
             return data[i];
         }
-        
-        constexpr T Dot(const Point& a) const { return x * a.x + y * a.y + z * a.z; }
+
+        constexpr T Dot(const Point &p) const { return x * p.x + y * p.y + z * p.z; }
     };
 
     //特化齐次坐标
@@ -159,9 +159,9 @@ namespace Just
 
         constexpr explicit Point(T val) : x(val), y(val), z(val), w(val) {}
 
-        constexpr Point(T a, T b, T c, T d) : x(a), y(b), z(c), w(d) {}
+        constexpr Point(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
-        constexpr Point(const std::initializer_list<T>& list)
+        constexpr Point(const std::initializer_list<T> &list)
         {
             auto it = list.begin();
             for (size_t i = 0; i < 4; i++)
@@ -170,7 +170,7 @@ namespace Just
             }
         }
 
-        constexpr T& operator[](size_t i)
+        constexpr T &operator[](size_t i)
         {
             assert(i < 4);
             return data[i];
@@ -182,156 +182,204 @@ namespace Just
             return data[i];
         }
 
-        constexpr T Dot(const Point& a) const { return x * a.x + y * a.y + z * a.z + w * a.w; }
+        constexpr T Dot(const Point &p) const { return x * p.x + y * p.y + z * p.z + w * p.w; }
     };
 
 
     //坐标重载方法
     //-----------------------------------------------------------------------------
-    //p=-a
+    //-p
     template<size_t N, typename T>
-    constexpr Point<N, T> operator-(const Point<N, T>& a)
+    constexpr Point<N, T> operator-(const Point<N, T> &p)
     {
         Point<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = -a[i];
+            temp[i] = -p[i];
         }
         return temp;
     }
 
-    //p=a+b
+    //p1+p2
     template<size_t N, typename T>
-    constexpr Point<N, T> operator+(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr Point<N, T> operator+(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         Point<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = a[i] + b[i];
+            temp[i] = p1[i] + p2[i];
         }
         return temp;
     }
 
-    //v=a-b
+    //p+v
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator-(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr Point<N, T> operator+(const Point<N, T> &p, const Vector<N, T> &v)
+    {
+        Point<N, T> temp;
+        for (size_t i = 0; i < N; i++)
+        {
+            temp[i] = p[i] + v[i];
+        }
+        return temp;
+    }
+
+    //p1-p2
+    template<size_t N, typename T>
+    constexpr Vector<N, T> operator-(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = a[i] - b[i];
+            temp[i] = p1[i] - p2[i];
         }
         return temp;
     }
 
-    //p=a*k
+    //p-v
     template<size_t N, typename T>
-    constexpr Point<N, T> operator*(const Point<N, T>& a, T k)
+    constexpr Vector<N, T> operator-(const Point<N, T> &p, const Vector<N, T> &v)
+    {
+        Vector<N, T> temp;
+        for (size_t i = 0; i < N; i++)
+        {
+            temp[i] = p[i] - v[i];
+        }
+        return temp;
+    }
+
+    //p*k
+    template<size_t N, typename T>
+    constexpr Point<N, T> operator*(const Point<N, T> &p, T k)
     {
         Point<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = a[i] * k;
+            temp[i] = p[i] * k;
         }
         return temp;
     }
 
-    //p=k*a
+    //k*p
     template<size_t N, typename T>
-    constexpr Point<N, T> operator*(T k, const Point<N, T>& a)
+    constexpr Point<N, T> operator*(T k, const Point<N, T> &p)
     {
-        return a * k;
+        return p * k;
     }
 
-    //p=a/k
+    //p/k
     template<size_t N, typename T>
-    constexpr Point<N, T> operator/(const Point<N, T>& a, T k)
+    constexpr Point<N, T> operator/(const Point<N, T> &p, T k)
     {
-        return a * (1 / k);
+        return p * (1 / k);
     }
 
-    //a>b
+    //p1>p2
     template<size_t N, typename T>
-    constexpr bool operator>(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr bool operator>(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= a[i] > b[i];
+            flag &= p1[i] > p2[i];
         }
         return flag;
     }
 
-    //a>=b
+    //p1>=p2
     template<size_t N, typename T>
-    constexpr bool operator>=(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr bool operator>=(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= a[i] >= b[i];
+            flag &= p1[i] >= p2[i];
         }
         return flag;
     }
 
-    //a<b
+    //p1<p2
     template<size_t N, typename T>
-    constexpr bool operator<(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr bool operator<(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= a[i] < b[i];
+            flag &= p1[i] < p2[i];
         }
         return flag;
     }
 
-    //a<=b
+    //p1<=p2
     template<size_t N, typename T>
-    constexpr bool operator<=(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr bool operator<=(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= a[i] <= b[i];
+            flag &= p1[i] <= p2[i];
         }
         return flag;
     }
 
     //坐标扩展方法
     //-----------------------------------------------------------------------------
-    //各维度最小值
+    //两坐标取各维度最小值
     template<size_t N, typename T>
-    constexpr Point<N, T> MinPoint(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr Point<N, T> MinPoint(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         Point<N, T> min;
         for (size_t i = 0; i < N; ++i)
         {
-            min[i] = std::min(a[i], b[i]);
+            min[i] = std::min(p1[i], p2[i]);
         }
         return min;
     }
 
-    //各维度最大值
+    //两坐标取各维度最大值
     template<size_t N, typename T>
-    constexpr Point<N, T> MaxPoint(const Point<N, T>& a, const Point<N, T>& b)
+    constexpr Point<N, T> MaxPoint(const Point<N, T> &p1, const Point<N, T> &p2)
     {
         Point<N, T> max;
         for (size_t i = 0; i < N; ++i)
         {
-            max[i] = std::max(a[i], b[i]);
+            max[i] = std::max(p1[i], p2[i]);
+        }
+        return max;
+    }
+
+    //取各维度中最小值
+    template<size_t N, typename T>
+    constexpr Point<N, T> MinValue(const Point<N, T> &p)
+    {
+        T min = p[0];
+        for (size_t i = 1; i < N; ++i)
+        {
+            min = std::min(min, p[i]);
+        }
+        return min;
+    }
+
+    //取各维度中最大值
+    template<size_t N, typename T>
+    constexpr Point<N, T> MaxValue(const Point<N, T> &p)
+    {
+        T max = p[0];
+        for (size_t i = 1; i < N; ++i)
+        {
+            max = std::max(max, p[i]);
         }
         return max;
     }
 
     //输出
     template<size_t N, typename T>
-    std::ostream& operator<<(std::ostream& os, const Point<N, T>& a)
+    std::ostream &operator<<(std::ostream &os, const Point<N, T> &p)
     {
         os << "(";
         for (int i = 0; i < N; ++i)
         {
-            os << a[i] << (i < N - 1 ? "," : "");
+            os << p[i] << (i < N - 1 ? "," : "");
 
         }
         return os << ")";

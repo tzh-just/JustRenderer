@@ -80,7 +80,7 @@ namespace Just
 
         constexpr explicit Color(T val) : r(val), g(val), b(val) {}
 
-        constexpr Color(T a, T b, T c) : r(a), g(b), b(c) {}
+        constexpr Color(T r, T g, T b) : r(r), g(g), b(b) {}
 
         constexpr Color(const std::initializer_list<T> &list)
         {

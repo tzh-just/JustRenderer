@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Math/Vector.h"
+#include "Math/Color.h"
 
 namespace Just
 {
@@ -14,6 +15,6 @@ namespace Just
 
         ~Integrator() = default;
 
-        virtual Vector3f Li() const = 0;
+        virtual Color3f Li() const = 0;
     };
 }

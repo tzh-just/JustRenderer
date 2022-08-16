@@ -6,6 +6,7 @@
 
 #include "Global.h"
 #include "Vector.h"
+#include "Point.h"
 
 namespace Just
 {
@@ -297,6 +298,14 @@ namespace Just
             temp[row] = v.Dot(A.Row(row));
         }
         return temp;
+    }
+
+    //M=A*p
+    template<size_t N, typename T>
+    constexpr Vector<N, T> operator*(const Matrix<N, T> &A, const Point<N, T> &p)
+    {
+        Vector<N, T> v(p.x, p.y, p.z);
+        return A * v;
     }
 
     //输出

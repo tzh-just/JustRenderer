@@ -9,7 +9,6 @@
 #include "Emitter/Emitter.h"
 #include "Mesh.h"
 
-
 namespace Just{
     struct Scene{
         std::vector<std::shared_ptr<Mesh>> meshes;

@@ -6,13 +6,14 @@
 
 #include "Global.h"
 #include "Math/Vector.h"
+#include "Math/Point.h"
 
 namespace Just
 {
 
     struct HitRecord
     {
-        Vector3f position;
+        Point3f position;
         Vector3f normal;
         float hitTime;
 

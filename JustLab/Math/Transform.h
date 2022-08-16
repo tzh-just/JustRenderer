@@ -13,7 +13,6 @@ namespace Just
 
     inline Matrix4f RotateX(float angle)
     {
-        Vector4f v = {1, 2, 3, 4};
         return {
                 {1, 0,                        0,                         0},
                 {0, std::cos(Radians(angle)), -std::sin(Radians(angle)), 0},
@@ -150,7 +149,7 @@ namespace Just
     }
 
     //视口变换矩阵
-    inline Matrix4f ScreenMapping(const Vector2f& size)
+    inline Matrix4f ScreenMapping(const Point2f& size)
     {
         return {
                 {size.x / 2, 0,          0, size.x / 2},

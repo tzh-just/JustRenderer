@@ -22,17 +22,17 @@ namespace Just
             }
         }
 
-        constexpr Vector(const Vector<N, T>& a)
+        constexpr Vector(const Vector<N, T>& v)
         {
             for (size_t i = 0; i < N; i++)
             {
-                data[i] = a.data[i];
+                data[i] = v.data[i];
             }
         }
 
-        constexpr Vector(const std::initializer_list<T>& a)
+        constexpr Vector(const std::initializer_list<T>& v)
         {
-            auto it = a.begin();
+            auto it = v.begin();
             for (size_t i = 0; i < N; i++)
             {
                 data[i] = *it++;
@@ -51,12 +51,12 @@ namespace Just
             return data[i];
         }
 
-        constexpr T Dot(const Vector& a) const
+        constexpr T Dot(const Vector& v) const
         {
             T temp;
             for (size_t i = 0; i < N; i++)
             {
-                temp += data[i] * a[i];
+                temp += data[i] * v[i];
             }
             return temp;
         }
@@ -80,7 +80,7 @@ namespace Just
 
         constexpr explicit Vector(T val) : x(val), y(val) {}
 
-        constexpr Vector(T a, T b) : x(a), y(b) {}
+        constexpr Vector(T x, T y) : x(x), y(y) {}
 
         constexpr Vector(const std::initializer_list<T>& list)
         {
@@ -105,11 +105,7 @@ namespace Just
 
         constexpr T Length() const { return std::sqrt(x * x + y * y); }
 
-        constexpr T Dot(const Vector& a) const { return x * a.x + y * a.y; }
-
-        constexpr T MaxValue() const { return std::max(x, y); }
-
-        constexpr T MinValue() const { return std::min(x, y); }
+        constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y; }
     };
 
     //特化三维矢量
@@ -130,7 +126,7 @@ namespace Just
 
         constexpr explicit Vector(T val) : x(val), y(val), z(val) {}
 
-        constexpr Vector(T a, T b, T c) : x(a), y(b), z(c) {}
+        constexpr Vector(T x, T y, T z) : x(x), y(y), z(z) {}
 
         constexpr Vector(const std::initializer_list<T>& list)
         {
@@ -155,15 +151,11 @@ namespace Just
 
         constexpr T Length() const { return std::sqrt(x * x + y * y + z * z); }
 
-        constexpr T Dot(const Vector& a) const { return x * a.x + y * a.y + z * a.z; }
+        constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y + z * v.z; }
 
-        constexpr Vector Cross(const Vector& a) { return {y * a.z - a.y * z, z * a.x - a.z * x, x * a.y - a.x * y}; }
+        constexpr Vector Cross(const Vector& v) { return {y * v.z - v.y * z, z * v.x - v.z * x, x * v.y - v.x * y}; }
 
         constexpr Vector Normalized() const { return (*this) / Length(); }
-
-        constexpr T MaxValue() const { return std::max(std::max(x, y), z); }
-
-        constexpr T MinValue() const { return std::min(std::min(x, y), z); }
     };
 
     //特化四维矢量
@@ -184,7 +176,7 @@ namespace Just
 
         constexpr explicit Vector(T val) : x(val), y(val), z(val), w(val) {}
 
-        constexpr Vector(T a, T b, T c, T d) : x(a), y(b), z(c), w(d) {}
+        constexpr Vector(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
         constexpr Vector(const std::initializer_list<T>& list)
         {
@@ -207,7 +199,7 @@ namespace Just
             return data[i];
         }
 
-        constexpr T Dot(const Vector& a) const { return x * a.x + y * a.y + z * a.z + w * a.w; }
+        constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y + z * v.z + w * v.w; }
     };
 
 
@@ -434,5 +426,5 @@ namespace Just
     //-----------------------------------------------------------------------------
     using Vector4f = Vector<4, float>;
     using Vector3f = Vector<3, float>;
-    using Vector2f = Vector<2, float>;
+    using Point2f = Vector<2, float>;
 }

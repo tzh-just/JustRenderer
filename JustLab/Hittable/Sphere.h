@@ -14,12 +14,12 @@ namespace Just
 
     struct Sphere
     {
-        Vector3f position;
+        Point3f position;
         float radius;
 
         constexpr Sphere() : position(), radius() {}
 
-        constexpr Sphere(const Vector3f& position, float radius) : position(position), radius(radius) {}
+        constexpr Sphere(const Point3f& position, float radius) : position(position), radius(radius) {}
 
         //球体与光线求交
         constexpr bool Intersect(const Ray3f& ray, HitRecord* record) const

@@ -6,7 +6,7 @@ namespace Just
 {
     Vector3 AreaLight::Sample() const {}
 
-    Vector3 AreaLight::Eval() const {}
+    Color3f AreaLight::Eval() const {}
 
     float AreaLight::PDF() const {}
 }
