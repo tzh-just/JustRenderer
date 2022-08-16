@@ -4,6 +4,9 @@
 
 namespace Just
 {
+    
+    //矢量模板类
+    //-----------------------------------------------------------------------------
     template<size_t N, typename T>
     struct Vector
     {
@@ -19,17 +22,17 @@ namespace Just
             }
         }
 
-        constexpr Vector(const Vector<N, T>& v)
+        constexpr Vector(const Vector<N, T>& a)
         {
             for (size_t i = 0; i < N; i++)
             {
-                data[i] = v.data[i];
+                data[i] = a.data[i];
             }
         }
 
-        constexpr Vector(const std::initializer_list<T>& v)
+        constexpr Vector(const std::initializer_list<T>& a)
         {
-            auto it = v.begin();
+            auto it = a.begin();
             for (size_t i = 0; i < N; i++)
             {
                 data[i] = *it++;
@@ -48,17 +51,19 @@ namespace Just
             return data[i];
         }
 
-        constexpr T Dot(const Vector& v) const
+        constexpr T Dot(const Vector& a) const
         {
             T temp;
             for (size_t i = 0; i < N; i++)
             {
-                temp += data[i] * v[i];
+                temp += data[i] * a[i];
             }
             return temp;
         }
     };
 
+    //特化二维矢量
+    //-----------------------------------------------------------------------------
     template<typename T>
     struct Vector<2, T>
     {
@@ -75,7 +80,7 @@ namespace Just
 
         constexpr explicit Vector(T val) : x(val), y(val) {}
 
-        constexpr Vector(T v1, T v2, T v3) : x(v1), y(v2) {}
+        constexpr Vector(T a, T b) : x(a), y(b) {}
 
         constexpr Vector(const std::initializer_list<T>& list)
         {
@@ -100,13 +105,15 @@ namespace Just
 
         constexpr T Length() const { return std::sqrt(x * x + y * y); }
 
-        constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y; }
+        constexpr T Dot(const Vector& a) const { return x * a.x + y * a.y; }
 
         constexpr T MaxValue() const { return std::max(x, y); }
 
         constexpr T MinValue() const { return std::min(x, y); }
     };
 
+    //特化三维矢量
+    //-----------------------------------------------------------------------------
     template<typename T>
     struct Vector<3, T>
     {
@@ -123,7 +130,7 @@ namespace Just
 
         constexpr explicit Vector(T val) : x(val), y(val), z(val) {}
 
-        constexpr Vector(T v1, T v2, T v3) : x(v1), y(v2), z(v3) {}
+        constexpr Vector(T a, T b, T c) : x(a), y(b), z(c) {}
 
         constexpr Vector(const std::initializer_list<T>& list)
         {
@@ -148,9 +155,9 @@ namespace Just
 
         constexpr T Length() const { return std::sqrt(x * x + y * y + z * z); }
 
-        constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y + z * v.z; }
+        constexpr T Dot(const Vector& a) const { return x * a.x + y * a.y + z * a.z; }
 
-        constexpr Vector Cross(const Vector& v) { return {y * v.z - v.y * z, z * v.x - v.z * x, x * v.y - v.x * y}; }
+        constexpr Vector Cross(const Vector& a) { return {y * a.z - a.y * z, z * a.x - a.z * x, x * a.y - a.x * y}; }
 
         constexpr Vector Normalized() const { return (*this) / Length(); }
 
@@ -161,6 +168,8 @@ namespace Just
         constexpr T MinValue() const { return std::min(std::min(x, y), z); }
     };
 
+    //特化四维矢量
+    //-----------------------------------------------------------------------------
     template<typename T>
     struct Vector<4, T>
     {
@@ -177,7 +186,7 @@ namespace Just
 
         constexpr explicit Vector(T val) : x(val), y(val), z(val), w(val) {}
 
-        constexpr Vector(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
+        constexpr Vector(T a, T b, T c, T d) : x(a), y(b), z(c), w(d) {}
 
         constexpr Vector(const std::initializer_list<T>& list)
         {
@@ -200,214 +209,231 @@ namespace Just
             return data[i];
         }
 
-        constexpr T Dot(const Vector& v) const { return x * v.x + y * v.y + z * v.z + w * v.w; }
+        constexpr T Dot(const Vector& a) const { return x * a.x + y * a.y + z * a.z + w * a.w; }
     };
 
 
-    //取反
+    //矢量重载方法
+    //-----------------------------------------------------------------------------
+    //v=-a
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator-(const Vector<N, T>& v)
+    constexpr Vector<N, T> operator-(const Vector<N, T>& a)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = -v[i];
+            temp[i] = -a[i];
         }
         return temp;
     }
 
-    //四则运算
+    //v=a+b
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator+(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T> operator+(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = v1[i] + v2[i];
+            temp[i] = a[i] + b[i];
         }
         return temp;
     }
 
+    //v=a-b
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator-(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T> operator-(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = v1[i] - v2[i];
+            temp[i] = a[i] - b[i];
         }
         return temp;
     }
 
+    //v=a*b
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator*(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T> operator*(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = v1[i] * v2[i];
+            temp[i] = a[i] * b[i];
         }
         return temp;
     }
 
+    //v=a/b
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator/(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T> operator/(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = v1[i] / v2[i];
+            temp[i] = a[i] / b[i];
         }
         return temp;
     }
 
-    //赋值四则运算
+    //a+=b
     template<size_t N, typename T>
-    constexpr Vector<N, T>& operator+=(Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T>& operator+=(Vector<N, T>& a, const Vector<N, T>& b)
     {
         for (size_t i = 0; i < N; i++)
         {
-            v1[i] += v2[i];
+            a[i] += b[i];
         }
-        return v1;
+        return a;
     }
 
+    //a-=b
     template<size_t N, typename T>
-    constexpr Vector<N, T>& operator-=(Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T>& operator-=(Vector<N, T>& a, const Vector<N, T>& b)
     {
         for (size_t i = 0; i < N; i++)
         {
-            v1[i] -= v2[i];
+            a[i] -= b[i];
         }
-        return v1;
+        return a;
     }
 
+    //a*=b
     template<size_t N, typename T>
-    constexpr Vector<N, T>& operator*=(Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T>& operator*=(Vector<N, T>& a, const Vector<N, T>& b)
     {
         for (size_t i = 0; i < N; i++)
         {
-            v1[i] *= v2[i];
+            a[i] *= b[i];
         }
-        return v1;
+        return a;
     }
 
+    //a/=b
     template<size_t N, typename T>
-    constexpr Vector<N, T>& operator/=(Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T>& operator/=(Vector<N, T>& a, const Vector<N, T>& b)
     {
         for (size_t i = 0; i < N; i++)
         {
-            v1[i] /= v2[i];
+            a[i] /= b[i];
         }
-        return v1;
+        return a;
     }
 
-    //数乘
+    //v=a*k
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator*(const Vector<N, T>& v, T k)
+    constexpr Vector<N, T> operator*(const Vector<N, T>& a, T k)
     {
         Vector<N, T> temp;
         for (size_t i = 0; i < N; i++)
         {
-            temp[i] = v[i] * k;
+            temp[i] = a[i] * k;
         }
         return temp;
     }
 
+    //v=k*a
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator*(T k, const Vector<N, T>& v)
+    constexpr Vector<N, T> operator*(T k, const Vector<N, T>& a)
     {
-        return v * k;
+        return a * k;
     }
 
+    //v=a/k
     template<size_t N, typename T>
-    constexpr Vector<N, T> operator/(const Vector<N, T>& v, T k)
+    constexpr Vector<N, T> operator/(const Vector<N, T>& a, T k)
     {
-        return v * (1 / k);
+        return a * (1 / k);
     }
 
-    //比较
+    //a>b
     template<size_t N, typename T>
-    constexpr bool operator>(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr bool operator>(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= v1[i] > v2[i];
+            flag &= a[i] > b[i];
         }
         return flag;
     }
 
+    //a>=b
     template<size_t N, typename T>
-    constexpr bool operator>=(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr bool operator>=(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= v1[i] >= v2[i];
+            flag &= a[i] >= b[i];
         }
         return flag;
     }
 
+    //a<b
     template<size_t N, typename T>
-    constexpr bool operator<(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr bool operator<(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= v1[i] < v2[i];
+            flag &= a[i] < b[i];
         }
         return flag;
     }
 
+    //a<=b
     template<size_t N, typename T>
-    constexpr bool operator<=(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr bool operator<=(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         bool flag = true;
         for (size_t i = 0; i < N; i++)
         {
-            flag &= v1[i] <= v2[i];
+            flag &= a[i] <= b[i];
         }
         return flag;
     }
 
+    //矢量扩展方法
+    //-----------------------------------------------------------------------------
     //各维度最小值
     template<size_t N, typename T>
-    constexpr Vector<N, T> MinVector(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T> MinVector(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         Vector<N, T> min;
         for (size_t i = 0; i < N; ++i)
         {
-            min[i] = std::min(v1[i], v2[i]);
+            min[i] = std::min(a[i], b[i]);
         }
         return min;
     }
 
     //各维度最大值
     template<size_t N, typename T>
-    constexpr Vector<N, T> MaxVector(const Vector<N, T>& v1, const Vector<N, T>& v2)
+    constexpr Vector<N, T> MaxVector(const Vector<N, T>& a, const Vector<N, T>& b)
     {
         Vector<N, T> max;
         for (size_t i = 0; i < N; ++i)
         {
-            max[i] = std::max(v1[i], v2[i]);
+            max[i] = std::max(a[i], b[i]);
         }
         return max;
     }
 
     //输出
     template<size_t N, typename T>
-    std::ostream& operator<<(std::ostream& os, const Vector<N, T>& v)
+    std::ostream& operator<<(std::ostream& os, const Vector<N, T>& a)
     {
         os << "(";
         for (int i = 0; i < N; ++i)
         {
-            os << v[i] << (i < N - 1 ? "," : "");
+            os << a[i] << (i < N - 1 ? "," : "");
 
         }
         return os << ")";
     }
 
+    //矢量别名
+    //-----------------------------------------------------------------------------
     using Vector4f = Vector<4, float>;
     using Vector3f = Vector<3, float>;
     using Vector2f = Vector<2, float>;
