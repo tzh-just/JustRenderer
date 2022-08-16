@@ -30,14 +30,14 @@ static void TestMatrix()
     Vector3f v1(1, 2, 3);
     Print(
             "mat1 = ", mat1,
-            "Minor(mat1, 1, 1) = ", mat1.Minor(1, 1),
-            "Cofactor(mat1, 0, 0) = ", mat1.Cofactor(0, 0),
-            "Cofactor(mat1, 0, 1) = ", mat1.Cofactor(0, 1),
-            "Cofactor(mat1, 0, 2) = ", mat1.Cofactor(0, 2),
-            "Det(mat1) = ", mat1.Det(),
-            "Transpose(mat1) = ", mat1.Transpose(),
-            "Adjoint(mat1) = ", mat1.Adjoint(),
-            "Invert(mat1) = ", mat1.Invert(),
+            "Minor(1, 1) = ", mat1.Minor(1, 1),
+            "Cofactor(0, 0) = ", mat1.Cofactor(0, 0),
+            "Cofactor(0, 1) = ", mat1.Cofactor(0, 1),
+            "Cofactor(0, 2) = ", mat1.Cofactor(0, 2),
+            "Det() = ", mat1.Det(),
+            "Transpose() = ", mat1.Transpose(),
+            "Adjoint() = ", mat1.Adjoint(),
+            "Invert() = ", mat1.Invert(),
             "v1 = ", v1,
             "mat1 * mat1 = ", mat1 * mat1,
             "mat1 * v1 = ", mat1 * v1
