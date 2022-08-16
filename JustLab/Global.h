@@ -17,8 +17,8 @@ namespace Just
     constexpr float kInvPI = 0.31830988618379067154f;
     constexpr float kInv2PI = 0.15915494309189533577f;
     constexpr float kInv4PI = 0.07957747154594766788f;
-    constexpr float kSqrt2 = 1.41421356237309504880;
     constexpr float kEpsilon = 1e-4f;
+
 
 
     //打印

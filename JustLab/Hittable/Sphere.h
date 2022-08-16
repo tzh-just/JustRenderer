@@ -5,9 +5,9 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector3.h"
-#include <HitRecord.h"
-#include <Ray3.h"
+#include "Math/Vector.h"
+#include "HitRecord.h"
+#include "Ray.h"
 
 namespace Just
 {
@@ -41,7 +41,7 @@ namespace Just
 
             //记录相交信息
             record->position = ray.origin + ray.direction * record->hitTime;
-            record->normal = (record->position - position).Normalize();
+            record->normal = (record->position - position).Normalized();
             return true;
         }
 

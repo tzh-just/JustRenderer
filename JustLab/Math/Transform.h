@@ -5,14 +5,15 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector3.h"
-#include "Math/Matrix4.h"
+#include "Math/Vector.h"
+#include "Math/Matrix.h"
 
 namespace Just
 {
 
     inline Matrix4f RotateX(float angle)
     {
+        Vector4f v = {1, 2, 3, 4};
         return {
                 {1, 0,                        0,                         0},
                 {0, std::cos(Radians(angle)), -std::sin(Radians(angle)), 0},
@@ -110,8 +111,8 @@ namespace Just
     //视图矩阵
     inline Matrix4f LookAt(const Vector3f& origin, const Vector3f& target, const Vector3f& up)
     {
-        Vector3f g = (target - origin).Normalize();
-        Vector3f gxt = g.Cross(up).Normalize();
+        Vector3f g = (target - origin).Normalized();
+        Vector3f gxt = g.Cross(up).Normalized();
         Vector3f t = gxt.Cross(g);
         return Rotate(gxt, t, -g).Transpose() * Translate(-origin);
     }

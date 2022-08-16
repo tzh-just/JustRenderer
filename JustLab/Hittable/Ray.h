@@ -4,27 +4,27 @@
 
 #pragma once
 
-#include "Math/Vector3.h"
+#include "Math/Vector.h"
 
 namespace Just
 {
-    template<typename T>
-    struct Ray3
+    template<size_t N, typename T>
+    struct Ray
     {
-        using Vector = Vector3<T>;
-        using Ray = Ray3<T>;
+        using Vector = Vector<N, T>;
 
         Vector origin, direction;
 
-        union{
+        union
+        {
             T hitTime;
             T distance;
         };
 
 
-        constexpr Ray3() : origin(), direction(), hitTime(0) {}
+        constexpr Ray() : origin(), direction(), hitTime(0) {}
 
-        constexpr Ray3(const Vector& origin, const Vector& direction) : origin(origin), direction(direction), hitTime(0) {}
+        constexpr Ray(const Vector& origin, const Vector& direction) : origin(origin), direction(direction), hitTime(0) {}
 
         friend std::ostream& operator<<(std::ostream& os, const Ray& ray)
         {
@@ -32,6 +32,6 @@ namespace Just
         }
     };
 
-    using Ray3f = Ray3<float>;
+    using Ray3f = Ray<3, float>;
 
 }

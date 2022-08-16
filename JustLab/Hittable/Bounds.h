@@ -5,22 +5,28 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector3.h"
-#include "Ray3.h"
+#include "Math/Vector.h"
+#include "Ray.h"
 
 namespace Just
 {
-    template<typename T>
-    struct Bounds3
+    template<size_t N, typename T>
+    struct Bounds
     {
-        using BoundingBox = Bounds3<T>;
-        using Vector = Vector3<T>;
+        using Vector = Vector<N, T>;
 
         Vector min, max;
 
-        constexpr Bounds3() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
+        constexpr Bounds() : min(std::numeric_limits<T>::max()), max(std::numeric_limits<T>::lowest()) {}
 
-        constexpr Bounds3(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
+        constexpr Bounds(const Vector& v1, const Vector& v2) : min(v1), max(v2) {}
+
+        //包围盒被覆盖：截断溢出部分
+        constexpr void CoveredBy(const Bounds& bbox)
+        {
+            min = MaxVector(min, bbox.min);
+            max = MinVector(max, bbox.max);
+        }
 
         //包围盒最长维度
         constexpr size_t MajorAxis() const
@@ -50,7 +56,7 @@ namespace Just
         }
 
         //扩展包围盒
-        constexpr void ExpandBy(const BoundingBox& bbox)
+        constexpr void ExpandBy(const Bounds& bbox)
         {
             for (size_t i = 0; i < 3; ++i)
             {
@@ -86,7 +92,7 @@ namespace Just
         }
 
         //包围盒重叠
-        bool Overlaps(const BoundingBox& bbox)
+        constexpr bool Overlaps(const Bounds& bbox)
         {
             return min < bbox.max && max > bbox.min;
         }
@@ -114,14 +120,15 @@ namespace Just
 
             return true;
         }
-
-        //输出
-        friend std::ostream& operator<<(std::ostream& os, const BoundingBox& bbox)
-        {
-            return os << "{" << "min: " << bbox.min << ", max: " << bbox.max << "}";
-        }
     };
 
-    using BoundingBox3f = Bounds3<float>;
+    //输出
+    std::ostream& operator<<(std::ostream& os, const Bounds& bbox)
+    {
+        return os << "{" << "min: " << bbox.min << ", max: " << bbox.max << "}";
+    }
+
+    using Bounds2f = Bounds<2, float>;
+    using Bounds3f = Bounds<3, float>;
 
 }

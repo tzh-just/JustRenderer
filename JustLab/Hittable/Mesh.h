@@ -6,8 +6,8 @@
 
 #include <vector>
 #include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include "Bounds3.h"
+#include "Math/Vector.h"
+#include "Bounds.h"
 
 namespace Just
 {

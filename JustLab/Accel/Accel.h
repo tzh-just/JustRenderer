@@ -7,8 +7,8 @@
 #include <queue>
 #include <vector>
 #include "Global.h"
-#include "Hittable/Ray3.h"
-#include "Hittable/Bounds3.h"
+#include "Hittable/Ray.h"
+#include "Hittable/Bounds.h"
 #include "Hittable/HitRecord.h"
 #include "Hittable/Mesh.h"
 #include "Accel/AccelNode.h"

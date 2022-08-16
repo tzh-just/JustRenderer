@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Math/Vector3.h"
+#include "Math/Vector.h"
 
 namespace Just{
     struct EmitterRecord{
-        Vector3 radiance;
+        Vector3f radiance;
     };
 }

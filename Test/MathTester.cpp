@@ -1,11 +1,7 @@
 
 #include <Global.h>
-#include <Math/Vector2.h>
-#include <Math/Vector3.h>
-#include <Math/Vector4.h>
-#include <Math/Matrix2.h>
-#include <Math/Matrix3.h>
-#include <Math/Matrix4.h>
+#include <Math/Vector.h>
+#include <Math/Matrix.h>
 #include <Math/Transform.h>
 
 using namespace Just;
@@ -19,8 +15,8 @@ static void TestVector()
             "Length(v1) = ", v1.Length(),
             "Dot(v1, v2)", v1.Dot(v2),
             "Cross(v1, v2) = ", v1.Cross(v2),
-            "Normalize(v1) = ", v1.Normalize(),
-            "Length(Normalize(v1)) = ", v1.Normalize().Length()
+            "Normalize(v1) = ", v1.Normalized(),
+            "Length(Normalize(v1)) = ", v1.Normalized().Length()
     );
 }
 
