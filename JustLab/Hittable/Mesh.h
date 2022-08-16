@@ -17,15 +17,15 @@ namespace Just
         std::vector<Vector3f> positions;
         std::vector<Vector3f> normals;
         std::vector<Vector2f> uvs;
-        BoundingBox3f bbox;
+        Bounds3f bbox;
         
-        BoundingBox3f GetFaceBBox(size_t faceIndex);
+        Bounds3f GetFaceBBox(size_t faceIndex);
         bool Intersect(size_t faceIndex, Ray3f* ray) const;
     };
 
-    BoundingBox3f Mesh::GetFaceBBox(size_t faceIndex)
+    Bounds3f Mesh::GetFaceBBox(size_t faceIndex)
     {
-        BoundingBox3f faceBBox;
+        Bounds3f faceBBox;
         //查询指定三角面的顶点索引
         auto& face = faces[faceIndex];
         for (int i = 0; i < 3; ++i)

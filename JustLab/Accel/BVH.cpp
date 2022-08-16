@@ -43,7 +43,7 @@ namespace Just
             auto rightIndexes = std::vector<std::pair<size_t, size_t>>(mid, end);
 
             //合并左右包围盒
-            BoundingBox3f leftBBox, rightBBox;
+            Bounds3f leftBBox, rightBBox;
             for (const auto& [meshIndex, faceIndex]: leftIndexes)
             {
                 leftBBox.ExpandBy(meshes[meshIndex]->GetFaceBBox(faceIndex));

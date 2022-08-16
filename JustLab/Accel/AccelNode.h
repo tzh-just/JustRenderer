@@ -8,14 +8,14 @@ namespace Just{
     struct AccelNode
     {
         size_t child;
-        BoundingBox3f bbox;
+        Bounds3f bbox;
         std::vector<std::pair<size_t,size_t>> indexes;
 
         AccelNode() : bbox(), child(0) {}
 
-        explicit AccelNode(const BoundingBox3f& bbox) : bbox(bbox), child(0) {}
+        explicit AccelNode(const Bounds3f& bbox) : bbox(bbox), child(0) {}
 
-        AccelNode(const BoundingBox3f& bbox, size_t size)
+        AccelNode(const Bounds3f& bbox, size_t size)
                 : bbox(bbox), indexes(size), child(0) {}
     };
 }

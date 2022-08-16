@@ -23,7 +23,7 @@ namespace Just
         //加速结构树
         std::vector<AccelNode> tree;
         //场景总包围盒
-        BoundingBox3f bbox;
+        Bounds3f bbox;
         //场景图元索引
         std::vector<std::pair<size_t,size_t>> indexes;
 
