@@ -5,17 +5,17 @@
 namespace Just {
 
 
-    void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
+    void BVH::Divide(int nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
 
         AccelNode leftNode, rightNode;
 
         //在最长维度排序
-        size_t axis = node.bbox.MajorAxis();
-        sort(
+        int axis = node.bbox.MajorAxis();
+        std::sort(
                 node.indexes.begin(),
                 node.indexes.end(),
-                [this, axis](std::pair<size_t, size_t> left, std::pair<size_t, size_t> right) {
+                [this, axis](std::pair<int, int> left, std::pair<int, int> right) {
                     auto [leftMeshIndex, leftFaceIndex] = left;
                     auto [rightMeshIndex, rightFaceIndex] = right;
                     return meshes[leftMeshIndex]->GetFaceBBox(leftFaceIndex).Centroid()[axis] <
@@ -26,12 +26,12 @@ namespace Just {
         //SAH方法
         float minCost = std::numeric_limits<float>::infinity();
         //分桶
-        for (size_t i = 1; i < kNumBuckets; i++) {
+        for (int i = 1; i < kNumBuckets; i++) {
             auto begin = node.indexes.begin();
             auto mid = node.indexes.begin() + static_cast<int>((node.indexes.size()) * i / kNumBuckets);
             auto end = node.indexes.end();
-            auto leftIndexes = std::vector<std::pair<size_t, size_t>>(begin, mid);
-            auto rightIndexes = std::vector<std::pair<size_t, size_t>>(mid, end);
+            auto leftIndexes = std::vector<std::pair<int, int>>(begin, mid);
+            auto rightIndexes = std::vector<std::pair<int, int>>(mid, end);
 
             //合并左右包围盒
             Bounds3f leftBBox, rightBBox;
@@ -46,9 +46,9 @@ namespace Just {
             float leftSA = leftBBox.SurfaceArea();
             float rightSA = rightBBox.SurfaceArea();
             float SA = node.bbox.SurfaceArea();
-            float cost = 0.125f +                               // TraverseCost
-                         leftIndexes.size() * leftSA / SA +     // LeftFacesCount * LeftSurfaceArea/TotalSurfaceArea
-                         rightIndexes.size() * rightSA / SA;    // RightFacesCount * RightSurfaceArea/TotalSurfaceArea
+            float cost = 0.125f +
+                         static_cast<float>(leftIndexes.size()) * leftSA / SA +
+                         static_cast<float>(rightIndexes.size()) * rightSA /SA;
 
             //选取成本最小的分桶方案
             if (cost < minCost) {
@@ -67,7 +67,7 @@ namespace Just {
 
     bool BVH::Traverse(Ray* ray, HitRecord* record, bool shadow) const {
         //初始化辅助队列
-        std::queue<size_t> q;
+        std::queue<int> q;
         q.push(0);
 
         //层次遍历树

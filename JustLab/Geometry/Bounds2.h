@@ -16,7 +16,7 @@ namespace Just {
             pMax = Point2<T>(minNum, minNum, minNum);
         }
 
-        Bounds2(const Point2<T>& p) : pMin(p), pMax(p) {}
+        explicit Bounds2(const Point2<T>& p) : pMin(p), pMax(p) {}
 
         Bounds2(const Point2f& p1, const Point2f& p2)
                 : pMin(std::min(p1.x, p2.x), std::min(p1.y, p2.y)),

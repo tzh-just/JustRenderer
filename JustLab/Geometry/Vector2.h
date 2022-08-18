@@ -9,9 +9,7 @@ namespace Just {
 
         Vector2() { x = y = 0; }
 
-        Vector2(T x, T y) : x(x), y(y) { assert(!HasNaNs); }
-
-        bool HasNaNs() const { return std::isnan(x) || std::isnan(y); }
+        Vector2(T x, T y) : x(x), y(y) {}
 
         T& operator[](int i) {
             assert(i <= 1 && i >= 0);
@@ -49,7 +47,7 @@ namespace Just {
     }
 
     template<typename T>
-    inline Vector2<T> operator*(Vector2<T>& v, T k) const {
+    inline Vector2<T> operator*(Vector2<T>& v, T k) {
         return Vector2<T>(v.x * k, v.y * k);
     }
 

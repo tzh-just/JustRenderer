@@ -12,13 +12,7 @@ namespace Just {
             x = y = 0;
         }
 
-        Point2(T x, T y) : x(x), y(y) {
-            assert(!HasNaNs);
-        }
-
-        bool HasNaNs() const {
-            return std::isnan(x) || std::isnan(y);
-        }
+        Point2(T x, T y) : x(x), y(y) {}
 
         T& operator[](int i) {
             assert(i <= 1 && i >= 0);
@@ -33,7 +27,7 @@ namespace Just {
 
     //加法
     template<typename T>
-    Point2<T> operator+(const Point2<T>& p1, const Point2<T>& p2) const {
+    Point2<T> operator+(const Point2<T>& p1, const Point2<T>& p2) {
         return Point2<T>(p1.x + p2.x, p1.y + p2.y);
     }
 
@@ -47,7 +41,7 @@ namespace Just {
 
     //加法
     template<typename T>
-    Point2<T> operator+(const Point2<T>& p, const Vector2<T>& v) const {
+    Point2<T> operator+(const Point2<T>& p, const Vector2<T>& v) {
         return Point2<T>(p.x + v.x, p.y + v.y);
     }
 
@@ -61,19 +55,19 @@ namespace Just {
 
     //减法
     template<typename T>
-    Vector2<T> operator-(const Point2<T>& p1, const Point2<T>& p2) const {
+    Vector2<T> operator-(const Point2<T>& p1, const Point2<T>& p2) {
         return Vector2<T>(p1.x - p2.x, p1.y - p2.y);
     }
 
     //赋值减
     template<typename T>
-    Point2<T> operator-(const Point2<T>& p, const Vector2<T>& v) const {
+    Point2<T> operator-(const Point2<T>& p, const Vector2<T>& v) {
         return Point2<T>(p.x - v.x, p.y - v.y);
     }
 
     //后数乘
     template<typename T>
-    Point2<T> operator*(const Point2<T>& p, T k) const {
+    Point2<T> operator*(const Point2<T>& p, T k) {
         return Point2<T>(p.x * k, p.y * k);
     }
 
@@ -94,7 +88,7 @@ namespace Just {
 
     //数除
     template<typename T>
-    Point2<T> operator/(const Point2<T>& p, T k) const {
+    Point2<T> operator/(const Point2<T>& p, T k) {
         assert(k != 0);
         float inv = (float) 1 / k;
         return Point2<T>(p.x * inv, p.y * inv);
@@ -112,7 +106,7 @@ namespace Just {
 
     //取反
     template<typename T>
-    Point2<T> operator-(const Point2<T>& p) const {
+    Point2<T> operator-(const Point2<T>& p) {
         return Point2<T>(-p.x, -p.y);
     }
 

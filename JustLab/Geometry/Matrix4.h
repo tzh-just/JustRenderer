@@ -54,17 +54,17 @@ namespace Just {
         }
 
         //设置指定行向量
-        void SetRow(size_t row, const Homogeneous<T>& h) {
+        void SetRow(int row, const Homogeneous<T>& h) {
             assert(row <= 3 && row >= 0);
-            for (size_t col = 0; col < 4; col++) {
+            for (int col = 0; col < 4; col++) {
                 data[row][col] = h[col];
             }
         }
 
         //设置指定列向量
-        void SetCol(size_t col, const Homogeneous<T>& h) {
+        void SetCol(int col, const Homogeneous<T>& h) {
             assert(col <= 3 && col >= 0);
-            for (size_t row = 0; row < 4; row++) {
+            for (int row = 0; row < 4; row++) {
                 data[row][col] = h[row];
             }
         }
@@ -81,12 +81,12 @@ namespace Just {
         }
 
         //代数余子式
-        float Cofactor(int row, int col) const {
+        T Cofactor(int row, int col) const {
             return Minor(row, col).Det() * ((row + col) % 2 ? -1 : 1);
         }
 
         //行列式
-        float Det() const {
+        T Det() const {
             T sum = 0;
             for (int col = 0; col < 4; col++) {
                 sum += data[0][col] * Cofactor(0, col);
@@ -97,7 +97,7 @@ namespace Just {
 
     //数乘
     template<typename T>
-    inline Matrix4<T> operator*(const Matrix4<T>& mat, T k) const {
+    inline Matrix4<T> operator*(const Matrix4<T>& mat, T k) {
         Matrix4<T> temp;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
@@ -108,7 +108,7 @@ namespace Just {
     }
 
     template<typename T>
-    inline Matrix4<T> operator/(const Matrix4<T>& mat, T k) const {
+    inline Matrix4<T> operator/(const Matrix4<T>& mat, T k) {
         Matrix4<T> temp;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
@@ -120,11 +120,11 @@ namespace Just {
 
     //矩阵左乘
     template<typename T>
-    inline Matrix4<T> operator*(const Matrix4<T>& mat1, const Matrix4<T>& mat2) const {
+    inline Matrix4<T> operator*(const Matrix4<T>& mat1, const Matrix4<T>& mat2) {
         Matrix4<T> temp;
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
-                temp[row][col] = Dot(mat1[row], mat2.[col]);
+                temp[row][col] = Dot(mat1.Row(row), mat2.Col(col));
             }
         }
         return temp;
@@ -148,7 +148,7 @@ namespace Just {
 
     //列向量左乘
     template<typename T>
-    inline Vector3<T> operator*(const Matrix4<T>& mat, const Vector3<T>& v) const {
+    inline Vector3<T> operator*(const Matrix4<T>& mat, const Vector3<T>& v) {
         Vector3<T> temp;
         for (int row = 0; row < 4; row++) {
             temp[row] = Dot(mat.Row(row), v);
@@ -158,8 +158,8 @@ namespace Just {
 
     //坐标点左乘
     template<typename T>
-    inline Point3 <T> operator*(const Matrix4<T>& mat, const Point3 <T>& p) const {
-        Point3 <T> temp;
+    inline Point3<T> operator*(const Matrix4<T>& mat, const Point3<T>& p) {
+        Point3<T> temp;
         for (int row = 0; row < 4; row++) {
             temp[row] = Dot(mat.Row(row), p);
         }
@@ -176,7 +176,7 @@ namespace Just {
             }
         }
         return transpose;
-    };
+    }
 
     //伴随矩阵
     template<typename T>
@@ -200,7 +200,7 @@ namespace Just {
     template<typename T>
     inline std::ostream& operator<<(std::ostream& os, const Matrix4<T>& mat) {
         for (int row = 0; row < 4; row++) {
-            os << mat.[row] << "\n";
+            os << mat.Row(row) << "\n";
         }
         return os;
     }

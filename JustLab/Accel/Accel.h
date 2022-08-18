@@ -19,7 +19,7 @@ namespace Just {
         //场景总包围盒
         Bounds3f bbox;
         //场景图元索引
-        std::vector<std::pair<size_t, size_t>> indexes;
+        std::vector<std::pair<int, int>> indexes;
 
         int currDepth = 1;
         int leafCount = 1;
@@ -28,9 +28,9 @@ namespace Just {
         int minNumFaces = 0;
         int maxDepth = 0;
 
-        int maxMeshesCount = 10;
-
     public:
+
+        Accel(int nums, int depth) : minNumFaces(nums), maxDepth(depth) {}
 
         void AddMesh(const std::shared_ptr<Mesh>& mesh);
 
@@ -38,10 +38,10 @@ namespace Just {
         void Build();
 
         //划分子节点
-        virtual void Divide(size_t n, std::vector<AccelNode>* children) = 0;
+        virtual void Divide(int n, std::vector<AccelNode>* children) = 0;
 
         //射线相交测试
-        bool Intersect(const Ray& ray, HitRecord* it, bool isShadowRay);
+        bool Intersect(const Ray& ray, HitRecord* it, bool isShadowRay) const;
 
         //阴影测试
         bool Intersect(const Ray& ray, bool shadow);
@@ -53,20 +53,20 @@ namespace Just {
     class Naive : public Accel {
     public:
 
-        Naive(const std::shared_ptr<Mesh>& mesh) : Accel(), minNumFaces(16), maxDepth(1) {}
+        Naive() : Accel(16, 1) {}
 
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
+        void Divide(int nodeIndex, std::vector<AccelNode>* children) override;
 
         bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const override;
     };
 
     class BVH : public Accel {
     protected:
-        const size_t kNumBuckets = 10;
+        const int kNumBuckets = 10;
     public:
-        BVH() : Accel(), minNumFaces(16), maxDepth(32) {}
+        BVH() : Accel(16, 32) {}
 
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
+        void Divide(int nodeIndex, std::vector<AccelNode>* children) override = 0;
 
         bool Traverse(Ray* ray, HitRecord* record, bool shadow) const override;
 
@@ -75,9 +75,9 @@ namespace Just {
     class OctTree : public Accel {
     public:
 
-        OctTree() : Accel(), minNumFaces(16), maxDepth(12) {}
+        OctTree() : Accel(16, 12) {}
 
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
+        void Divide(int nodeIndex, std::vector<AccelNode>* children) override;
 
         bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const override;
     };

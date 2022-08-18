@@ -3,7 +3,7 @@
 #include "Accel/Accel.h"
 
 namespace Just {
-    void Naive::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
+    void Naive::Divide(int nodeIndex, std::vector<AccelNode>* children) {
         return;
     }
 

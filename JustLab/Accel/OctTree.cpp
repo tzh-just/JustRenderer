@@ -3,15 +3,15 @@
 #include "Accel/Accel.h"
 
 namespace Just {
-    void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
+    void OctTree::Divide(int nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
         //划分八个子节点的包围盒
         Point3f center = node.bbox.Centroid();
-        for (uint32_t corner = 0; corner < 8; corner++) {
+        for (int corner = 0; corner < 8; corner++) {
             //根据八个拐角点确定子包围盒
             Point3f subPoint = node.bbox.Corner(corner);
             Bounds3f subBBox;
-            for (uint32_t d = 0; d < 3; d++) {
+            for (int d = 0; d < 3; d++) {
                 subBBox.pMin[d] = std::min(center[d], subPoint[d]);
                 subBBox.pMax[d] = std::max(center[d], subPoint[d]);
             }

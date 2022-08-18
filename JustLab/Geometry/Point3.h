@@ -12,18 +12,10 @@ namespace Just {
             x = y = z = 0;
         }
 
-        Point3(T x, T y, T z) : x(x), y(y), z(z) {
-            assert(!HasNaNs);
-        }
+        Point3(T x, T y, T z) : x(x), y(y), z(z) {}
 
         template<typename U>
-        explicit Point3(const Point3<U>& p) : x(p.x), y(p.y), z(p.z) {
-            assert(!HasNaNs);
-        }
-
-        bool HasNaNs() const {
-            return std::isnan(x) || std::isnan(y) || std::isnan(z);
-        }
+        explicit Point3(const Point3<U>& p) : x(p.x), y(p.y), z(p.z) {}
 
         T& operator[](int i) {
             assert(i <= 2 && i >= 0);
@@ -37,7 +29,7 @@ namespace Just {
     };
 
     template<typename T>
-    Point3<T> operator+(const Point3<T>& p1, const Point3<T>& p2) const {
+    Point3<T> operator+(const Point3<T>& p1, const Point3<T>& p2) {
         return Point3<T>(p1.x + p2.x, p1.y + p2.y, p1.z + p2.z);
     }
 
@@ -50,7 +42,7 @@ namespace Just {
     }
 
     template<typename T>
-    Point3<T> operator+(const Point3<T>& p, const Vector3<T>& v) const {
+    Point3<T> operator+(const Point3<T>& p, const Vector3<T>& v) {
         return Point3<T>(p.x + v.x, p.y + v.y, p.z + v.z);
     }
 
@@ -63,17 +55,17 @@ namespace Just {
     }
 
     template<typename T>
-    Vector3<T> operator-(const Point3<T>& p1, const Point3<T>& p2) const {
+    Vector3<T> operator-(const Point3<T>& p1, const Point3<T>& p2) {
         return Vector3<T>(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z);
     }
 
     template<typename T>
-    Point3<T> operator-(const Point3<T>& p, const Vector3<T>& v) const {
+    Point3<T> operator-(const Point3<T>& p, const Vector3<T>& v) {
         return Point3<T>(p.x - v.x, p.y - v.y, p.z - v.z);
     }
 
     template<typename T>
-    Point3<T> operator*(const Point3<T>& p, T k) const {
+    Point3<T> operator*(const Point3<T>& p, T k) {
         return Point3<T>(p.x * k, p.y * k, p.z * k);
     }
 
@@ -92,7 +84,7 @@ namespace Just {
     }
 
     template<typename T>
-    Point3<T> operator/(const Point3<T>& p, T k) const {
+    Point3<T> operator/(const Point3<T>& p, T k) {
         assert(k != 0);
         float inv = (float) 1 / k;
         return Point3<T>(p.x * inv, p.y * inv, p.z * inv);
@@ -110,7 +102,7 @@ namespace Just {
 
     //取反
     template<typename T>
-    Point3<T> operator-(const Point3<T>& p) const {
+    Point3<T> operator-(const Point3<T>& p) {
         return Point3<T>(-p.x, -p.y, -p.z);
     }
 

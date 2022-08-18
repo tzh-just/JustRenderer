@@ -4,18 +4,17 @@
 #include "Global.h"
 #include "Geometry/Bounds3.h"
 
-namespace Just{
-    struct AccelNode
-    {
-        size_t child;
+namespace Just {
+    struct AccelNode {
+        int child;
         Bounds3f bbox;
-        std::vector<std::pair<size_t,size_t>> indexes;
+        std::vector<std::pair<int, int>> indexes;
 
         AccelNode() : bbox(), child(0) {}
 
         explicit AccelNode(const Bounds3f& bbox) : bbox(bbox), child(0) {}
 
-        AccelNode(const Bounds3f& bbox, size_t size)
+        AccelNode(const Bounds3f& bbox, int size)
                 : bbox(bbox), indexes(size), child(0) {}
     };
 }

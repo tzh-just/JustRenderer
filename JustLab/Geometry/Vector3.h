@@ -9,13 +9,7 @@ namespace Just {
 
         Vector3() { x = y = z = 0; }
 
-        Vector3(T x, T y, T z) : x(x), y(y), z(z) {
-            assert(!HasNaNs);
-        }
-
-        bool HasNaNs() const {
-            return std::isnan(x) || std::isnan(y) || std::isnan(z);
-        }
+        Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
 
         T& operator[](int i) {
             assert(i <= 2 && i >= 0);
@@ -83,7 +77,7 @@ namespace Just {
 
     //后数乘
     template<typename T>
-    inline Vector3<T> operator*(Vector3<T>& v, T k) const {
+    inline Vector3<T> operator*(Vector3<T>& v, T k) {
         return Vector3<T>(v.x * k, v.y * k, v.z * k);
     }
 

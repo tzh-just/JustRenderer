@@ -83,7 +83,7 @@ namespace Just {
         }
 
         //行列式
-        float Det() const {
+        T Det() const {
             T sum = 0;
             for (int col = 0; col < 3; col++) {
                 sum += data[0][col] * Cofactor(0, col);
@@ -94,7 +94,7 @@ namespace Just {
 
     //数乘
     template<typename T>
-    inline Matrix3<T> operator*(const Matrix3<T>& mat, T k) const {
+    inline Matrix3<T> operator*(const Matrix3<T>& mat, T k) {
         Matrix3<T> temp;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -105,7 +105,7 @@ namespace Just {
     }
 
     template<typename T>
-    inline Matrix3<T> operator/(const Matrix3<T>& mat, T k) const {
+    inline Matrix3<T> operator/(const Matrix3<T>& mat, T k) {
         Matrix3<T> temp;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -117,7 +117,7 @@ namespace Just {
 
     //矩阵左乘
     template<typename T>
-    inline Matrix3<T> operator*(const Matrix3<T>& mat1, const Matrix3<T>& mat2) const {
+    inline Matrix3<T> operator*(const Matrix3<T>& mat1, const Matrix3<T>& mat2) {
         Matrix3<T> temp;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -129,7 +129,7 @@ namespace Just {
 
     //列向量左乘
     template<typename T>
-    inline Vector3<T> operator*(const Matrix3<T>& mat, const Vector3<T>& v) const {
+    inline Vector3<T> operator*(const Matrix3<T>& mat, const Vector3<T>& v) {
         Vector3<T> temp;
         for (int row = 0; row < 3; row++) {
             temp[row] = Dot(mat.Row(row), v);
@@ -151,7 +151,7 @@ namespace Just {
 
     //坐标点左乘
     template<typename T>
-    inline Point3<T> operator*(const Matrix3<T>& mat, const Point3<T>& p) const {
+    inline Point3<T> operator*(const Matrix3<T>& mat, const Point3<T>& p) {
         Point3<T> temp;
         for (int row = 0; row < 3; row++) {
             temp[row] = Dot(mat.Row(row), p);
@@ -173,7 +173,7 @@ namespace Just {
 
     //伴随矩阵
     template<typename T>
-    inline Matrix3<T> Adjoint(const Matrix3<T>& mat) const {
+    inline Matrix3<T> Adjoint(const Matrix3<T>& mat) {
         Matrix3<T> adjoint;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {

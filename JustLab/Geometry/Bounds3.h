@@ -17,7 +17,7 @@ namespace Just {
             pMax = Point3<T>(minNum, minNum, minNum);
         }
 
-        Bounds3(const Point3<T>& p) : pMin(p), pMax(p) {}
+        explicit Bounds3(const Point3<T>& p) : pMin(p), pMax(p) {}
 
         Bounds3(const Point3f& p1, const Point3f& p2)
                 : pMin(std::min(p1.x, p2.x), std::min(p1.y, p2.y), std::min(p1.z, p2.z)),
@@ -49,7 +49,7 @@ namespace Just {
         }
 
         //包围盒中心坐标点
-        Point3f Centroid() const {
+        Point3<T> Centroid() const {
             return (pMax + pMin) * 0.5f;
         }
 

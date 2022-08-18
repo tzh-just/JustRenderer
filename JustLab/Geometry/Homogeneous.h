@@ -11,9 +11,7 @@ namespace Just {
 
         Homogeneous() { x = y = z = w = 0; }
 
-        Homogeneous(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {
-            assert(!HasNaNs);
-        }
+        Homogeneous(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
         bool HasNaNs() const {
             return std::isnan(x) || std::isnan(y) || std::isnan(z) || std::isnan(w);
