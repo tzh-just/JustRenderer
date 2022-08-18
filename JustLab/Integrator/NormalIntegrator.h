@@ -1,16 +1,10 @@
-//================================================
-// 法线积分器
-//================================================
-
 #pragma once
 
 #include "Integrator/Integrator.h"
 
-namespace Just
-{
+namespace Just {
     //简单光追积分器
-    struct NormalIntegrator : Integrator
-    {
+    struct NormalIntegrator : Integrator {
 
     };
 }

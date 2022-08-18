@@ -1,20 +1,13 @@
-//================================================
-// 积分器抽象类
-//================================================
-
 #pragma once
 
-#include "Math/Vector.h"
-#include "Math/Color.h"
+#include "Geometry/Vector3.h"
 
-namespace Just
-{
-    struct Integrator
-    {
+namespace Just {
+    struct Integrator {
         Integrator() = default;
 
         ~Integrator() = default;
 
-        virtual Color3f Li() const = 0;
+        virtual Vector3 Li() const = 0;
     };
 }

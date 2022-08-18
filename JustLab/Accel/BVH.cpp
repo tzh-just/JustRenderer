@@ -1,29 +1,21 @@
-//================================================
-// 层次包围体（二叉树）
-//================================================
-
 #pragma once
 
 #include "Accel/Accel.h"
 
-namespace Just
-{
+namespace Just {
 
 
-
-    void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children)
-    {
+    void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
 
         AccelNode leftNode, rightNode;
 
         //在最长维度排序
         size_t axis = node.bbox.MajorAxis();
-        std::sort(
+        sort(
                 node.indexes.begin(),
                 node.indexes.end(),
-                [this, axis](std::pair<size_t, size_t> left, std::pair<size_t, size_t> right)
-                {
+                [this, axis](std::pair<size_t, size_t> left, std::pair<size_t, size_t> right) {
                     auto [leftMeshIndex, leftFaceIndex] = left;
                     auto [rightMeshIndex, rightFaceIndex] = right;
                     return meshes[leftMeshIndex]->GetFaceBBox(leftFaceIndex).Centroid()[axis] <
@@ -34,8 +26,7 @@ namespace Just
         //SAH方法
         float minCost = std::numeric_limits<float>::infinity();
         //分桶
-        for (size_t i = 1; i < kNumBuckets; i++)
-        {
+        for (size_t i = 1; i < kNumBuckets; i++) {
             auto begin = node.indexes.begin();
             auto mid = node.indexes.begin() + static_cast<int>((node.indexes.size()) * i / kNumBuckets);
             auto end = node.indexes.end();
@@ -44,13 +35,11 @@ namespace Just
 
             //合并左右包围盒
             Bounds3f leftBBox, rightBBox;
-            for (const auto& [meshIndex, faceIndex]: leftIndexes)
-            {
-                leftBBox.ExpandBy(meshes[meshIndex]->GetFaceBBox(faceIndex));
+            for (const auto& [meshIndex, faceIndex]: leftIndexes) {
+                leftBBox = Union(leftBBox, meshes[meshIndex]->GetFaceBBox(faceIndex));
             }
-            for (const auto& [meshIndex, faceIndex]: rightIndexes)
-            {
-                rightBBox.ExpandBy(meshes[meshIndex]->GetFaceBBox(faceIndex));
+            for (const auto& [meshIndex, faceIndex]: rightIndexes) {
+                rightBBox = Union(rightBBox, meshes[meshIndex]->GetFaceBBox(faceIndex));
             }
 
             //计算成本
@@ -62,8 +51,7 @@ namespace Just
                          rightIndexes.size() * rightSA / SA;    // RightFacesCount * RightSurfaceArea/TotalSurfaceArea
 
             //选取成本最小的分桶方案
-            if (cost < minCost)
-            {
+            if (cost < minCost) {
                 minCost = cost;
                 leftNode.bbox = leftBBox;
                 leftNode.indexes = leftIndexes;
@@ -77,46 +65,36 @@ namespace Just
     }
 
 
-    bool BVH::Traverse(Ray3f* ray, HitRecord* record, bool shadow) const
-    {
+    bool BVH::Traverse(Ray* ray, HitRecord* record, bool shadow) const {
         //初始化辅助队列
         std::queue<size_t> q;
         q.push(0);
 
         //层次遍历树
-        while (!q.empty())
-        {
+        while (!q.empty()) {
             auto size = q.size();
-            for (int i = 0; i < size; i++)
-            {
+            for (int i = 0; i < size; i++) {
                 auto& node = tree[q.front()];
                 q.pop();
                 //包围盒相交测试
-                if (!node.bbox.Intersect(*ray))
-                {
+                if (!node.bbox.Intersect(*ray)) {
                     continue;
                 }
                 //节点为叶子节点
-                if (node.child == 0)
-                {
+                if (node.child == 0) {
                     //遍历节点得图元进行相交测试
-                    for (const auto& [meshIndex, faceIndex]: node.indexes)
-                    {
-                        if (meshes[meshIndex]->Intersect(faceIndex, ray))
-                        {
+                    for (const auto& [meshIndex, faceIndex]: node.indexes) {
+                        if (meshes[meshIndex]->Intersect(faceIndex, ray)) {
                             //阴影测试击中直接返回
-                            if (shadow)
-                            {
+                            if (shadow) {
                                 return true;
                             }
                             //记录相交信息
-                            record->hitTime = ray->hitTime;
+                            record->hitTime = ray->tMax;
                             return true;
                         }
                     }//for遍历图元
-                }
-                else
-                {
+                } else {
                     //子节点索引入队
                     q.push(node.child);
                     q.push(node.child + 1);

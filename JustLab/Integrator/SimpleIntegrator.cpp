@@ -1,7 +1,6 @@
 
 #include "Integrator/SimpleIntegrator.h"
 
-namespace Just
-{
+namespace Just {
 
 }

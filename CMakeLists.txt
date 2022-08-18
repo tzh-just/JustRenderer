@@ -12,12 +12,5 @@ include_directories(
 
 add_executable(
         TestMath
-        JustLab/Math/Transform.h
-        JustLab/Math/Distribution.h
         Test/MathTester.cpp
-)
-
-add_executable(
-        Application
-        Test/App.cpp
-)
+        JustLab/Geometry/Vector2.h JustLab/Geometry/Point2.h JustLab/Geometry/Matrix2.h JustLab/Geometry/Matrix3.h)

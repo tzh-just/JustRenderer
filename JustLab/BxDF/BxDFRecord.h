@@ -1,7 +1,7 @@
 #pragma once
 
-namespace Just{
-    struct BxDFRecord{
+namespace Just {
+    struct BxDFRecord {
 
     };
 }

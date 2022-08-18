@@ -1,12 +1,9 @@
 #pragma once
 
-#include "Math/Vector.h"
-#include "Math/Color.h"
+#include "Geometry/Vector3.h"
 
-namespace Just
-{
-    struct EmitterRecord
-    {
-        Color3f radiance;
+namespace Just {
+    struct EmitterRecord {
+        Vector3f radiance;
     };
 }

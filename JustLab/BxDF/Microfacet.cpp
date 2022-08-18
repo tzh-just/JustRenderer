@@ -2,8 +2,8 @@
 
 #include "BxDF.h"
 
-namespace Just{
-    struct Microfacet : BxDF{
+namespace Just {
+    struct Microfacet : BxDF {
 
     };
 }

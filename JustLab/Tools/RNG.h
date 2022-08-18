@@ -1,22 +1,15 @@
-//================================================
-// 随机数生成器
-//================================================
-
 #pragma once
 
 #include <random>
 
-namespace Just
-{
+namespace Just {
 
     template<typename T>
-    class RNG
-    {
+    class RNG {
     public:
         explicit RNG(int seed = 1234) : rngEngine(seed) {}
 
-        constexpr T Random(T min, T max)
-        {
+        constexpr T Random(T min, T max) {
             return min + (max - min) * uniform(rngEngine);
         }
 

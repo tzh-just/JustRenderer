@@ -2,8 +2,8 @@
 
 #include "BxDF.h"
 
-namespace Just{
-    struct Dielectric : BxDF{
+namespace Just {
+    struct Dielectric : BxDF {
 
     };
 }

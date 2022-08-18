@@ -1,15 +1,15 @@
-//================================================
-// 数学工具函数
-//================================================
-
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector.h"
-#include "Math/Matrix.h"
+#include "Geometry/Point2.h"
+#include "Geometry/Vector3.h"
+#include "Matrix4.h"
 
 namespace Just
 {
+    struct Transform{
+        Matrix4f mat;
+    };
 
     constexpr Matrix4f RotateX(float angle)
     {
@@ -110,9 +110,9 @@ namespace Just
     //视图矩阵
     constexpr Matrix4f LookAt(const Vector3f& origin, const Vector3f& target, const Vector3f& up)
     {
-        Vector3f g = (target - origin).Normalized();
-        Vector3f gxt = g.Cross(up).Normalized();
-        Vector3f t = gxt.Cross(g);
+        Vector3f g = Normalize(target - origin);
+        Vector3f gxt = Normalize(Cross(g, up));
+        Vector3f t = Cross(gxt, g);
         return Rotate(gxt, t, -g).Transpose() * Translate(-origin);
     }
 

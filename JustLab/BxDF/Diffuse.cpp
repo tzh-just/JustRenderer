@@ -2,8 +2,8 @@
 
 #include "BxDF.h"
 
-namespace Just{
-    struct Diffuse : BxDF{
+namespace Just {
+    struct Diffuse : BxDF {
 
     };
 }

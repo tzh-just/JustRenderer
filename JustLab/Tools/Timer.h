@@ -1,29 +1,22 @@
-//================================================
-// 计时器
-//================================================
-
 #pragma once
 
 #include <chrono>
 #include <iostream>
 
-namespace Just{
+namespace Just {
 
-    struct Timer
-    {
+    struct Timer {
         std::chrono::time_point<std::chrono::steady_clock> start;
         std::chrono::time_point<std::chrono::steady_clock> end;
         float time;
 
         Timer() : time(0) {}
 
-        void Begin()
-        {
+        void Begin() {
             start = std::chrono::high_resolution_clock::now();
         }
 
-        void End()
-        {
+        void End() {
             end = std::chrono::high_resolution_clock::now();
             std::chrono::duration<float> duration = end - start;
             time = duration.count() * 1000.0f;

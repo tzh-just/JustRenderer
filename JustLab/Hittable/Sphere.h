@@ -1,19 +1,13 @@
-//================================================
-// 球体
-//================================================
-
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector.h"
+#include "Geometry/Vector3.h"
 #include "HitRecord.h"
-#include "Ray.h"
+#include "Geometry/Ray.h"
 
-namespace Just
-{
+namespace Just {
 
-    struct Sphere
-    {
+    struct Sphere {
         Point3f position;
         float radius;
 
@@ -22,33 +16,26 @@ namespace Just
         constexpr Sphere(const Point3f& position, float radius) : position(position), radius(radius) {}
 
         //球体与光线求交
-        constexpr bool Intersect(const Ray3f& ray, HitRecord* record) const
-        {
+        constexpr bool Intersect(const Ray& ray, HitRecord* record) const {
             //t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
             Vector3f op = ray.origin - position;
-            float h = op.Dot(ray.direction);//h=b/2
-            float det = h * h - op.Dot(op) + radius * radius;
+            float h = Dot(op, ray.direction);//h=b/2
+            float det = h * h - Dot(op, op) + radius * radius;
 
             //判断交点时间是否最近
             if (det < 0)
                 return false;
             det = sqrt(det);
             record->hitTime = -h - det;
-            if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
+            if (record->hitTime < kEpsilon || record->hitTime > ray.tMax)
                 record->hitTime = -h + det;
-            if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
+            if (record->hitTime < kEpsilon || record->hitTime > ray.tMax)
                 return false;
 
             //记录相交信息
             record->position = ray.origin + ray.direction * record->hitTime;
-            record->normal = (record->position - position).Normalized();
+            record->normal = Normalize(record->position - position);
             return true;
-        }
-
-        //输出
-        friend std::ostream& operator<<(std::ostream& os, const Sphere& sphere)
-        {
-            return os << sphere.position << ", " << "radius   = " << sphere.radius;
         }
     };
 

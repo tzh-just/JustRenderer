@@ -2,11 +2,10 @@
 
 #include "Emitter.h"
 
-namespace Just
-{
-    Vector3 AreaLight::Sample() const {}
+namespace Just {
+    Vector3f AreaLight::Sample() const {}
 
-    Color3f AreaLight::Eval() const {}
+    Vector3f AreaLight::Eval() const {}
 
     float AreaLight::PDF() const {}
 }

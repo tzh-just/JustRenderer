@@ -1,8 +1,8 @@
 
 #include <Global.h>
-#include <Math/Vector.h>
-#include <Math/Matrix.h>
-#include <Math/Transform.h>
+#include "Geometry/Vector3.h"
+#include "Geometry/Matrix4.h"
+#include "Geometry/Transform.h"
 
 using namespace Just;
 
@@ -13,10 +13,10 @@ static void TestVector()
             "v1", v1,
             "v2", v2,
             "Length(v1) = ", v1.Length(),
-            "Dot(v1, v2)", v1.Dot(v2),
-            "Cross(v1, v2) = ", v1.Cross(v2),
-            "Normalize(v1) = ", v1.Normalized(),
-            "Length(Normalize(v1)) = ", v1.Normalized().Length()
+            "Dot(v1, v2)", Dot(v1, v2),
+            "Cross(v1, v2) = ", Cross(v1, v2),
+            "Normalize(v1) = ",Normalize(v1),
+            "Normalize(v1).Length() = ", Normalize(v1).Length()
     );
 }
 
@@ -35,9 +35,9 @@ static void TestMatrix()
             "Cofactor(0, 1) = ", mat1.Cofactor(0, 1),
             "Cofactor(0, 2) = ", mat1.Cofactor(0, 2),
             "Det() = ", mat1.Det(),
-            "Transpose() = ", mat1.Transpose(),
-            "Adjoint() = ", mat1.Adjoint(),
-            "Invert() = ", mat1.Invert(),
+            "Transpose(mat1) = ", Transpose(mat1),
+            "Adjoint(mat1) = ", Adjoint(mat1),
+            "Invert(mat1) = ", Invert(mat1),
             "v1 = ", v1,
             "mat1 * mat1 = ", mat1 * mat1,
             "mat1 * v1 = ", mat1 * v1
@@ -46,7 +46,7 @@ static void TestMatrix()
 
 static void TestTransform()
 {
-    Vector4f p(1, 0, 0, 1);
+    Point3f p(1, 0, 0);
 
     auto M = RotateZ(90);
     auto r = M * p;
