@@ -1,7 +1,3 @@
-//================================================
-// 四阶矩阵
-//================================================
-
 #pragma once
 
 #include "Global.h"
@@ -143,6 +139,18 @@ namespace Just {
             temp[row] = Dot(mat.Row(row), v);
         }
         return temp;
+    }
+
+    //坐标点乘向量
+    template<typename T>
+    inline T Dot(const Point4<T>& p, const Vector4<T>& v) {
+        return p.x * v.x + p.y * v.y + p.z * v.z + p.w * v.w;
+    }
+
+    //向量点乘坐标
+    template<typename T>
+    inline T Dot(const Vector4<T>& v, const Point4<T>& p) {
+        return p.x * v.x + p.y * v.y + p.z * v.z + p.w * v.w;
     }
 
     //坐标点左乘
