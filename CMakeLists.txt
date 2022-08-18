@@ -13,4 +13,4 @@ include_directories(
 add_executable(
         TestMath
         Test/MathTester.cpp
-        JustLab/Geometry/Vector2.h JustLab/Geometry/Point2.h JustLab/Geometry/Matrix2.h JustLab/Geometry/Matrix3.h JustLab/Geometry/Point4.h JustLab/Geometry/Vector4.h)
+)
