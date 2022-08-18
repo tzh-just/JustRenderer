@@ -3,7 +3,7 @@
 #include "Accel/Accel.h"
 
 namespace Just {
-    void OctTree::Divide(int nodeIndex, std::vector<AccelNode>* children) {
+    void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
         //划分八个子节点的包围盒
         Point3f center = node.bbox.Centroid();

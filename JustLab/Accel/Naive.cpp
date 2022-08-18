@@ -3,8 +3,8 @@
 #include "Accel/Accel.h"
 
 namespace Just {
-    void Naive::Divide(int nodeIndex, std::vector<AccelNode>* children) {
-        return;
+    void Naive::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
+
     }
 
     bool Naive::Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const {

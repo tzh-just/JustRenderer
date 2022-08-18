@@ -7,7 +7,6 @@ namespace Just {
         for (int i = 0; i < mesh->faces.size(); i++) {
             indexes.emplace_back(meshes.size() - 1, i);
         }
-
     }
 
     void Accel::Build() {
@@ -20,7 +19,7 @@ namespace Just {
         tree.emplace_back(root);
 
         //初始化辅助队列
-        std::queue<int> q;
+        std::queue<size_t> q;
         q.push(0);
 
         //初始化子节点集合
@@ -28,7 +27,7 @@ namespace Just {
 
         //构建树
         while (!q.empty()) {
-            auto size = q.size();//层次遍历
+            auto size = q.size(); //层次遍历
             for (int i = 0; i < size; ++i) {
                 auto& node = tree[q.front()];
                 //判断深度和图元数量是否超过符合限制
@@ -45,15 +44,15 @@ namespace Just {
                         tree.emplace_back(child);
                         ++leafCount;
                         ++nodeCount;
-                    }//for遍历子节点
+                    } // for遍历子节点
                 }
                 //清理无用数据
                 q.pop();
                 children.clear();
                 children.shrink_to_fit();
-            }//for遍历层
-            currDepth++;//记录树深度
-        }//while遍历树
+            }            // for遍历层
+            currDepth++; //记录树深度
+        }                // while遍历树
 
         //修正无加速结构时的统计数据
         currDepth = currDepth < maxDepth ? currDepth : maxDepth;
@@ -64,7 +63,7 @@ namespace Just {
         std::cout << "[leaf count]: " << leafCount << std::endl;
     }
 
-    bool Accel::Intersect(const Ray& ray, HitRecord* it, bool isShadowRay = false) const{
+    bool Accel::Intersect(const Ray& ray, HitRecord* it, bool isShadowRay = false) const {
         Ray temp = ray;
         bool found = Traverse(&temp, nullptr, false);
 
@@ -83,7 +82,7 @@ namespace Just {
         return found;
     }
 
-    bool Accel::Intersect(const Ray& ray, bool shadow = true) {
+    bool Accel::Intersect(const Ray& ray, bool shadow = true) const {
         HitRecord unused;
         return Intersect(ray, &unused, shadow);
     }

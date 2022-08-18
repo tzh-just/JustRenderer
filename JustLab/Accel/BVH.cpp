@@ -5,7 +5,7 @@
 namespace Just {
 
 
-    void BVH::Divide(int nodeIndex, std::vector<AccelNode>* children) {
+    void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
 
         AccelNode leftNode, rightNode;
@@ -30,8 +30,8 @@ namespace Just {
             auto begin = node.indexes.begin();
             auto mid = node.indexes.begin() + static_cast<int>((node.indexes.size()) * i / kNumBuckets);
             auto end = node.indexes.end();
-            auto leftIndexes = std::vector<std::pair<int, int>>(begin, mid);
-            auto rightIndexes = std::vector<std::pair<int, int>>(mid, end);
+            auto leftIndexes = std::vector<std::pair<size_t, size_t>>(begin, mid);
+            auto rightIndexes = std::vector<std::pair<size_t, size_t>>(mid, end);
 
             //合并左右包围盒
             Bounds3f leftBBox, rightBBox;
@@ -67,7 +67,7 @@ namespace Just {
 
     bool BVH::Traverse(Ray* ray, HitRecord* record, bool shadow) const {
         //初始化辅助队列
-        std::queue<int> q;
+        std::queue<size_t> q;
         q.push(0);
 
         //层次遍历树

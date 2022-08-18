@@ -14,12 +14,12 @@ namespace Just {
 
         Bounds3f bbox;
 
-        Bounds3f GetFaceBBox(int faceIndex);
+        Bounds3f GetFaceBBox(size_t faceIndex);
 
-        bool Intersect(int faceIndex, Ray* ray) const;
+        bool Intersect(size_t faceIndex, Ray* ray) const;
     };
 
-    Bounds3f Mesh::GetFaceBBox(int faceIndex) {
+    Bounds3f Mesh::GetFaceBBox(size_t faceIndex) {
         Bounds3f faceBBox;
         //查询指定三角面的顶点索引
         auto& face = faces[faceIndex];
@@ -31,7 +31,7 @@ namespace Just {
         return faceBBox;
     }
 
-    bool Mesh::Intersect(int faceIndex, Ray* ray) const {
+    bool Mesh::Intersect(size_t faceIndex, Ray* ray) const {
 
     }
 
