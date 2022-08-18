@@ -21,11 +21,11 @@ namespace Just {
             return (&x)[i];
         }
 
-        float LengthSquared() const {
+        T LengthSquared() const {
             return x * x + y * y + z * z;
         }
 
-        float Length() const {
+        T Length() const {
             return std::sqrt(LengthSquared());
         }
     };
@@ -105,7 +105,7 @@ namespace Just {
 
     //赋值除
     template<typename T>
-    inline Vector3<T> operator/=(Vector3<T>& v1, const Vector3<T>& v2) {
+    inline Vector3<T>& operator/=(Vector3<T>& v1, const Vector3<T>& v2) {
         v1.x /= v2.x;
         v1.y /= v2.y;
         v1.z /= v2.z;
@@ -143,18 +143,6 @@ namespace Just {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
     }
 
-    //向量绝对值
-    template<typename T>
-    inline T Abs(const Vector3<T>& v) {
-        return Vector3<T>(std::abs(v.x), std::abs(v.y), std::abs(v.z));
-    }
-
-    //向量点乘的绝对值
-    template<typename T>
-    inline T AbsDot(const Vector3<T>& v1, const Vector3<T>& v2) {
-        return Abs(Dot(v1, v2));
-    }
-
     //向量叉乘
     template<typename T>
     inline Vector3<T> Cross(const Vector3<T>& v1, const Vector3<T>& v2) {
@@ -168,7 +156,8 @@ namespace Just {
     //向量归一化
     template<typename T>
     inline Vector3<T> Normalize(const Vector3<T>& v) {
-        return v / v.Length();
+        T length = v.Length();
+        return Vector3<T>(v.x / length, v.y / length, v.z / length);
     }
 
     //向量最小坐标值

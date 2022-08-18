@@ -1,13 +1,17 @@
 
 #include <Global.h>
+#include "Geometry/Vector2.h"
 #include "Geometry/Vector3.h"
+#include "Geometry/Vector4.h"
+#include "Geometry/Point2.h"
+#include "Geometry/Point3.h"
+#include "Geometry/Point4.h"
 #include "Geometry/Matrix4.h"
 #include "Geometry/Transform.h"
 
 using namespace Just;
 
-static void TestVector()
-{
+static void TestVector() {
     Vector3f v1(2, 0, 0), v2(0, 2, 0);
     Print(
             "v1", v1,
@@ -15,13 +19,12 @@ static void TestVector()
             "Length(v1) = ", v1.Length(),
             "Dot(v1, v2)", Dot(v1, v2),
             "Cross(v1, v2) = ", Cross(v1, v2),
-            "Normalize(v1) = ",Normalize(v1),
+            "Normalize(v1) = ", Normalize(v1),
             "Normalize(v1).Length() = ", Normalize(v1).Length()
     );
 }
 
-static void TestMatrix()
-{
+static void TestMatrix() {
     Matrix3f mat1 = {
             {1, 2, 3},
             {2, 2, 1},
@@ -44,9 +47,8 @@ static void TestMatrix()
     );
 }
 
-static void TestTransform()
-{
-    Point3f p(1, 0, 0);
+static void TestTransform() {
+    Point4f p(1, 0, 0, 1);
 
     auto M = RotateZ(90);
     auto r = M * p;
@@ -63,8 +65,7 @@ static void TestTransform()
     );
 }
 
-int main()
-{
+int main() {
     TestVector();
     TestMatrix();
     TestTransform();

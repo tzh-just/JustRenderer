@@ -11,7 +11,7 @@ namespace Just
         Matrix4f mat;
     };
 
-    constexpr Matrix4f RotateX(float angle)
+    Matrix4f RotateX(float angle)
     {
         return {
                 {1, 0,                        0,                         0},
@@ -21,7 +21,7 @@ namespace Just
         };
     }
 
-    constexpr Matrix4f RotateY(float angle)
+    Matrix4f RotateY(float angle)
     {
         return {
                 {std::cos(Radians(angle)),  0, std::sin(Radians(angle)), 0},
@@ -31,7 +31,7 @@ namespace Just
         };
     }
 
-    constexpr Matrix4f RotateZ(float angle)
+    Matrix4f RotateZ(float angle)
     {
         return {
                 {std::cos(Radians(angle)), -std::sin(Radians(angle)), 0, 0},
@@ -42,17 +42,17 @@ namespace Just
     }
 
     //旋转矩阵
-    constexpr Matrix4f Rotate(float x, float y, float z)
+    Matrix4f Rotate(float x, float y, float z)
     {
         return RotateZ(z) * RotateY(y) * RotateX(x);
     }
 
-    constexpr Matrix4f Rotate(const Vector3f& rotation)
+    Matrix4f Rotate(const Vector3f& rotation)
     {
         return RotateZ(rotation.z) * RotateY(rotation.y) * RotateX(rotation.x);
     }
 
-    constexpr Matrix4f Rotate(const Vector3f& i, const Vector3f& j, const Vector3f& k)
+    Matrix4f Rotate(const Vector3f& i, const Vector3f& j, const Vector3f& k)
     {
         return {
                 {i.x, j.x, k.x, 0},
@@ -63,7 +63,7 @@ namespace Just
     }
 
     //缩放矩阵
-    constexpr Matrix4f Scale(float x, float y, float z)
+    Matrix4f Scale(float x, float y, float z)
     {
         return {
                 {x, 0, 0, 0},
@@ -74,7 +74,7 @@ namespace Just
     }
 
     //缩放矩阵
-    constexpr Matrix4f Scale(const Vector3f& scale)
+    Matrix4f Scale(const Vector3f& scale)
     {
 
         return {
@@ -86,7 +86,7 @@ namespace Just
     }
 
     //平移矩阵
-    constexpr Matrix4f Translate(float x, float y, float z)
+    Matrix4f Translate(float x, float y, float z)
     {
         return {
                 {1, 0, 0, x},
@@ -97,7 +97,7 @@ namespace Just
     }
 
     //平移矩阵
-    constexpr Matrix4f Translate(const Vector3f& position)
+    Matrix4f Translate(const Point3f& position)
     {
         return {
                 {1, 0, 0, position.x},
@@ -108,16 +108,16 @@ namespace Just
     }
 
     //视图矩阵
-    constexpr Matrix4f LookAt(const Vector3f& origin, const Vector3f& target, const Vector3f& up)
+    Matrix4f LookAt(const Point3f& origin, const Point3f& target, const Vector3f& up)
     {
         Vector3f g = Normalize(target - origin);
         Vector3f gxt = Normalize(Cross(g, up));
         Vector3f t = Cross(gxt, g);
-        return Rotate(gxt, t, -g).Transpose() * Translate(-origin);
+        return Transpose(Rotate(gxt, t, -g)) * Translate(-origin);
     }
 
     //正交投影变换矩阵
-    constexpr Matrix4f Orthogonal(float aspectRatio, float fov, float n, float f)
+    Matrix4f Orthogonal(float aspectRatio, float fov, float n, float f)
     {
         //参数far和near为远近平面的长度，即正值
         float t = std::tan(Radians(fov / 2)) * n;
@@ -133,7 +133,7 @@ namespace Just
     }
 
     //透视投影变换矩阵
-    constexpr Matrix4f Perspective(float aspectRatio, float fov, float n, float f)
+    Matrix4f Perspective(float aspectRatio, float fov, float n, float f)
     {
         //参数far和near为远近平面的长度，即正值
         float t = std::tan(Radians(fov / 2)) * n;
@@ -149,7 +149,7 @@ namespace Just
     }
 
     //视口变换矩阵
-    constexpr Matrix4f ScreenMapping(const Point2f& size)
+    Matrix4f ScreenMapping(const Point2f& size)
     {
         return {
                 {size.x / 2, 0,          0, size.x / 2},
