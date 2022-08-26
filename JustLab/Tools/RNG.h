@@ -3,22 +3,21 @@
 #include <random>
 
 namespace Just {
-
-    template<typename T>
     class RNG {
     public:
-        explicit RNG(int seed = 1234) : rngEngine(seed) {}
+        explicit RNG() : rngEngine(rd()) {}
 
-        constexpr T Random(T min, T max) {
+        float Random() {
+            return uniform(rngEngine);
+        }
+
+        float Random(float min, float max) {
             return min + (max - min) * uniform(rngEngine);
         }
 
     private:
+        std::random_device rd;
         std::mt19937_64 rngEngine;
-        std::uniform_real_distribution<float> uniform;
+        std::uniform_real_distribution<float> uniform{0.0f,1.0f};
     };
-
-    using RandomFloat = RNG<float>;
-    using RandomInt = RNG<int>;
-
 }

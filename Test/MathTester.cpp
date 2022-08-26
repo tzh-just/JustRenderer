@@ -8,6 +8,8 @@
 #include "Geometry/Point4.h"
 #include "Geometry/Matrix4.h"
 #include "Geometry/Transform.h"
+#include "Tools/RNG.h"
+#include "Tools//Timer.h"
 
 using namespace Just;
 
@@ -65,8 +67,31 @@ static void TestTransform() {
     );
 }
 
+void TestRandom() {
+    //随机数性能测试
+    RNG rng;
+    Timer timer;
+    timer.Begin();
+    Print(
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random(),
+            rng.Random()
+    );
+    timer.End();
+    Print(timer.time);
+}
+
+
 int main() {
-    TestVector();
-    TestMatrix();
-    TestTransform();
+    //TestVector();
+    //TestMatrix();
+    //TestTransform();
+    TestRandom();
 }
