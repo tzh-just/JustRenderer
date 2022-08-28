@@ -1,7 +1,7 @@
-#include "Accel/Accel.h"
+#include "Accel.h"
 
 namespace Just {
-    void Accel::AddMesh(const std::shared_ptr<Mesh>& mesh) {
+    void Accel::AddMesh(const std::shared_ptr<TriangleMesh>& mesh) {
         meshes.push_back(mesh);
         bbox = Union(bbox, mesh->bbox);
         for (int i = 0; i < mesh->faces.size(); i++) {

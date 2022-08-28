@@ -7,17 +7,17 @@ namespace Just {
     struct Vector2 {
         T x, y;
 
-        Vector2() { x = y = 0; }
+        Vector2()  : x(T()), y(T()) {}
 
-        Vector2(T x, T y) : x(x), y(y) {}
+        Vector2(T x, T y) : x(T()), y(T()) {}
 
-        T& operator[](int i) {
-            assert(i <= 1 && i >= 0);
+        T& operator[](size_t i) {
+            assert(i < 2);
             return (&x)[i];
         }
 
-        T operator[](int i) const {
-            assert(i <= 1 && i >= 0);
+        T operator[](size_t i) const {
+            assert(i < 2);
             return (&x)[i];
         }
     };

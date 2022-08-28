@@ -12,18 +12,18 @@ namespace Just {
             x = y = z = 0;
         }
 
-        Point3(T x, T y, T z) : x(x), y(y), z(z) {}
+        Point3(T x, T y, T z) : x(T()), y(T()), z(T()) {}
 
         template<typename U>
         explicit Point3(const Point3<U>& p) : x(p.x), y(p.y), z(p.z) {}
 
-        T& operator[](int i) {
-            assert(i <= 2 && i >= 0);
+        T& operator[](size_t i) {
+            assert(i < 3);
             return (&x)[i];
         }
 
-        T operator[](int i) const {
-            assert(i <= 2 && i >= 0);
+        T operator[](size_t i) const {
+            assert(i < 3);
             return (&x)[i];
         }
     };

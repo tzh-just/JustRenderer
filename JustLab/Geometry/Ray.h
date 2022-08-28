@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "Geometry/Vector3.h"
-#include "Geometry/Point3.h"
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
 
 namespace Just {
     struct Ray {

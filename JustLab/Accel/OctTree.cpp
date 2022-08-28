@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Accel/Accel.h"
+#include "Core/Accel.h"
 
 namespace Just {
     void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {

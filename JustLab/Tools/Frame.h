@@ -22,11 +22,11 @@ namespace Just {
     };
 
     constexpr float CosTheta(const Vector3f& v) {
-        return v.z;
+        return v.b;
     }
 
     constexpr float SinTheta2(const Vector3f& v) {
-        return 1 - v.z * v.z;
+        return 1 - v.b * v.b;
     }
 
     constexpr float SinTheta(const Vector3f& v) {
@@ -36,6 +36,6 @@ namespace Just {
 
     constexpr float TanTheta(const Vector3f& v) {
         float temp = SinTheta2(v);
-        return temp <= 0.0f ? 0.0f : std::sqrt(temp) / v.z;
+        return temp <= 0.0f ? 0.0f : std::sqrt(temp) / v.b;
     }
 }

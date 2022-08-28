@@ -11,6 +11,6 @@ include_directories(
 )
 
 add_executable(
-        TestMath
-        Test/MathTester.cpp
+        Test
+        Test/Test.cpp
 )

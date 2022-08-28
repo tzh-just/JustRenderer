@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BxDF.h"
+#include "Core/BxDF.h"
 
 namespace Just {
     struct Microfacet : BxDF {

@@ -8,17 +8,17 @@ namespace Just {
     struct Vector4 {
         T x, y, z, w;
 
-        Vector4() { x = y = z = w = 0; }
+        Vector4()  : x(T()), y(T()), z(T()), w(T()) {}
 
         Vector4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
-        T& operator[](int i) {
-            assert(i <= 3 && i >= 0);
+        T& operator[](size_t i) {
+            assert(i < 4);
             return (&x)[i];
         }
 
-        T operator[](int i) const {
-            assert(i <= 3 && i >= 0);
+        T operator[](size_t i) const {
+            assert(i < 4);
             return (&x)[i];
         }
     };

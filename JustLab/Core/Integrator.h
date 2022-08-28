@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Geometry/Vector3.h"
+#include "Geometry/Ray.h"
 
 namespace Just {
     struct Integrator {
@@ -8,6 +9,6 @@ namespace Just {
 
         ~Integrator() = default;
 
-        virtual Vector3 Li() const = 0;
+        virtual Vector3f Li() const = 0;
     };
 }

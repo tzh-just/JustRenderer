@@ -1,11 +1,13 @@
 #pragma once
 
-#include "Emitter.h"
+#include "Core/Emitter.h"
 
 namespace Just {
-    Vector3f AreaLight::Sample() const {}
+    struct AreaLight : Emitter {
+        Vector3f Sample() const override;
 
-    Vector3f AreaLight::Eval() const {}
+        Vector3f Eval() const override;
 
-    float AreaLight::PDF() const {}
+        float PDF() const override;
+    };
 }

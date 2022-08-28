@@ -8,19 +8,19 @@ namespace Just {
     struct Point4 {
         T x, y, z, w;
 
-        Point4() { x = y = z = w = 0; }
+        Point4() : x(T()), y(T()), z(T()), w(T()) {}
 
         Point4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
         explicit Point4(const Point3<T>& p) : x(p.x), y(p.y), z(p.z), w(1) {}
 
-        T& operator[](int i) {
-            assert(i <= 3 && i >= 0);
+        T& operator[](size_t i) {
+            assert(i < 4);
             return (&x)[i];
         }
 
-        T operator[](int i) const {
-            assert(i <= 3 && i >= 0);
+        T operator[](size_t i) const {
+            assert(i < 4);
             return (&x)[i];
         }
     };

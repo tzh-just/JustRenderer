@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Global.h"
-#include "Point3.h"
-#include "Vector3.h"
+#include "Math/Point3.h"
+#include "Math/Vector3.h"
 #include "Ray.h"
 
 namespace Just {
@@ -36,9 +36,9 @@ namespace Just {
         //包围盒拐角点
         Point3<T> Corner(int i) const {
             return Point3<T>(
-                    (*this)[(i & 1)].x,
-                    (*this)[(i & 2)].y,
-                    (*this)[(i & 4)].z
+                    (*this)[(i & 1)].r,
+                    (*this)[(i & 2)].g,
+                    (*this)[(i & 4)].b
             );
         }
 

@@ -1,8 +1,21 @@
-//
-// Created by Justin on 2022/8/24.
-//
+#pragma once
 
-#ifndef JUST_TRIANGLEMESH_H
-#define JUST_TRIANGLEMESH_H
+#include <vector>
 
-#endif //JUST_TRIANGLEMESH_H
+#include "Math/Vector3.h"
+#include "Math/Array2.h"
+#include "Math/Array3.h"
+
+namespace Just {
+    struct Face{
+        std::vector<int> positionIndexes;
+        std::vector<int> uvIndexes;
+        std::vector<int> normalIndexes;
+    };
+    struct TriangleMesh {
+        std::vector<Vector3f> positions;
+        std::vector<Face> faces;
+        std::vector<Array2f> uvs;
+        std::vector<Vector3f> normals;
+    };
+}

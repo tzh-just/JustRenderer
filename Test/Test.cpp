@@ -1,15 +1,16 @@
 
 #include <Global.h>
-#include "Geometry/Vector2.h"
-#include "Geometry/Vector3.h"
-#include "Geometry/Vector4.h"
-#include "Geometry/Point2.h"
-#include "Geometry/Point3.h"
-#include "Geometry/Point4.h"
-#include "Geometry/Matrix4.h"
+#include "Math/Vector2.h"
+#include "Math/Vector3.h"
+#include "Math/Vector4.h"
+#include "Math/Point2.h"
+#include "Math/Point3.h"
+#include "Math/Point4.h"
+#include "Math/Matrix4.h"
 #include "Geometry/Transform.h"
 #include "Tools/RNG.h"
 #include "Tools//Timer.h"
+#include "Tools/Loader.h"
 
 using namespace Just;
 
@@ -88,10 +89,17 @@ void TestRandom() {
     Print(timer.time);
 }
 
+static void TestLoader() {
+    auto mesh = new TriangleMesh();
+    Loader::LoadMesh(mesh, "Scene/cbox/meshes/TallBlock.obj");
+    std::cout << mesh->positions.size() << "\n";
+}
+
 
 int main() {
     //TestVector();
     //TestMatrix();
     //TestTransform();
-    TestRandom();
+    //TestRandom();
+    TestLoader();
 }

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Global.h"
-#include "Geometry/Point2.h"
-#include "Geometry/Vector3.h"
-#include "Matrix4.h"
+#include "Math/Point2.h"
+#include "Math/Vector3.h"
+#include "Math/Matrix4.h"
 
 namespace Just
 {

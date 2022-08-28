@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Global.h"
-#include "Point2.h"
+#include "Math/Point2.h"
 #include "Ray.h"
 
 namespace Just {

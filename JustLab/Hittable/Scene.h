@@ -7,7 +7,7 @@
 
 namespace Just{
     struct Scene{
-        std::vector<std::shared_ptr<Mesh>> meshes;
+        std::vector<std::shared_ptr<TriangleMesh>> meshes;
         std::vector<std::shared_ptr<Emitter>> emitters;
     };
 }

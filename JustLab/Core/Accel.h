@@ -10,10 +10,23 @@
 #include "Accel/AccelNode.h"
 
 namespace Just {
+    struct AccelNode {
+        size_t child;
+        Bounds3f bbox;
+        std::vector<std::pair<size_t, size_t>> indexes;
+
+        AccelNode() : bbox(), child(0) {}
+
+        explicit AccelNode(const Bounds3f& bbox) : bbox(bbox), child(0) {}
+
+        AccelNode(const Bounds3f& bbox, size_t size)
+                : bbox(bbox), indexes(size), child(0) {}
+    };
+
     class Accel {
     protected:
         //网格指针数组
-        std::vector<std::shared_ptr<Mesh>> meshes;
+        std::vector<std::shared_ptr<TriangleMesh>> meshes;
         //加速结构树
         std::vector<AccelNode> tree;
         //场景总包围盒
@@ -31,7 +44,7 @@ namespace Just {
     public:
         Accel(int nums, int depth) : minNumFaces(nums), maxDepth(depth) {}
 
-        void AddMesh(const std::shared_ptr<Mesh>& mesh);
+        void AddMesh(const std::shared_ptr<TriangleMesh>& mesh);
 
         //构建加速结构
         void Build();
@@ -47,35 +60,5 @@ namespace Just {
 
         //遍历子节点
         virtual bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const = 0;
-    };
-
-    class Naive : public Accel {
-    public:
-        Naive() : Accel(16, 1) {}
-
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
-
-        bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const override;
-    };
-
-    class BVH : public Accel {
-    protected:
-        const int kNumBuckets = 10;
-
-    public:
-        BVH() : Accel(16, 32) {}
-
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
-
-        bool Traverse(Ray* ray, HitRecord* record, bool shadow) const override;
-    };
-
-    class OctTree : public Accel {
-    public:
-        OctTree() : Accel(16, 12) {}
-
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
-
-        bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const override;
     };
 }

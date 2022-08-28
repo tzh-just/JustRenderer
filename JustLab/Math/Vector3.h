@@ -7,17 +7,17 @@ namespace Just {
     struct Vector3 {
         T x, y, z;
 
-        Vector3() { x = y = z = 0; }
+        Vector3() : x(T()), y(T()), z(T()) {}
 
         Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
 
-        T& operator[](int i) {
-            assert(i <= 2 && i >= 0);
+        T& operator[](size_t i) {
+            assert(i < 3);
             return (&x)[i];
         }
 
-        T operator[](int i) const {
-            assert(i <= 2 && i >= 0);
+        T operator[](size_t i) const {
+            assert(i < 3);
             return (&x)[i];
         }
 
@@ -198,9 +198,10 @@ namespace Just {
 
     //输出
     template<typename T>
-    inline std::ostream& operator<<(std::ostream& os, const Vector3<T>& v1) {
-        return os << "<" << v1.x << "," << v1.y << "," << v1.z << ">";
+    inline std::ostream& operator<<(std::ostream& os, const Vector3<T>& v) {
+        return os << "<" << v.x << "," << v.y << "," << v.z << ">";
     }
 
     using Vector3f = Vector3<float>;
+    using Vector3i = Vector3<int>;
 }

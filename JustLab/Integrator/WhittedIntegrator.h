@@ -4,6 +4,6 @@
 
 namespace Just {
     struct WhittedIntegrator : Integrator {
-
+        Vector3f Li() const override;
     };
 }

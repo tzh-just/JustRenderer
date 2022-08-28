@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Geometry/Point2.h"
-#include "Geometry/Vector3.h"
+#include "Math/Point2.h"
+#include "Math/Vector3.h"
 
 
 namespace Just {
