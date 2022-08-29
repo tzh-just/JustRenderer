@@ -12,7 +12,7 @@ namespace Just {
         std::vector<int> uvIndexes;
         std::vector<int> normalIndexes;
     };
-    struct TriangleMesh {
+    struct Mesh {
         std::vector<Vector3f> positions;
         std::vector<Face> faces;
         std::vector<Array2f> uvs;

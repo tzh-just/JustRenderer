@@ -1,7 +1,7 @@
 #include <Core/Accel.h>
 
 namespace Just {
-    void Accel::AddMesh(TriangleMesh* mesh) {
+    void Accel::AddMesh(Mesh* mesh) {
         meshes.push_back(mesh);
         bbox = Union(bbox, mesh->bbox);
         for (int i = 0; i < mesh->faces.size(); i++) {
@@ -63,7 +63,7 @@ namespace Just {
         std::cout << "[leaf count]: " << leafCount << std::endl;
     }
 
-    bool Accel::Intersect(const Ray& ray, HitRecord* it, bool isShadowRay = false) const {
+    bool Accel::RayIntersect(const Ray& ray, HitRecord& it, bool isShadowRay = false) const {
         Ray temp = ray;
         bool found = Traverse(&temp, nullptr, false);
 
@@ -82,8 +82,8 @@ namespace Just {
         return found;
     }
 
-    bool Accel::Intersect(const Ray& ray, bool shadow = true) const {
+    bool Accel::RayIntersect(const Ray& ray, bool shadow = true) const {
         HitRecord unused;
-        return Intersect(ray, &unused, shadow);
+        return RayIntersect(ray, unused, shadow);
     }
 }

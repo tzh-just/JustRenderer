@@ -78,14 +78,14 @@ namespace Just {
     }
 
     //后数乘
-    template<typename T>
-    inline Vector3<T> operator*(const Vector3<T>& v, T k) {
+    template<typename T, typename U>
+    inline Vector3<T> operator*(const Vector3<T>& v, U k) {
         return Vector3<T>(v.x * k, v.y * k, v.z * k);
     }
 
     //前数乘
-    template<typename T>
-    inline Vector3<T> operator*(T k, const Vector3<T>& v) {
+    template<typename T, typename U>
+    inline Vector3<T> operator*(U k, const Vector3<T>& v) {
         return v * k;
     }
 

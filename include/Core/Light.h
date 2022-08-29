@@ -3,7 +3,7 @@
 #include "Math/Vector3.h"
 
 namespace Just {
-    struct Emitter {
+    struct Light {
         Vector3f radiance;
 
         virtual float PDF() const = 0;

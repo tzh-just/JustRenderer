@@ -8,7 +8,7 @@
 #include "Math/Array3.h"
 #include "Math/Array2.h"
 #include "Math/Vector3.h"
-#include "Shape/TriangleMesh.h"
+#include "Shape/Mesh.h"
 #include "Tools/Texture.h"
 
 namespace Just {
@@ -16,6 +16,6 @@ namespace Just {
     public:
         static void LoadTexture(Texture* texture, const std::string& filePath);
 
-        static void LoadMesh(TriangleMesh* mesh, const std::string& filePath);
+        static void LoadMesh(Mesh* mesh, const std::string& filePath);
     };
 }

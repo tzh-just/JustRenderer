@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core/Emitter.h"
+#include "Core/Light.h"
 
 namespace Just {
-    struct AreaLight : Emitter {
+    struct AreaLight : Light {
         Vector3f Sample() const override;
 
         Vector3f Eval() const override;

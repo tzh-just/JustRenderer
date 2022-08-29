@@ -11,8 +11,42 @@
 #include "Tools/RNG.h"
 #include "Tools//Timer.h"
 #include "Tools/Loader.h"
+#include "Camera/PerspectiveCamera.h"
+#include "Integrator/WhittedIntegrator.h"
+#include "Accel/BVH.h"
+#include "Core/Film.h"
 
 using namespace Just;
+
+int main() {
+    //TestVector();
+    //TestMatrix();
+    //TestTransform();
+    //TestRandom();
+    //TestLoadMesh();
+    //TestLoadTexture();
+
+    //胶片
+    auto film = new Film
+
+    //摄像机
+    Point3f cameraPos(278,273,-800);
+    Point3f cameraTarget(278,273,-799);
+    Vector3f up(0,1,0);
+    float aspectRatio = 1;
+    float fov = 45;
+    float near = 0.035;
+    float far = 50;
+    auto camera = new PerspectiveCamera(cameraPos, cameraTarget, up,  near, far, aspectRatio, fov);
+
+    //积分器
+    auto integrator = new WhittedIntegrator();
+
+    //场景
+    auto scene = new Scene();
+
+    auto accel = new BVH();
+}
 
 static void TestVector() {
     Vector3f v1(2, 0, 0), v2(0, 2, 0);
@@ -90,20 +124,11 @@ static void TestRandom() {
 }
 
 static void TestLoadMesh() {
-    auto mesh = new TriangleMesh();
+    auto mesh = new Mesh();
     Loader::LoadMesh(mesh, "Scene/CornellBox/Mesh/TallBlock.obj");
 }
 
 static void TestLoadTexture() {
     auto texture = new Texture();
     Loader::LoadTexture(texture, "Scene/AfricanHead/Texture/Diffuse.tga");
-}
-
-int main() {
-    //TestVector();
-    //TestMatrix();
-    //TestTransform();
-    //TestRandom();
-    //TestLoadMesh();
-    TestLoadTexture();
 }

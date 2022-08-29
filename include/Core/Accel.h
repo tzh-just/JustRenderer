@@ -25,7 +25,7 @@ namespace Just {
     class Accel {
     protected:
         //网格指针数组
-        std::vector<TriangleMesh*> meshes;
+        std::vector<Mesh*> meshes;
         //加速结构树
         std::vector<AccelNode> tree;
         //场景总包围盒
@@ -43,7 +43,7 @@ namespace Just {
     public:
         Accel(int nums, int depth) : minNumFaces(nums), maxDepth(depth) {}
 
-        void AddMesh(TriangleMesh* mesh);
+        void AddMesh(Mesh* mesh);
 
         //构建加速结构
         void Build();
@@ -52,10 +52,10 @@ namespace Just {
         virtual void Divide(size_t nodeIndex, std::vector<AccelNode>* children) = 0;
 
         //射线相交测试
-        bool Intersect(const Ray& ray, HitRecord* it, bool isShadowRay) const;
+        bool RayIntersect(const Ray& ray, HitRecord& it, bool isShadowRay) const;
 
         //阴影测试
-        bool Intersect(const Ray& ray, bool shadow) const;
+        bool RayIntersect(const Ray& ray, bool shadow) const;
 
         //遍历子节点
         virtual bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const = 0;

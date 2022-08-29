@@ -3,7 +3,7 @@
 #include "Math/Vector3.h"
 
 namespace Just {
-    struct EmitterRecord {
+    struct LightRecord {
         Vector3f radiance;
     };
 }

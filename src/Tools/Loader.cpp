@@ -21,7 +21,7 @@ namespace Just {
         }
     }
 
-    void Loader::LoadMesh(TriangleMesh* mesh, const std::string& filePath) {
+    void Loader::LoadMesh(Mesh* mesh, const std::string& filePath) {
         std::ifstream fileStream(filePath);
         std::string line;
         while (std::getline(fileStream, line)) {

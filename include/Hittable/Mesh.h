@@ -3,10 +3,10 @@
 #include <vector>
 #include "Math/Vector3.h"
 #include "Math/Point2.h"
-#include "Math/Bounds3.h"
+#include "Geometry/Bounds3.h"
 
 namespace Just {
-    struct TriangleMesh {
+    struct Mesh {
         std::vector<Point3i> faces;
         std::vector<Point3f> positions;
         std::vector<Vector3f> normals;
@@ -19,7 +19,7 @@ namespace Just {
         bool Intersect(size_t faceIndex, Ray* ray) const;
     };
 
-    Bounds3f TriangleMesh::GetFaceBBox(size_t faceIndex) {
+    Bounds3f Mesh::GetFaceBBox(size_t faceIndex) {
         Bounds3f faceBBox;
         //查询指定三角面的顶点索引
         auto& face = faces[faceIndex];
@@ -31,7 +31,7 @@ namespace Just {
         return faceBBox;
     }
 
-    bool TriangleMesh::Intersect(size_t faceIndex, Ray* ray) const {
+    bool Mesh::Intersect(size_t faceIndex, Ray* ray) const {
 
     }
 

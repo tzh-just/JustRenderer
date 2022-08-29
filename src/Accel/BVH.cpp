@@ -3,8 +3,6 @@
 #include <Accel/BVH.h>
 
 namespace Just {
-
-
     void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
 
@@ -63,7 +61,6 @@ namespace Just {
         children->emplace_back(leftNode);
         children->emplace_back(rightNode);
     }
-
 
     bool BVH::Traverse(Ray* ray, HitRecord* record, bool shadow) const {
         //初始化辅助队列

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <Math/Point2.h>
 #include <Geometry/Bounds2.h>
 #include <Math/Color3.h>
 
@@ -15,8 +16,11 @@ namespace Just {
     class Film {
     private:
         std::vector<Pixel> pixels;
-        Bounds2f bbox;
+        Bounds2i bbox;
     public:
+        Point2i resolution;
+
+        explicit Film(const Point2i& resolution) : resolution(resolution) {}
 
     };
 }

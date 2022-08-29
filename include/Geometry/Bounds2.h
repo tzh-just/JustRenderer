@@ -9,12 +9,7 @@ namespace Just {
     struct Bounds2 {
         Point2<T> pMin, pMax;
 
-        Bounds2() {
-            T minNum = std::numeric_limits<T>::lowest();
-            T maxNum = std::numeric_limits<T>::max();
-            pMin = Point2<T>(maxNum, maxNum, maxNum);
-            pMax = Point2<T>(minNum, minNum, minNum);
-        }
+        Bounds2() : pMin(std::numeric_limits<T>::max()), pMax(std::numeric_limits<T>::lowest()) {}
 
         explicit Bounds2(const Point2<T>& p) : pMin(p), pMax(p) {}
 
@@ -37,4 +32,5 @@ namespace Just {
     }
 
     using Bounds2f = Bounds2<float>;
+    using Bounds2i = Bounds2<int>;
 }
