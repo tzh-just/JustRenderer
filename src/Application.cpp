@@ -31,7 +31,7 @@ int main() {
     constexpr int width = 1024;
     constexpr int height = 1024;
     Point2i resolution(width, height);
-    auto film = new Film(resolution);
+    auto film = std::make_shared<Film>(resolution);
 
     //摄像机
     Point3f origin(278, 273, -800);
@@ -41,28 +41,28 @@ int main() {
     float fov = 45;
     float near = 0.035;
     float far = 50;
-    auto camera = new PerspectiveCamera(origin, target, up, near, far, aspectRatio, fov);
+    auto camera = std::make_shared<PerspectiveCamera>(origin, target, up, near, far, aspectRatio, fov);
 
     //积分器
-    auto integrator = new WhittedIntegrator();
+    auto integrator = std::make_shared<WhittedIntegrator>();
 
     //加速结构
-    auto bvh = new BVH();
+    auto bvh = std::make_shared<BVH>();
     //场景
-    auto scene = new Scene(bvh);
+    auto scene = std::make_shared<Scene>(bvh);
 
     //模型
-    auto cboxFloorMesh = new Mesh();
+    auto cboxFloorMesh = std::make_shared<Mesh>();
     Loader::LoadMesh(cboxFloorMesh, "scene/CornellBox/Mesh/Floor");
-    auto cboxCeilingMesh = new Mesh();
+    auto cboxCeilingMesh = std::make_shared<Mesh>();
     Loader::LoadMesh(cboxCeilingMesh, "scene/CornellBox/Mesh/Ceiling");
-    auto cboxBackWallMesh = new Mesh();
+    auto cboxBackWallMesh = std::make_shared<Mesh>();
     Loader::LoadMesh(cboxBackWallMesh, "scene/CornellBox/Mesh/BackWall");
-    auto cboxRightWallMesh = new Mesh();
+    auto cboxRightWallMesh = std::make_shared<Mesh>();
     Loader::LoadMesh(cboxRightWallMesh, "scene/CornellBox/Mesh/RightWall");
-    auto cboxLeftWallMesh = new Mesh();
+    auto cboxLeftWallMesh = std::make_shared<Mesh>();
     Loader::LoadMesh(cboxLeftWallMesh, "scene/CornellBox/Mesh/LeftWall");
-    auto cboxLightMesh = new Mesh();
+    auto cboxLightMesh = std::make_shared<Mesh>();
     Loader::LoadMesh(cboxLightMesh, "scene/CornellBox/Mesh/Light");
 
     scene->meshes.push_back(cboxFloorMesh);
@@ -73,10 +73,11 @@ int main() {
     scene->meshes.push_back(cboxLightMesh);
 
     //光源
-    auto light = new AreaLight();
+    auto light = std::make_shared<AreaLight>();
     scene->lights.push_back(light);
 
-
+    //渲染场景
+    integrator->Render(scene);
 }
 
 static void TestVector() {
@@ -155,7 +156,7 @@ static void TestRandom() {
 }
 
 static void TestLoadMesh() {
-    auto mesh = new Mesh();
+    auto mesh = std::make_shared<Mesh>();
     Loader::LoadMesh(mesh, "Scene/CornellBox/Mesh/TallBlock.obj");
 }
 

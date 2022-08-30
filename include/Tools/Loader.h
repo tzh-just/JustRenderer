@@ -14,8 +14,8 @@
 namespace Just {
     class Loader {
     public:
-        static void LoadTexture(Texture* texture, const std::string& filePath);
+        static void LoadTexture(std::shared_ptr<Texture> texture, const std::string& filePath);
 
-        static void LoadMesh(Mesh* mesh, const std::string& filePath);
+        static void LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath);
     };
 }

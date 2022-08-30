@@ -22,5 +22,6 @@ namespace Just {
 
         explicit Film(const Point2i& resolution) : resolution(resolution) {}
 
+        bool StoreImage() const;
     };
 }

@@ -8,10 +8,8 @@ namespace Just {
         std::shared_ptr<Transform> objToWorld;
         std::shared_ptr<Transform> worldToObj;
 
-        Shape(const std::shared_ptr<Transform>& objToWorld, const std::shared_ptr<Transform>& worldToObj) {
-            this->objToWorld = objToWorld;
-            this->worldToObj = worldToObj;
-        }
+        Shape(std::shared_ptr<Transform> objToWorld, std::shared_ptr<Transform> worldToObj)
+                : objToWorld(objToWorld), worldToObj(worldToObj) {}
 
         virtual Bounds3f ObjectBound() const = 0;
 

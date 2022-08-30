@@ -3,16 +3,24 @@
 #include "Global.h"
 #include "Math/Vector3.h"
 #include "Geometry/Ray.h"
-#include "Core/Scene.h"
+#include "Scene.h"
+#include "Sampler.h"
+#include "Camera.h"
 
 namespace Just {
     struct Integrator {
-        virtual void Render(const Scene& scene) = 0;
+        virtual void Render(std::shared_ptr<Scene> scene) = 0;
     };
 
-    struct SamplerIntegrator: public Integrator{
+    struct SamplerIntegrator : public Integrator {
         std::shared_ptr<Camera> camera;
+        std::shared_ptr<Sampler> sampler;
+
+        SamplerIntegrator(std::shared_ptr<Camera> camera, std::shared_ptr<Sampler> sampler)
+            : camera(camera), sampler(sampler) {}
+
         virtual Vector3f Li() const = 0;
-        void Render(const Scene& scene) override;
+
+        void Render(std::shared_ptr<Scene> scene) override;
     };
 }

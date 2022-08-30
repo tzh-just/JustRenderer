@@ -16,8 +16,8 @@ namespace Just {
         Vector3f horizontal, vertical;
 
         PerspectiveCamera(const Point3f& origin, const Point3f& target, const Vector3f& up,
-                          float near, float far, float aspectRatio, float fov)
-                : Camera(origin, target, up, near, far, aspectRatio), fov(fov) {
+                          float near, float far, float aspectRatio, std::shared_ptr<Film> film, float fov)
+                : Camera(origin, target, up, near, far, aspectRatio, film), fov(fov) {
             //初始化相机参数
             top = std::tan(Radians(fov * 0.5f)) * near;
             right = top * aspectRatio;

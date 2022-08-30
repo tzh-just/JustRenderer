@@ -6,7 +6,7 @@
 #include <Tools/Loader.h>
 
 namespace Just {
-    void Loader::LoadTexture(Texture* texture, const std::string& filePath) {
+    void Loader::LoadTexture(std::shared_ptr<Texture> texture, const std::string& filePath) {
         int width, height, channel;
         unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channel, 3);
 
@@ -21,11 +21,11 @@ namespace Just {
         }
     }
 
-    void Loader::LoadMesh(Mesh* mesh, const std::string& filePath) {
+    void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
         std::ifstream fileStream(filePath);
         std::string line;
         while (std::getline(fileStream, line)) {
-            std::istringstream strStream(line.c_str());
+            std::istringstream strStream(line);
             char trash;
             if (!line.compare(0, 2, "v ")) {
                 strStream >> trash;
