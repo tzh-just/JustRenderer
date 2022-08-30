@@ -12,7 +12,8 @@ namespace Just {
 
         explicit Point2(T val) : x(val), y(val) {}
 
-        Point2(T x, T y) : x(x), y(y) {}
+        template<typename U>
+        Point2(U x, U y) : x(x), y(y) {}
 
         T& operator[](size_t i) {
             assert(i < 2);

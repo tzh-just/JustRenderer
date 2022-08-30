@@ -7,17 +7,17 @@
 
 namespace Just {
     struct Pixel {
-        RGB rgb;
+        RGB color;
         float weight;
 
-        Pixel() : rgb(), weight(0) {}
+        explicit Pixel(const RGB& color) : color(color), weight(0) {}
     };
 
-    class Film {
-    private:
+    struct Film {
         std::vector<Pixel> pixels;
+
         Bounds2i bbox;
-    public:
+
         Point2i resolution;
 
         explicit Film(const Point2i& resolution) : resolution(resolution) {}

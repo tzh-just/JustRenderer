@@ -1,24 +1,28 @@
 #pragma once
 
+#include <tuple>
 #include "Math/Point2.h"
+#include "Tools/RNG.h"
 
 namespace Just {
+
     struct Sampler {
-        Point2i curPixel;
-        int64_t currPixelIndex;
-        size_t offset1D;
-        size_t offset2D;
+        int spp;
+        int index;
 
-        virtual float Get1D() = 0;
+        RNG rng;
 
-        virtual Point2f Get2D() = 0;
+        explicit Sampler(int spp) : spp(spp), index(0) {}
 
-        virtual void StartPixel(const Point2i& p);
+        virtual std::tuple<float, float> Sample(float i, float j) = 0;
 
-        virtual bool StartNextPixel(int64_t i);
+        virtual float Get1D();
+
+        virtual Point2f Get2D();
+
+        virtual void StartPixel();
+
+        virtual bool StartNextPixel();
     };
 
-    void Sampler::StartPixel(const Point2i& p) {
-
-    }
 }

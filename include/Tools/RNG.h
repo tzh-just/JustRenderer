@@ -7,11 +7,11 @@ namespace Just {
     public:
         explicit RNG() : rngEngine(rd()) {}
 
-        float Random() {
+        float UniformFloat() {
             return uniform(rngEngine);
         }
 
-        float Random(float min, float max) {
+        float UniformFloat(float min, float max) {
             return min + (max - min) * uniform(rngEngine);
         }
 

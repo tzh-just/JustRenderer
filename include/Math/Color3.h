@@ -9,7 +9,7 @@ namespace Just {
 
         Color3() : r(T()), g(T()), b(T()) {}
 
-        explicit Color3(T val) : r(val), g(val), b(val){}
+        explicit Color3(T val) : r(val), g(val), b(val) {}
 
         Color3(T r, T g, T b) : r(r), g(g), b(b) {}
 
@@ -104,8 +104,8 @@ namespace Just {
     }
 
     //赋值数除
-    template<typename T>
-    inline Color3<T>& operator/=(Color3<T>& c, T k) {
+    template<typename T, typename U>
+    inline Color3<T>& operator/=(Color3<T>& c, U k) {
         assert(k != 0);
         float inv = (float) 1 / k;
         c.r *= inv;
@@ -117,7 +117,7 @@ namespace Just {
     using RGB = Color3<int>;
     using Spectrum = Color3<float>;
 
-    inline Spectrum Spectrum2RGB(RGB rgb) {
+    inline Spectrum RGB2Spectrum(const RGB& rgb) {
         return {
                 std::clamp(float(rgb.r) / 255.0f, 0.0f, 1.0f),
                 std::clamp(float(rgb.g) / 255.0f, 0.0f, 1.0f),
@@ -125,7 +125,7 @@ namespace Just {
         };
     }
 
-    inline RGB RGB2Spectrum(Spectrum spectrum) {
+    inline RGB Spectrum2RGB(const Spectrum& spectrum) {
         return {
                 std::clamp(int(spectrum.r * 255), 0, 255),
                 std::clamp(int(spectrum.g * 255), 0, 255),

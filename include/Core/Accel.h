@@ -5,7 +5,7 @@
 #include "Global.h"
 #include "Geometry/Ray.h"
 #include "Geometry/Bounds3.h"
-#include "Hittable/Hittable.h"
+#include "Geometry/Hittable.h"
 #include "Shape/Mesh.h"
 
 namespace Just {
@@ -41,7 +41,7 @@ namespace Just {
 
         Accel(int nums, int depth) : minNumFaces(nums), maxDepth(depth) {}
 
-        void AddMesh(Mesh* mesh);
+        void AddMesh(std::shared_ptr<Mesh> mesh);
 
         //构建加速结构
         void Build();

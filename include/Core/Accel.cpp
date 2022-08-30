@@ -1,7 +1,7 @@
 #include <Core/Accel.h>
 
 namespace Just {
-    void Accel::AddMesh(Mesh* mesh) {
+    void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
         meshes.push_back(mesh);
         bbox = Union(bbox, mesh->bbox);
         for (int i = 0; i < mesh->faces.size(); i++) {

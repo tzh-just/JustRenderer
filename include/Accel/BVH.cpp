@@ -70,7 +70,7 @@ namespace Just {
         //层次遍历树
         while (!q.empty()) {
             auto size = q.size();
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < size; ++i) {
                 auto& node = tree[q.front()];
                 q.pop();
                 //包围盒相交测试

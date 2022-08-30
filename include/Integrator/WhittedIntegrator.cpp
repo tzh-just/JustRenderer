@@ -3,7 +3,7 @@
 
 namespace Just {
 
-    Vector3f WhittedIntegrator::Li() const {
+    Spectrum WhittedIntegrator::Li(const Ray& ray) const {
         return {1.0f, 1.0f, 1.0f};
     }
 }
