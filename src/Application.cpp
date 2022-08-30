@@ -15,6 +15,7 @@
 #include "Integrator/WhittedIntegrator.h"
 #include "Accel/BVH.h"
 #include "Core/Film.h"
+#include "Light/AreaLight.h"
 
 using namespace Just;
 
@@ -27,25 +28,55 @@ int main() {
     //TestLoadTexture();
 
     //胶片
-    auto film = new Film
+    constexpr int width = 1024;
+    constexpr int height = 1024;
+    Point2i resolution(width, height);
+    auto film = new Film(resolution);
 
     //摄像机
-    Point3f cameraPos(278,273,-800);
-    Point3f cameraTarget(278,273,-799);
-    Vector3f up(0,1,0);
+    Point3f origin(278, 273, -800);
+    Point3f target(278, 273, -799);
+    Vector3f up(0, 1, 0);
     float aspectRatio = 1;
     float fov = 45;
     float near = 0.035;
     float far = 50;
-    auto camera = new PerspectiveCamera(cameraPos, cameraTarget, up,  near, far, aspectRatio, fov);
+    auto camera = new PerspectiveCamera(origin, target, up, near, far, aspectRatio, fov);
 
     //积分器
     auto integrator = new WhittedIntegrator();
 
+    //加速结构
+    auto bvh = new BVH();
     //场景
-    auto scene = new Scene();
+    auto scene = new Scene(bvh);
 
-    auto accel = new BVH();
+    //模型
+    auto cboxFloorMesh = new Mesh();
+    Loader::LoadMesh(cboxFloorMesh, "scene/CornellBox/Mesh/Floor");
+    auto cboxCeilingMesh = new Mesh();
+    Loader::LoadMesh(cboxCeilingMesh, "scene/CornellBox/Mesh/Ceiling");
+    auto cboxBackWallMesh = new Mesh();
+    Loader::LoadMesh(cboxBackWallMesh, "scene/CornellBox/Mesh/BackWall");
+    auto cboxRightWallMesh = new Mesh();
+    Loader::LoadMesh(cboxRightWallMesh, "scene/CornellBox/Mesh/RightWall");
+    auto cboxLeftWallMesh = new Mesh();
+    Loader::LoadMesh(cboxLeftWallMesh, "scene/CornellBox/Mesh/LeftWall");
+    auto cboxLightMesh = new Mesh();
+    Loader::LoadMesh(cboxLightMesh, "scene/CornellBox/Mesh/Light");
+
+    scene->meshes.push_back(cboxFloorMesh);
+    scene->meshes.push_back(cboxCeilingMesh);
+    scene->meshes.push_back(cboxBackWallMesh);
+    scene->meshes.push_back(cboxRightWallMesh);
+    scene->meshes.push_back(cboxLeftWallMesh);
+    scene->meshes.push_back(cboxLightMesh);
+
+    //光源
+    auto light = new AreaLight();
+    scene->lights.push_back(light);
+
+
 }
 
 static void TestVector() {

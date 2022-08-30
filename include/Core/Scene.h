@@ -3,19 +3,19 @@
 #include "Geometry/Bounds3.h"
 #include "Accel.h"
 #include "Light.h"
-#include "Integrator.h"
 #include "Shape.h"
-#include "Camera.h"
-#include "Integrator.h"
 
 namespace Just {
-    class Scene {
-    private:
+    struct Scene {
+    public:
         Bounds3f bbox;
-        Accel* accel;
-        Camera* camera;
-        std::vector<Mesh*> meshes;
-        std::vector<Light*> emitters;
+        std::shared_ptr<Accel> accel;
+        std::vector<std::shared_ptr<Mesh>> meshes;
+        std::vector<std::shared_ptr<Light>> lights;
+
+        explicit Scene(const std::shared_ptr<Accel>& accel) : accel(accel) {
+            accel->meshes = meshes;
+        }
 
         //射线相交测试
         bool RayIntersect(const Ray& ray, HitRecord& record) const {

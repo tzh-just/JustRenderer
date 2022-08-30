@@ -10,7 +10,7 @@ namespace Just {
     public:
         BVH() : Accel(16, 32) {}
 
-        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override = 0;
+        void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
         bool Traverse(Ray* ray, HitRecord* record, bool shadow) const override;
     };

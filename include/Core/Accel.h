@@ -5,8 +5,8 @@
 #include "Global.h"
 #include "Geometry/Ray.h"
 #include "Geometry/Bounds3.h"
-#include "Hittable/HitRecord.h"
-#include "Hittable/Mesh.h"
+#include "Hittable/Hittable.h"
+#include "Shape/Mesh.h"
 
 namespace Just {
     struct AccelNode {
@@ -22,10 +22,9 @@ namespace Just {
                 : bbox(bbox), indexes(size), child(0) {}
     };
 
-    class Accel {
-    protected:
+    struct Accel {
         //网格指针数组
-        std::vector<Mesh*> meshes;
+        std::vector<std::shared_ptr<Mesh>> meshes;
         //加速结构树
         std::vector<AccelNode> tree;
         //场景总包围盒
@@ -40,7 +39,6 @@ namespace Just {
         int minNumFaces = 0;
         int maxDepth = 0;
 
-    public:
         Accel(int nums, int depth) : minNumFaces(nums), maxDepth(depth) {}
 
         void AddMesh(Mesh* mesh);
