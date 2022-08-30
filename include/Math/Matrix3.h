@@ -10,8 +10,8 @@ namespace Just {
         T data[3][3];
 
         Matrix3() {
-            for (size_t row = 0; row < 3; row++) {
-                for (size_t col = 0; col < 3; col++) {
+            for (size_t row = 0; row < 3; ++row) {
+                for (size_t col = 0; col < 3; ++co) {
                     data[row][col] = (row == col) ? 1 : 0;
                 }
             }
@@ -19,7 +19,7 @@ namespace Just {
 
         Matrix3(const std::initializer_list<Vector3<T>>& mat) {
             auto it = mat.begin();
-            for (size_t row = 0; row < 3; row++) {
+            for (size_t row = 0; row < 3; ++row) {
                 SetRow(row, *it++);
             }
         }
@@ -37,7 +37,7 @@ namespace Just {
         Vector3<T> Row(size_t row) const {
             assert(row < 3);
             Vector3<T> temp;
-            for (size_t col = 0; col < 3; col++) {
+            for (size_t col = 0; col < 3; ++co) {
                 temp[col] = data[row][col];
             }
             return temp;
@@ -46,7 +46,7 @@ namespace Just {
         Vector3<T> Col(size_t col) const {
             assert(col < 3);
             Vector3<T> temp;
-            for (size_t row = 0; row < 3; row++) {
+            for (size_t row = 0; row < 3; ++row) {
                 temp[row] = data[row][col];
             }
             return temp;
@@ -54,14 +54,14 @@ namespace Just {
 
         void SetRow(size_t row, const Vector3<T>& v) {
             assert(row < 3);
-            for (size_t col = 0; col < 3; col++) {
+            for (size_t col = 0; col < 3; ++co) {
                 data[row][col] = v[col];
             }
         }
 
         void SetCol(size_t col, const Vector3<T>& v) {
             assert(col < 3);
-            for (size_t row = 0; row < 3; row++) {
+            for (size_t row = 0; row < 3; ++row) {
                 data[row][col] = v[row];
             }
         }
@@ -69,8 +69,8 @@ namespace Just {
         //余子式
         Matrix2<T> Minor(size_t i, size_t j) const {
             Matrix2<T> minor;
-            for (size_t row = 0; row < 2; row++) {
-                for (size_t col = 0; col < 2; col++) {
+            for (size_t row = 0; row < 2; ++row) {
+                for (size_t col = 0; col < 2; ++co) {
                     minor[row][col] = data[row < i ? row : row + 1][col < j ? col : col + 1];
                 }
             }
@@ -85,7 +85,7 @@ namespace Just {
         //行列式
         T Det() const {
             T sum = 0;
-            for (size_t col = 0; col < 3; col++) {
+            for (size_t col = 0; col < 3; ++co) {
                 sum += data[0][col] * Cofactor(0, col);
             }
             return sum;
@@ -96,8 +96,8 @@ namespace Just {
     template<typename T>
     inline Matrix3<T> operator*(const Matrix3<T>& mat, T k) {
         Matrix3<T> temp;
-        for (size_t row = 0; row < 3; row++) {
-            for (size_t col = 0; col < 3; col++) {
+        for (size_t row = 0; row < 3; ++row) {
+            for (size_t col = 0; col < 3; ++co) {
                 temp[row][col] = mat[row][col] * k;
             }
         }
@@ -107,8 +107,8 @@ namespace Just {
     template<typename T>
     inline Matrix3<T> operator/(const Matrix3<T>& mat, T k) {
         Matrix3<T> temp;
-        for (size_t row = 0; row < 3; row++) {
-            for (size_t col = 0; col < 3; col++) {
+        for (size_t row = 0; row < 3; ++row) {
+            for (size_t col = 0; col < 3; ++co) {
                 temp[row][col] = mat[row][col] / k;
             }
         }
@@ -119,8 +119,8 @@ namespace Just {
     template<typename T>
     inline Matrix3<T> operator*(const Matrix3<T>& mat1, const Matrix3<T>& mat2) {
         Matrix3<T> temp;
-        for (size_t row = 0; row < 3; row++) {
-            for (size_t col = 0; col < 3; col++) {
+        for (size_t row = 0; row < 3; ++row) {
+            for (size_t col = 0; col < 3; ++co) {
                 temp[row][col] = Dot(mat1.Row(row), mat2.Col(col));
             }
         }
@@ -131,7 +131,7 @@ namespace Just {
     template<typename T>
     inline Vector3<T> operator*(const Matrix3<T>& mat, const Vector3<T>& v) {
         Vector3<T> temp;
-        for (size_t row = 0; row < 3; row++) {
+        for (size_t row = 0; row < 3; ++row) {
             temp[row] = Dot(mat.Row(row), v);
         }
         return temp;
@@ -153,7 +153,7 @@ namespace Just {
     template<typename T>
     inline Point3<T> operator*(const Matrix3<T>& mat, const Point3<T>& p) {
         Point3<T> temp;
-        for (size_t row = 0; row < 3; row++) {
+        for (size_t row = 0; row < 3; ++row) {
             temp[row] = Dot(mat.Row(row), p);
         }
         return temp;
@@ -163,8 +163,8 @@ namespace Just {
     template<typename T>
     inline Matrix3<T> Transpose(const Matrix3<T>& mat) {
         Matrix3<T> transpose;
-        for (size_t row = 0; row < 3; row++) {
-            for (size_t col = 0; col < 3; col++) {
+        for (size_t row = 0; row < 3; ++row) {
+            for (size_t col = 0; col < 3; ++co) {
                 transpose[col][row] = mat[row][col];
             }
         }
@@ -175,8 +175,8 @@ namespace Just {
     template<typename T>
     inline Matrix3<T> Adjoint(const Matrix3<T>& mat) {
         Matrix3<T> adjoint;
-        for (size_t row = 0; row < 3; row++) {
-            for (size_t col = 0; col < 3; col++) {
+        for (size_t row = 0; row < 3; ++row) {
+            for (size_t col = 0; col < 3; ++co) {
                 adjoint[col][row] = mat.Cofactor(row, col);
             }
         }
@@ -192,7 +192,7 @@ namespace Just {
     //输出
     template<typename T>
     std::ostream& operator<<(std::ostream& os, const Matrix3<T>& mat) {
-        for (size_t row = 0; row < 3; row++) {
+        for (size_t row = 0; row < 3; ++row) {
             os << mat.Row(row) << "\n";
         }
         return os;
