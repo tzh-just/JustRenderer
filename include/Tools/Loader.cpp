@@ -33,7 +33,7 @@ namespace Just {
             char trash;
             if (!line.compare(0, 2, "v ")) {
                 strStream >> trash;
-                Vector3f position;
+                Point3f position;
                 for (int i = 0; i < 3; ++i) {
                     strStream >> position[i];
                 }
@@ -58,7 +58,7 @@ namespace Just {
                 int index = 0;
                 for (int i = 0; i < 3; i++) {
                     strStream >> index;
-                    face.positionIndexes.push_back(--index);
+                    face.posIndexes.push_back(--index);
                     auto a = strStream.str();
                     if (!mesh->uvs.empty()) {
                         strStream >> trash >> index;

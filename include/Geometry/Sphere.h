@@ -33,8 +33,8 @@ namespace Just {
                 return false;
 
             //记录相交信息
-            record->position = ray.origin + ray.direction * record->hitTime;
-            record->normal = Normalize(record->position - position);
+            record->point = ray.origin + ray.direction * record->hitTime;
+            record->normal = Normalize(record->point - position);
             return true;
         }
     };

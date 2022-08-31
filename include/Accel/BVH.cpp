@@ -46,7 +46,7 @@ namespace Just {
             float SA = node.bbox.SurfaceArea();
             float cost = 0.125f +
                          static_cast<float>(leftIndexes.size()) * leftSA / SA +
-                         static_cast<float>(rightIndexes.size()) * rightSA /SA;
+                         static_cast<float>(rightIndexes.size()) * rightSA / SA;
 
             //选取成本最小的分桶方案
             if (cost < minCost) {
@@ -74,20 +74,20 @@ namespace Just {
                 auto& node = tree[q.front()];
                 q.pop();
                 //包围盒相交测试
-                if (!node.bbox.Intersect(*ray)) {
+                if (!node.bbox.RayIntersect(ray)) {
                     continue;
                 }
                 //节点为叶子节点
                 if (node.child == 0) {
                     //遍历节点得图元进行相交测试
-                    for (const auto& [meshIndex, faceIndex]: node.indexes) {
-                        if (meshes[meshIndex]->Intersect(faceIndex, ray)) {
+                    for (const auto& [m, f]: node.indexes) {
+                        if (meshes[m]->Intersect(ray, record, f)) {
                             //阴影测试击中直接返回
                             if (shadow) {
                                 return true;
                             }
                             //记录相交信息
-                            record->hitTime = ray->tMax;
+                            record.hitTime = ray.tMax;
                             return true;
                         }
                     }//for遍历图元

@@ -31,8 +31,7 @@ namespace Just {
             for (int i = 0; i < size; ++i) {
                 auto& node = tree[q.front()];
                 //判断深度和图元数量是否超过符合限制
-                if (node.indexes.size() > minNumFaces &&
-                    currDepth > maxDepth) {
+                if (node.indexes.size() > minNumFaces && currDepth > maxDepth) {
                     //设置子节点起始索引
                     node.child = tree.size();
                     //检测是否可以分割当前节点的空间
@@ -58,14 +57,13 @@ namespace Just {
         currDepth = currDepth < maxDepth ? currDepth : maxDepth;
 
         //统计数据
-        std::cout << "[pMax depth]: " << currDepth << std::endl;
+        std::cout << "[Max depth]: " << currDepth << std::endl;
         std::cout << "[node count]: " << nodeCount << std::endl;
         std::cout << "[leaf count]: " << leafCount << std::endl;
     }
 
     bool Accel::RayIntersect(const Ray& ray, HitRecord& it, bool isShadowRay = false) const {
-        Ray temp = ray;
-        bool found = Traverse(&temp, nullptr, false);
+        bool found = Traverse(ray, it, false);
 
         //检测阴影则直接返回相交结果
         if (isShadowRay) {

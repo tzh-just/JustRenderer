@@ -7,11 +7,10 @@
 namespace Just{
 
     struct HitRecord {
-        Point3f position;
-        Vector3f normal;
+        Point3f point;
         float hitTime;
 
-        HitRecord() : position(), normal(), hitTime() {}
+        HitRecord() : point(), hitTime() {}
     };
 
     struct Hittable{
