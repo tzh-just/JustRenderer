@@ -16,20 +16,13 @@ namespace Just {
         Bounds2(const Point2f& p1, const Point2f& p2)
                 : pMin(std::min(p1.x, p2.x), std::min(p1.y, p2.y)),
                   pMax(std::max(p1.x, p2.x), std::max(p1.y, p2.y)) {}
+
+        static bool Inside(const Point2<T>& p, const Bounds2<T>& b);
+
+        static bool InsideExclusive(const Point2<T>& p, const Bounds2<T>& b);
     };
 
-    template<typename T>
-    bool Inside(const Point2<T>& p, const Bounds2<T>& b) {
-        return p.x >= b.pMin.x && p.x <= b.pMax.x &&
-               p.y >= b.pMin.y && p.y <= b.pMax.y;
-    }
 
-    //检测点则框内：不包括边界上的点
-    template<typename T>
-    bool InsideExclusive(const Point2<T>& p, const Bounds2<T>& b) {
-        return p.x >= b.pMin.x && p.x < b.pMax.x &&
-               p.y >= b.pMin.y && p.y < b.pMax.y;
-    }
 
     using Bounds2f = Bounds2<float>;
     using Bounds2i = Bounds2<int>;

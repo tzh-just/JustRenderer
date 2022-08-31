@@ -73,10 +73,10 @@ namespace Just {
         //检测包围盒是否重叠
         static bool Overlaps(const Bounds3<T>& b1, const Bounds3<T>& b2);
 
-        //检测点则框内：包括边界上的点
+        //检测点在框内：包括边界上的点
         static bool Inside(const Point3<T>& p, const Bounds3<T>& b);
 
-        //检测点则框内：不包括边界上的点
+        //检测点在框内：不包括边界上的点
         static bool InsideExclusive(const Point3<T>& p, const Bounds3<T>& b);
     };
 
