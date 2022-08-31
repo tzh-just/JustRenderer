@@ -11,15 +11,15 @@
 namespace Just {
     struct AccelNode {
         size_t child;
-        Bounds3f bbox;
+        Bounds3f bounds;
         std::vector<std::pair<size_t, size_t>> indexes;
 
-        AccelNode() : bbox(), child(0) {}
+        AccelNode() : bounds(), child(0) {}
 
-        explicit AccelNode(const Bounds3f& bbox) : bbox(bbox), child(0) {}
+        explicit AccelNode(const Bounds3f& bounds) : bounds(bounds), child(0) {}
 
-        AccelNode(const Bounds3f& bbox, size_t size)
-                : bbox(bbox), indexes(size), child(0) {}
+        AccelNode(const Bounds3f& bounds, size_t size)
+                : bounds(bounds), indexes(size), child(0) {}
     };
 
     struct Accel {
@@ -28,7 +28,7 @@ namespace Just {
         //加速结构树
         std::vector<AccelNode> tree;
         //场景总包围盒
-        Bounds3f bbox;
+        Bounds3f bounds;
         //场景图元索引
         std::vector<std::pair<size_t, size_t>> indexes;
 

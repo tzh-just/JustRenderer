@@ -8,7 +8,7 @@
 namespace Just {
     struct Scene {
     public:
-        Bounds3f bbox;
+        Bounds3f bounds;
         std::shared_ptr<Accel> accel;
         std::vector<std::shared_ptr<Mesh>> meshes;
         std::vector<std::shared_ptr<Light>> lights;

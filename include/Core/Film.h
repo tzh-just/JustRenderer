@@ -16,7 +16,7 @@ namespace Just {
     struct Film {
         std::vector<Pixel> pixels;
 
-        Bounds2i bbox;
+        Bounds2i bounds;
 
         Point2i resolution;
 

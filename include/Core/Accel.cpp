@@ -3,7 +3,7 @@
 namespace Just {
     void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
         meshes.push_back(mesh);
-        bbox = Union(bbox, mesh->bbox);
+        bounds = Union(bounds, mesh->bounds);
         for (int i = 0; i < mesh->faces.size(); i++) {
             indexes.emplace_back(meshes.size() - 1, i);
         }
@@ -11,7 +11,7 @@ namespace Just {
 
     void Accel::Build() {
         //初始化根节点
-        auto root = AccelNode(bbox, indexes.size());
+        auto root = AccelNode(bounds, indexes.size());
         root.indexes = indexes;
 
         //初始化树

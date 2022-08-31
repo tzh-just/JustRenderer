@@ -22,26 +22,26 @@ namespace Just {
         std::vector<Array2f> uvs;
         std::vector<Vector3f> normals;
 
-        Bounds3f bbox;
+        Bounds3f bounds;
 
-        Bounds3f GetFaceBBox(size_t f);
+        Bounds3f GetFaceBounds(size_t f);
 
-        bool Intersect(const Ray& ray, HitRecord& record, size_t f) const;
+        bool RayIntersect(const Ray& ray, HitRecord& record, size_t f) const;
     };
 
-    Bounds3f Mesh::GetFaceBBox(size_t f) {
-        Bounds3f faceBBox;
+    Bounds3f Mesh::GetFaceBounds(size_t f) {
+        Bounds3f faceBounds;
         //查询指定三角面的顶点索引
         auto& face = faces[f];
         for (int i = 0; i < 3; ++i) {
             //遍历三角面的顶点确定其包围盒
             auto& point = positions[face.posIndexes[i]];
-            Expand(faceBBox, point);
+            Bounds3f::Expand(faceBounds, point);
         }
-        return faceBBox;
+        return faceBounds;
     }
 
-    bool Mesh::Intersect(const Ray& ray, HitRecord& record, size_t f) const {
+    bool Mesh::RayIntersect(const Ray& ray, HitRecord& record, size_t f) const {
         //读取三角形顶点坐标
         const Face& face = faces[f];
         const Point3f& A = positions[face.posIndexes[0]];

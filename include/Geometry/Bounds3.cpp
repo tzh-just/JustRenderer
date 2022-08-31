@@ -1,9 +1,11 @@
 #include "Bounds3.h"
 
-namespace Just{
+namespace Just {
     //与射线求交
     template<typename T>
     bool Bounds3<T>::RayIntersect(const Ray& ray) const {
+        //t = (P' - O) dot N / D dot N
+        //[tx,ty,tz] = (P' - O) / D
         Vector3f t0 = (pMin - ray.origin) / ray.direction;
         Vector3f t1 = (pMax - ray.origin) / ray.direction;
 
@@ -13,14 +15,8 @@ namespace Just{
         float enterTime = MaxComponent(minTime);
         float exitTime = MinComponent(maxTime);
 
-        //射线与包围盒不相交或者已经和别的包围盒相交
-        if (enterTime > exitTime + kEpsilon ||
-            exitTime < 0.0f ||
-            enterTime < ray.tMax) {
-            return false;
-        }
-
-        return true;
+        //离开时间为正 && 大于进入时间 && 进入时间小于射线第一次击中时间
+        return exitTime > 0.0f && exitTime > enterTime - kEpsilon && enterTime < ray.tMax;
     }
 
     template<typename T>

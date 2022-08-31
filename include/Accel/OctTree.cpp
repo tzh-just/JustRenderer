@@ -6,21 +6,21 @@ namespace Just {
     void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
         auto& node = tree[nodeIndex];
         //划分八个子节点的包围盒
-        Point3f center = node.bbox.Centroid();
+        Point3f center = node.bounds.Centroid();
         for (int corner = 0; corner < 8; corner++) {
             //根据八个拐角点确定子包围盒
-            Point3f subPoint = node.bbox.Corner(corner);
-            Bounds3f subBBox;
+            Point3f subPoint = node.bounds.Corner(corner);
+            Bounds3f subBounds;
             for (int d = 0; d < 3; d++) {
-                subBBox.pMin[d] = std::min(center[d], subPoint[d]);
-                subBBox.pMax[d] = std::max(center[d], subPoint[d]);
+                subBounds.pMin[d] = std::min(center[d], subPoint[d]);
+                subBounds.pMax[d] = std::max(center[d], subPoint[d]);
             }
 
             //分配属于各个子节点的图元
-            AccelNode subNode(subBBox);
+            AccelNode subNode(subBounds);
             for (const auto& [meshIndex, faceIndex]: node.indexes) {
                 //检测每个图元与子包围盒是否碰撞
-                if (Overlaps(subNode.bbox, meshes[meshIndex]->GetFaceBBox(faceIndex))) {
+                if (Overlaps(subNode.bounds, meshes[meshIndex]->GetFaceBounds(faceIndex))) {
                     subNode.indexes.emplace_back(meshIndex, faceIndex);
                 }
             }
