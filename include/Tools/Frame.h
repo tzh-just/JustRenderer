@@ -6,6 +6,10 @@ namespace Just {
     struct Frame {
         Vector3f s, t, n;
 
+        explicit Frame(const Vector3f& n) {
+            CoordinateSystem(n, s, t);
+        }
+
         Frame(const Vector3f& s, const Vector3f& t, const Vector3f& n) : s(s), t(t), n(n) {}
 
         Vector3f ToLocal(const Vector3f& v) const {
@@ -13,7 +17,7 @@ namespace Just {
         }
 
         Vector3f ToWorld(const Vector3f& v) const {
-            return {Dot(v, s), Dot(v, t), Dot(v, n)};
+            return s * v.x + t * v.y + n * v.z;
         }
 
         static float CosTheta(const Vector3f& v) { return v.z; }
