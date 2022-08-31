@@ -56,6 +56,6 @@ namespace Just {
         bool RayIntersect(const Ray& ray, bool shadow) const;
 
         //遍历子节点
-        virtual bool Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const = 0;
+        virtual bool Traverse(const Ray& ray, HitRecord& record, bool isShadowRay) const = 0;
     };
 }

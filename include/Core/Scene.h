@@ -14,7 +14,10 @@ namespace Just {
         std::vector<std::shared_ptr<Light>> lights;
 
         explicit Scene(std::shared_ptr<Accel> accel) : accel(accel) {
-            accel->meshes = meshes;
+            for (auto& mesh: meshes) {
+                accel->AddMesh(mesh);
+            }
+            accel->Build();
         }
 
         //射线相交测试

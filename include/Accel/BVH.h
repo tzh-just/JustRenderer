@@ -12,7 +12,7 @@ namespace Just {
 
         void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
-        bool Traverse(Ray* ray, HitRecord* record, bool shadow) const override;
+        bool Traverse(const Ray& ray, HitRecord& record, bool shadow) const override;
     };
 
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
-project(just)
+project(JustRenderer)
 
-# openMP 配置
+# OpenMP config
 FIND_PACKAGE(OpenMP REQUIRED)
 if (OPENMP_FOUND)
     message("OPENMP FOUND")

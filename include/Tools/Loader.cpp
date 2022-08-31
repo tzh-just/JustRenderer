@@ -1,6 +1,8 @@
 
-
+#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
+#endif
+
 #include <stb/stb_image.h>
 
 #include <Tools/Loader.h>
@@ -8,11 +10,13 @@
 namespace Just {
     void Loader::LoadTexture(std::shared_ptr<Texture> texture, const std::string& filePath) {
         int width, height, channel;
+        //读取纹理
         unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channel, 3);
 
         texture->width = width;
         texture->height = height;
 
+        //转为RGB存入数组
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 unsigned char* rgb = data + (i + height * j);

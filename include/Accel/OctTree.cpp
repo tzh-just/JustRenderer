@@ -28,7 +28,7 @@ namespace Just {
         }//for遍历八个子包围盒
     }
 
-    bool OctTree::Traverse(Ray* ray, HitRecord* record, bool isShadowRay) const {
+    bool OctTree::Traverse(const Ray& ray, HitRecord& record, bool isShadowRay) const {
 
     }
 }
