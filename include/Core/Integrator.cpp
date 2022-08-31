@@ -18,15 +18,15 @@ namespace Just {
 
                 radiance = Spectrum(0.0f);
 
-                for (int index = 0; index < sampler->spp; ++index) {
-
+                for (int i = 0; i < sampler->spp; ++i) {
+                    //计算光线投射点
                     auto [sx, sy] = sampler->Sample(float(x), float(y));
                     float s = sx / float(film->resolution.x - 1);
                     float t = sy / float(film->resolution.y - 1);
                     //投射光线并累计颜色
-                    Ray ray = camera->CastRay(s, t);
-                    radiance += Li(ray);
+                    radiance += Li(camera->CastRay(s, t));
                 }
+
                 //计算像素索引
                 int pixelIndex = (film->resolution.y - 1 - y) * (film->resolution.x - 1) + x;
                 radiance /= static_cast<float>(sampler->spp);

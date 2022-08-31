@@ -16,9 +16,13 @@ namespace Just {
         std::shared_ptr<Camera> camera;
         std::shared_ptr<Sampler> sampler;
         std::shared_ptr<Film> film;
+        std::shared_ptr<Scene> scene;
 
-        SamplerIntegrator(std::shared_ptr<Camera> camera, std::shared_ptr<Sampler> sampler, std::shared_ptr<Film> film)
-                : camera(camera), sampler(sampler), film(film) {}
+        SamplerIntegrator(std::shared_ptr<Camera> camera,
+                          std::shared_ptr<Sampler> sampler,
+                          std::shared_ptr<Film> film,
+                          std::shared_ptr<Scene> scene)
+                : camera(camera), sampler(sampler), film(film), scene(scene) {}
 
         virtual Spectrum Li(const Ray& ray) const = 0;
 
