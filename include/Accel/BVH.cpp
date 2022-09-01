@@ -62,7 +62,7 @@ namespace Just {
         children->emplace_back(rightNode);
     }
 
-    bool BVH::Traverse(const Ray& ray, HitRecord& record, bool shadow) const {
+    bool BVH::Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const {
         //初始化辅助队列
         std::queue<size_t> q;
         q.push(0);

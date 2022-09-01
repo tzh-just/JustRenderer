@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector3.h"
+#include "Math/Vector.h"
 #include "Hittable.h"
 #include "Geometry/Ray.h"
 
@@ -16,7 +16,7 @@ namespace Just {
         Sphere(const Point3f& position, float radius) : position(position), radius(radius) {}
 
         //球体与光线求交
-        bool Intersect(const Ray& ray, HitRecord* record) const {
+        bool Intersect(const Ray3f& ray, HitRecord* record) const {
             //t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
             Vector3f op = ray.origin - position;
             float h = Dot(op, ray.direction);//h=b/2

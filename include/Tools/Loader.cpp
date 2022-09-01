@@ -47,7 +47,7 @@ namespace Just {
                 mesh->normals.push_back(normal);
             } else if (!line.compare(0, 3, "vt ")) {
                 strStream >> trash >> trash;
-                Array2f uv;
+                Tuple2f uv;
                 for (int i = 0; i < 2; ++i) {
                     strStream >> uv[i];
                 }

@@ -3,7 +3,7 @@
 namespace Just {
     void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
         meshes.push_back(mesh);
-        bounds = Union(bounds, mesh->bounds);
+        bounds = Bounds3f::Union(bounds, mesh->bounds);
         for (int i = 0; i < mesh->faces.size(); i++) {
             indexes.emplace_back(meshes.size() - 1, i);
         }
@@ -62,7 +62,7 @@ namespace Just {
         std::cout << "[leaf count]: " << leafCount << std::endl;
     }
 
-    bool Accel::RayIntersect(const Ray& ray, HitRecord& it, bool isShadowRay = false) const {
+    bool Accel::RayIntersect(const Ray3f& ray, HitRecord& it, bool isShadowRay = false) const {
         bool found = Traverse(ray, it, false);
 
         //检测阴影则直接返回相交结果
@@ -80,7 +80,7 @@ namespace Just {
         return found;
     }
 
-    bool Accel::RayIntersect(const Ray& ray, bool shadow = true) const {
+    bool Accel::RayIntersect(const Ray3f& ray, bool shadow = true) const {
         HitRecord unused;
         return RayIntersect(ray, unused, shadow);
     }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <tuple>
-#include "Math/Point2.h"
+#include <Math/Vector.h>
 #include "Tools/RNG.h"
 
 namespace Just {

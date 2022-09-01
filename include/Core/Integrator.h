@@ -24,7 +24,7 @@ namespace Just {
                           std::shared_ptr<Scene> scene)
                 : camera(camera), sampler(sampler), film(film), scene(scene) {}
 
-        virtual Spectrum Li(const Ray& ray) const = 0;
+        virtual Spectrum Li(const Ray3f& ray) const = 0;
 
         void Render(std::shared_ptr<Scene> scene) override;
     };

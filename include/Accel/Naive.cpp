@@ -7,7 +7,7 @@ namespace Just {
 
     }
 
-    bool Naive::Traverse(const Ray& ray, HitRecord& record, bool isShadowRay) const {
+    bool Naive::Traverse(const Ray3f& ray, HitRecord& record, bool isShadowRay) const {
         //暴力遍历所有图元进行相交测试
     }
 }

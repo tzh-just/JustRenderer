@@ -4,7 +4,7 @@
 #include <vector>
 #include "Global.h"
 #include "Geometry/Ray.h"
-#include "Geometry/Bounds3.h"
+#include "Geometry/Bounds.h"
 #include "Geometry/Hittable.h"
 #include "Shape/Mesh.h"
 
@@ -50,12 +50,12 @@ namespace Just {
         virtual void Divide(size_t nodeIndex, std::vector<AccelNode>* children) = 0;
 
         //射线相交测试
-        bool RayIntersect(const Ray& ray, HitRecord& it, bool isShadowRay) const;
+        bool RayIntersect(const Ray3f& ray, HitRecord& it, bool isShadowRay) const;
 
         //阴影测试
-        bool RayIntersect(const Ray& ray, bool shadow) const;
+        bool RayIntersect(const Ray3f& ray, bool shadow) const;
 
         //遍历子节点
-        virtual bool Traverse(const Ray& ray, HitRecord& record, bool isShadowRay) const = 0;
+        virtual bool Traverse(const Ray3f& ray, HitRecord& record, bool isShadowRay) const = 0;
     };
 }

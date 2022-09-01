@@ -4,14 +4,14 @@
 
 namespace Just {
     template<typename T>
-    struct Array2 {
+    struct Tuple2 {
         T x, y;
 
-        Array2() : x(T()), y(T()) {}
+        Tuple2() : x(T()), y(T()) {}
 
-        explicit Array2(T val) : x(val), y(val){}
+        explicit Tuple2(T val) : x(val), y(val){}
 
-        Array2(T x, T y) : x(x), y(y) {}
+        Tuple2(T x, T y) : x(x), y(y) {}
 
         T& operator[](size_t i) {
             assert(i < 2);
@@ -26,10 +26,10 @@ namespace Just {
 
     //输出
     template<typename T>
-    inline std::ostream& operator<<(std::ostream& os, const Array2<T>& a) {
+    inline std::ostream& operator<<(std::ostream& os, const Tuple2<T>& a) {
         return os << "[" << a.x << "," << a.y << "]";
     }
 
-    using Array2f = Array2<float>;
-    using Array2i = Array2<int>;
+    using Tuple2f = Tuple2<float>;
+    using Tuple2i = Tuple2<int>;
 }

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Geometry/Transform.h"
-#include "Geometry/Bounds3.h"
+#include "Math//Transform.h"
+#include "Geometry/Bounds.h"
 
 namespace Just {
     struct Shape {

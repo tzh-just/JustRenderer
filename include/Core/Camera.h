@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Math/Vector3.h"
-#include "Math/Point3.h"
+#include "Math/Vector.h"
 #include "Geometry/Ray.h"
 #include "Film.h"
 

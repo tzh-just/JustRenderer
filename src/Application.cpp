@@ -1,22 +1,15 @@
 
 #include <Global.h>
 
-#include <Math/Vector2.h>
-#include <Math/Vector3.h>
-#include <Math/Vector4.h>
-#include <Math/Point2.h>
-#include <Math/Point3.h>
-#include <Math/Point4.h>
-#include <Math/Matrix4.h>
-
-#include <Geometry/Transform.h>
+#include "Math/Vector.h"
+#include <Math/Matrix.h>
+#include <Math/Transform.h>
 
 #include <Tools/RNG.h>
 #include <Tools//Timer.h>
 #include <Tools/Loader.h>
 
 #include <Core/Film.h>
-
 #include <Accel/BVH.h>
 #include <Light/AreaLight.h>
 #include <Camera/PerspectiveCamera.h>
@@ -34,21 +27,21 @@ int main() {
     //TestLoadTexture();
 
     //屏幕分辨率
-    constexpr int width = 1024;
-    constexpr int height = 1024;
+    int width = 1024;
+    int height = 1024;
     Point2i resolution(width, height);
 
     //采样数
-    constexpr int spp = 12;
+    int spp = 12;
 
     //摄像机参数
     Point3f origin(278, 273, -800);
     Point3f target(278, 273, -799);
     Vector3f up(0, 1, 0);
-    constexpr float aspectRatio = 1;
-    constexpr float fov = 45;
-    constexpr float near = 0.035;
-    constexpr float far = 50;
+    float aspectRatio = 1;
+    float fov = 45;
+    float near = 0.035;
+    float far = 50;
 
     //胶片
     auto film = std::make_shared<Film>(resolution);

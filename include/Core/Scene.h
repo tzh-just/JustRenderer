@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Geometry/Bounds3.h"
+#include "Geometry/Bounds.h"
 #include "Accel.h"
 #include "Light.h"
 #include "Shape.h"
@@ -21,12 +21,12 @@ namespace Just {
         }
 
         //射线相交测试
-        bool RayIntersect(const Ray& ray, HitRecord& record) const {
+        bool RayIntersect(const Ray3f& ray, HitRecord& record) const {
             return accel->RayIntersect(ray, record, false);
         }
 
         //阴影射线相交测试
-        bool RayIntersect(const Ray& ray) const {
+        bool RayIntersect(const Ray3f& ray) const {
             HitRecord record;
             return accel->RayIntersect(ray, record, true);
         }

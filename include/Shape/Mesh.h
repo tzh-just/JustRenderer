@@ -2,10 +2,8 @@
 
 #include <vector>
 
-#include "Math/Vector3.h"
-#include "Math/Array2.h"
-#include "Math/Array3.h"
-#include "Geometry/Bounds3.h"
+#include "Math/Vector.h"
+#include "Geometry/Bounds.h"
 #include "Geometry/Hittable.h"
 
 namespace Just {
@@ -19,14 +17,14 @@ namespace Just {
     struct Mesh {
         std::vector<Point3f> positions;
         std::vector<Face> faces;
-        std::vector<Array2f> uvs;
+        std::vector<Tuple2f> uvs;
         std::vector<Vector3f> normals;
 
         Bounds3f bounds;
 
         Bounds3f GetFaceBounds(size_t f);
 
-        bool RayIntersect(const Ray& ray, HitRecord& record, size_t f) const;
+        bool RayIntersect(const Ray3f& ray, HitRecord& record, size_t f) const;
     };
 
     Bounds3f Mesh::GetFaceBounds(size_t f) {
@@ -36,37 +34,37 @@ namespace Just {
         for (int i = 0; i < 3; ++i) {
             //遍历三角面的顶点确定其包围盒
             auto& point = positions[face.posIndexes[i]];
-            Bounds3f::Expand(faceBounds, point);
+            faceBounds.Expand(point);
         }
         return faceBounds;
     }
 
-    bool Mesh::RayIntersect(const Ray& ray, HitRecord& record, size_t f) const {
+    bool Mesh::RayIntersect(const Ray3f& ray, HitRecord& record, size_t f) const {
         //读取三角形顶点坐标
         const Face& face = faces[f];
         const Point3f& A = positions[face.posIndexes[0]];
         const Point3f& B = positions[face.posIndexes[1]];
         const Point3f& C = positions[face.posIndexes[2]];
 
-        auto faceNormal = Cross(B - A, C - B);
+        auto faceNormal = Vector3f::Cross(B - A, C - B);
 
         //背面剔除
-        if (Dot(-ray.direction, faceNormal) < 0) {
+        if (Vector3f::Dot(-ray.direction, faceNormal) < 0) {
             return false;
         }
 
         // Möller-Trumbore Algorithm
         Vector3f D = ray.direction;
         Vector3f S = ray.origin - A;
-        Vector3 E1 = B - A, E2 = C - A;
-        Vector3 S1 = Cross(D, E2);
-        Vector3 S2 = Cross(S, E1);
+        Vector3f E1 = B - A, E2 = C - A;
+        Vector3f S1 = Vector3f::Cross(D, E2);
+        Vector3f S2 = Vector3f::Cross(S, E1);
 
-        float denom = Dot(S1, E1);
+        float denom = Vector3f::Dot(S1, E1);
 
-        float hitTime = Dot(S2, E2) / denom;
-        float alpha = Dot(S1, S) / denom;
-        float beta = Dot(S2, D) / denom;
+        float hitTime = Vector3f::Dot(S2, E2) / denom;
+        float alpha = Vector3f::Dot(S1, S) / denom;
+        float beta = Vector3f::Dot(S2, D) / denom;
 
         //与三角形不相交
         if (alpha < 0.f || beta < 0.f || (alpha + beta) > 1.0f) {

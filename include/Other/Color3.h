@@ -114,10 +114,10 @@ namespace Just {
         return c;
     }
 
-    using RGB = Color3<int>;
+    using Color3i = Color3<int>;
     using Spectrum = Color3<float>;
 
-    inline Spectrum RGB2Spectrum(const RGB& rgb) {
+    inline Spectrum RGB2Spectrum(const Color3i& rgb) {
         return {
                 std::clamp(float(rgb.r) / 255.0f, 0.0f, 1.0f),
                 std::clamp(float(rgb.g) / 255.0f, 0.0f, 1.0f),
@@ -125,7 +125,7 @@ namespace Just {
         };
     }
 
-    inline RGB Spectrum2RGB(const Spectrum& spectrum) {
+    inline Color3i Spectrum2RGB(const Spectrum& spectrum) {
         return {
                 std::clamp(int(spectrum.r * 255), 0, 255),
                 std::clamp(int(spectrum.g * 255), 0, 255),

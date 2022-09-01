@@ -3,7 +3,7 @@
 
 namespace Just {
 
-    Spectrum WhittedIntegrator::Li(const Ray& ray) const {
+    Spectrum WhittedIntegrator::Li(const Ray3f& ray) const {
         //射线相交测试
         HitRecord record;
         if(!scene->RayIntersect(ray, record)){

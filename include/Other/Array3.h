@@ -4,14 +4,14 @@
 
 namespace Just {
     template<typename T>
-    struct Array3 {
+    struct Tuple3 {
         T x, y, z;
 
-        Array3() : x(T()), y(T()), z(T()) {}
+        Tuple3() : x(T()), y(T()), z(T()) {}
 
-        explicit Array3(T val) : x(val), y(val), z(val) {}
+        explicit Tuple3(T val) : x(val), y(val), z(val) {}
 
-        Array3(T x, T y, T z) : x(x), y(y), z(z) {}
+        Tuple3(T x, T y, T z) : x(x), y(y), z(z) {}
 
         T& operator[](size_t i) {
             assert(i < 3);
@@ -26,10 +26,10 @@ namespace Just {
 
     //输出
     template<typename T>
-    inline std::ostream& operator<<(std::ostream& os, const Array3<T>& a) {
+    inline std::ostream& operator<<(std::ostream& os, const Tuple3<T>& a) {
         return os << "[" << a.x << "," << a.y << "," << a.z << "]";
     }
 
-    using Array3f = Array3<float>;
-    using Array3i = Array3<int>;
+    using Tuple3f = Tuple3<float>;
+    using Tuple3i = Tuple3<int>;
 }
