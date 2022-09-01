@@ -1,24 +1,20 @@
 #pragma once
 
 #include "Math/Vector.h"
-#include "Math/Vector.h"
 
 namespace Just {
-    template<size_t N, typename T>
-    struct Ray {
-        Point <N, T> origin;
-        Vector<N, T> direction;
+    struct Ray3f {
+        Point3f origin;
+        Vector3f direction;
         mutable float tMax;
 
-        Ray() : tMax(kFloatMax) {}
+        Ray3f() : tMax(kFloatMax) {}
 
-        Ray(const Point <N, T>& origin, const Vector<N, T>& direction) :
+        Ray3f(const Point3f& origin, const Vector3f& direction) :
                 origin(origin), direction(direction), tMax(kFloatMax) {}
 
-        Point <N, T> At(float t) const {
+        Point3f At(float t) const {
             return origin + direction * t;
         }
     };
-
-    using Ray3f = Ray<3, float>;
 }
