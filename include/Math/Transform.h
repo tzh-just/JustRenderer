@@ -2,29 +2,14 @@
 
 #include "Vector.h"
 #include "Matrix.h"
+#include "Math.h"
 
-namespace Just{
-    inline Spectrum RGB2Spectrum(const Color3i& rgb) {
-        return {
-                std::clamp(float(rgb.r) / 255.0f, 0.0f, 1.0f),
-                std::clamp(float(rgb.g) / 255.0f, 0.0f, 1.0f),
-                std::clamp(float(rgb.b) / 255.0f, 0.0f, 1.0f)
-        };
-    }
+namespace Just {
 
-    inline Color3i Spectrum2RGB(const Spectrum& spectrum) {
-        return {
-                std::clamp(int(spectrum.r * 255), 0, 255),
-                std::clamp(int(spectrum.g * 255), 0, 255),
-                std::clamp(int(spectrum.b * 255), 0, 255)
-        };
-    }
-    struct Transform{
-        Matrix4f mat;
-    };
-
-    Matrix4f RotateX(float angle)
-    {
+struct Transform {
+    //旋转变换
+    static Matrix4f RotateX(float angle) {
+        Vector3f v = {1, 2, 3};
         return {
                 {1, 0,                        0,                         0},
                 {0, std::cos(Radians(angle)), -std::sin(Radians(angle)), 0},
@@ -33,8 +18,7 @@ namespace Just{
         };
     }
 
-    Matrix4f RotateY(float angle)
-    {
+    static Matrix4f RotateY(float angle) {
         return {
                 {std::cos(Radians(angle)),  0, std::sin(Radians(angle)), 0},
                 {0,                         1, 0,                        0},
@@ -43,8 +27,7 @@ namespace Just{
         };
     }
 
-    Matrix4f RotateZ(float angle)
-    {
+    static Matrix4f RotateZ(float angle) {
         return {
                 {std::cos(Radians(angle)), -std::sin(Radians(angle)), 0, 0},
                 {std::sin(Radians(angle)), std::cos(Radians(angle)),  0, 0},
@@ -53,19 +36,16 @@ namespace Just{
         };
     }
 
-    //旋转矩阵
-    Matrix4f Rotate(float x, float y, float z)
-    {
+    //旋转变换
+    static Matrix4f Rotate(float x, float y, float z) {
         return RotateZ(z) * RotateY(y) * RotateX(x);
     }
 
-    Matrix4f Rotate(const Vector3f& rotation)
-    {
+    static Matrix4f Rotate(const Vector3f& rotation) {
         return RotateZ(rotation.z) * RotateY(rotation.y) * RotateX(rotation.x);
     }
 
-    Matrix4f Rotate(const Vector3f& i, const Vector3f& j, const Vector3f& k)
-    {
+    static Matrix4f Rotate(const Vector3f& i, const Vector3f& j, const Vector3f& k) {
         return {
                 {i.x, j.x, k.x, 0},
                 {i.y, j.y, k.y, 0},
@@ -74,9 +54,8 @@ namespace Just{
         };
     }
 
-    //缩放矩阵
-    Matrix4f Scale(float x, float y, float z)
-    {
+    //缩放变换
+    static Matrix4f Scale(float x, float y, float z) {
         return {
                 {x, 0, 0, 0},
                 {0, y, 0, 0},
@@ -85,9 +64,7 @@ namespace Just{
         };
     }
 
-    //缩放矩阵
-    Matrix4f Scale(const Vector3f& scale)
-    {
+    static Matrix4f Scale(const Vector3f& scale) {
 
         return {
                 {scale.x, 0,       0,       0},
@@ -97,9 +74,8 @@ namespace Just{
         };
     }
 
-    //平移矩阵
-    Matrix4f Translate(float x, float y, float z)
-    {
+    //平移变换
+    static Matrix4f Translate(float x, float y, float z) {
         return {
                 {1, 0, 0, x},
                 {0, 1, 0, y},
@@ -108,9 +84,7 @@ namespace Just{
         };
     }
 
-    //平移矩阵
-    Matrix4f Translate(const Point3f& position)
-    {
+    static Matrix4f Translate(const Point3f& position) {
         return {
                 {1, 0, 0, position.x},
                 {0, 1, 0, position.y},
@@ -119,18 +93,16 @@ namespace Just{
         };
     }
 
-    //视图矩阵
-    Matrix4f LookAt(const Point3f& origin, const Point3f& target, const Vector3f& up)
-    {
+    //视图变换
+    static Matrix4f LookAt(const Point3f& origin, const Point3f& target, const Vector3f& up) {
         Vector3f g = Normalize(target - origin);
         Vector3f gxt = Normalize(Cross(g, up));
         Vector3f t = Cross(gxt, g);
         return Transpose(Rotate(gxt, t, -g)) * Translate(-origin);
     }
 
-    //正交投影变换矩阵
-    Matrix4f Orthogonal(float aspectRatio, float fov, float n, float f)
-    {
+    //正交投影变换
+    static Matrix4f Orthogonal(float aspectRatio, float fov, float n, float f) {
         //参数far和near为远近平面的长度，即正值
         float t = std::tan(Radians(fov / 2)) * n;
         float r = t * aspectRatio;
@@ -144,9 +116,8 @@ namespace Just{
         };
     }
 
-    //透视投影变换矩阵
-    Matrix4f Perspective(float aspectRatio, float fov, float n, float f)
-    {
+    //透视投影变换
+    static Matrix4f Perspective(float aspectRatio, float fov, float n, float f) {
         //参数far和near为远近平面的长度，即正值
         float t = std::tan(Radians(fov / 2)) * n;
         float r = t * aspectRatio;
@@ -160,9 +131,8 @@ namespace Just{
         };
     }
 
-    //视口变换矩阵
-    Matrix4f ScreenMapping(const Point2f& size)
-    {
+    //视口变换
+    static Matrix4f ScreenMapping(const Point2f& size) {
         return {
                 {size.x / 2, 0,          0, size.x / 2},
                 {0,          size.y / 2, 0, size.y / 2},
@@ -170,4 +140,7 @@ namespace Just{
                 {0,          0,          0, 1}
         };
     }
+};
+
+
 }

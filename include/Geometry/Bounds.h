@@ -36,11 +36,11 @@ namespace Just {
             Vector3f t0 = (pMin - ray.origin) / ray.direction;
             Vector3f t1 = (pMax - ray.origin) / ray.direction;
 
-            Vector3f maxTime = Vector3f::Max(t0, t1);
-            Vector3f minTime = Vector3f::Min(t0, t1);
+            Vector3f maxTime = Max(t0, t1);
+            Vector3f minTime = Min(t0, t1);
 
-            float enterTime = Vector3f::MaxComponent(minTime);
-            float exitTime = Vector3f::MinComponent(maxTime);
+            float enterTime = MaxComponent(minTime);
+            float exitTime = MinComponent(maxTime);
 
             //离开时间为正 && 大于进入时间 && 进入时间小于射线第一次击中时间
             return exitTime > 0.0f && exitTime + kEpsilon > enterTime && enterTime < ray.tMax;
@@ -93,23 +93,23 @@ namespace Just {
 
         //扩展包围盒
         void Expand(const Point3f& p) {
-            pMin = Point3f::Min(pMin, p);
-            pMax = Point3f::Max(pMax, p);
+            pMin = Min(pMin, p);
+            pMax = Max(pMax, p);
         }
 
         //合并包围盒
         static Bounds3f Union(const Bounds3f& b1, const Bounds3f& b2) {
             return {
-                    Point3f::Min(b1.pMin, b2.pMin),
-                    Point3f::Max(b1.pMax, b2.pMax)
+                    Min(b1.pMin, b2.pMin),
+                    Max(b1.pMax, b2.pMax)
             };
         }
 
         //包围盒相交部分
         static Bounds3f Intersect(const Bounds3f& b1, const Bounds3f& b2) {
             return {
-                    Point3f::Max(b1.pMin, b2.pMin),
-                    Point3f::Min(b1.pMax, b2.pMax)
+                    Max(b1.pMin, b2.pMin),
+                    Min(b1.pMax, b2.pMax)
             };
         }
 

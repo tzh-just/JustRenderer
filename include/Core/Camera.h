@@ -22,6 +22,6 @@ namespace Just {
         }
 
         //从摄像机向视口投射光线
-        virtual Ray CastRay(float i, float j) const = 0;
+        virtual Ray3f CastRay(float i, float j) const = 0;
     };
 }

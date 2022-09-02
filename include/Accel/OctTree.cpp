@@ -20,7 +20,7 @@ namespace Just {
             AccelNode subNode(subBounds);
             for (const auto& [meshIndex, faceIndex]: node.indexes) {
                 //检测每个图元与子包围盒是否碰撞
-                if (Overlaps(subNode.bounds, meshes[meshIndex]->GetFaceBounds(faceIndex))) {
+                if (Bounds3f::Overlaps(subNode.bounds, meshes[meshIndex]->GetFaceBounds(faceIndex))) {
                     subNode.indexes.emplace_back(meshIndex, faceIndex);
                 }
             }

@@ -1,9 +1,10 @@
 
 #include <Core/Integrator.h>
-#include <Math/Color.h>
+#include <Math/Vector.h>
+#include <Math/Transform.h>
 
 namespace Just {
-    void SamplerIntegrator::Render(std::shared_ptr<Scene> scene) {
+    void SamplerIntegrator::Render() {
 
         Spectrum radiance;
 
@@ -29,8 +30,8 @@ namespace Just {
 
                 //计算像素索引
                 int pixelIndex = (film->resolution.y - 1 - y) * (film->resolution.x - 1) + x;
-                radiance /= static_cast<float>(sampler->spp);
-                film->pixels[pixelIndex] = Pixel(Color::Spectrum2RGB(radiance));
+                radiance /= sampler->spp;
+                film->pixels[pixelIndex] = Pixel(Spectrum2RGB(radiance));
             }
         }
 

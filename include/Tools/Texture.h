@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Math/Color3.h"
-#include "Math/Tuple2.h"
+#include "Math/Vector.h"
 
 namespace Just {
     struct Image {

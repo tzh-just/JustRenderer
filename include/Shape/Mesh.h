@@ -46,10 +46,10 @@ namespace Just {
         const Point3f& B = positions[face.posIndexes[1]];
         const Point3f& C = positions[face.posIndexes[2]];
 
-        auto faceNormal = Vector3f::Cross(B - A, C - B);
+        auto faceNormal = Cross(B - A, C - B);
 
         //背面剔除
-        if (Vector3f::Dot(-ray.direction, faceNormal) < 0) {
+        if (Dot(-ray.direction, faceNormal) < 0) {
             return false;
         }
 
@@ -57,14 +57,14 @@ namespace Just {
         Vector3f D = ray.direction;
         Vector3f S = ray.origin - A;
         Vector3f E1 = B - A, E2 = C - A;
-        Vector3f S1 = Vector3f::Cross(D, E2);
-        Vector3f S2 = Vector3f::Cross(S, E1);
+        Vector3f S1 = Cross(D, E2);
+        Vector3f S2 = Cross(S, E1);
 
-        float denom = Vector3f::Dot(S1, E1);
+        float denom = Dot(S1, E1);
 
-        float hitTime = Vector3f::Dot(S2, E2) / denom;
-        float alpha = Vector3f::Dot(S1, S) / denom;
-        float beta = Vector3f::Dot(S2, D) / denom;
+        float hitTime = Dot(S2, E2) / denom;
+        float alpha = Dot(S1, S) / denom;
+        float beta = Dot(S2, D) / denom;
 
         //与三角形不相交
         if (alpha < 0.f || beta < 0.f || (alpha + beta) > 1.0f) {

@@ -5,8 +5,6 @@
 #include <sstream>
 #include <fstream>
 
-#include "Math/Tuple3.h"
-#include "Math/Tuple2.h"
 #include "Math/Vector.h"
 #include "Shape/Mesh.h"
 #include "Tools/Texture.h"

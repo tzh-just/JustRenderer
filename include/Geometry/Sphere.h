@@ -34,7 +34,7 @@ namespace Just {
 
             //记录相交信息
             record->point = ray.origin + ray.direction * record->hitTime;
-            record->normal = Normalize(record->point - position);
+            //record->normal = Normalize(record->point - position);
             return true;
         }
     };

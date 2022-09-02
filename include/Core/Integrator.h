@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Color3.h"
+#include "Math/Vector.h"
 #include "Geometry/Ray.h"
 #include "Scene.h"
 #include "Sampler.h"
@@ -9,7 +9,7 @@
 
 namespace Just {
     struct Integrator {
-        virtual void Render(std::shared_ptr<Scene> scene) = 0;
+        virtual void Render() = 0;
     };
 
     struct SamplerIntegrator : public Integrator {
@@ -26,6 +26,6 @@ namespace Just {
 
         virtual Spectrum Li(const Ray3f& ray) const = 0;
 
-        void Render(std::shared_ptr<Scene> scene) override;
+        void Render() override;
     };
 }

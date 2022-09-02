@@ -1,7 +1,7 @@
 #include <Core/Film.h>
 
 namespace Just{
-    bool Just::Film::StoreImage() const {
+    bool Film::StoreImage() const {
         return false;
     }
 }

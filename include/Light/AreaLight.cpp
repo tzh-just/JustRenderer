@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Emitter/AreaLight.h>
+#include "AreaLight.h"
 
 namespace Just {
     Vector3f AreaLight::Sample() const {}

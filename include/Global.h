@@ -29,13 +29,4 @@ namespace Just {
             std::cout << first << std::endl;
         }
     }
-
-    //角度和弧度互转
-    inline float Radians(float deg) {
-        return kPI / 180.0f * deg;
-    }
-
-    inline float Degrees(float rad) {
-        return 180.0f / kPI * rad;
-    }
 }
