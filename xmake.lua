@@ -1,7 +1,0 @@
-add_rules("mode.debug", "mode.release")
-target("Test")
-    set_kind("binary")
-    add_includedirs("include")
-    add_includedirs("ext")
-    add_files("src/*.cpp")
-    add_files("test/Test.cpp")
