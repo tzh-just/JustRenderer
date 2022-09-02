@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Math/Vector.h"
-#include <Geometry/Bounds.h>
+#include "Geometry/Bounds.h"
 
 namespace Just {
     struct Pixel {
@@ -23,4 +23,8 @@ namespace Just {
 
         bool StoreImage() const;
     };
+
+bool Film::StoreImage() const {
+    return false;
+}
 }

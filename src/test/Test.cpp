@@ -1,7 +1,7 @@
 
 #include <Global.h>
 
-#include "Math/Vector.h"
+#include <Math/Vector.h>
 #include <Math/Matrix.h>
 #include <Math/Transform.h>
 
@@ -15,16 +15,18 @@ static void TestMatrix();
 
 static void TestTransform();
 
+static void TestLoadMesh();
+
+static void TestLoadTexture();
+
 using namespace Just;
 
 int main() {
 
     TestVector();
     TestMatrix();
-    //TestTransform();
-    //TestRandom();
-    //TestLoadMesh();
-    //TestLoadTexture();
+    TestLoadMesh();
+    TestLoadTexture();
 }
 
 static void TestVector() {

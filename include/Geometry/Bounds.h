@@ -2,7 +2,6 @@
 
 #include "Global.h"
 #include "Math/Vector.h"
-#include "Math/Vector.h"
 #include "Ray.h"
 
 namespace Just {

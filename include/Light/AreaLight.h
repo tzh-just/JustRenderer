@@ -4,10 +4,12 @@
 
 namespace Just {
     struct AreaLight : Light {
-        Vector3f Sample() const override;
+        Vector3f AreaLight::Sample() const {}
 
-        Vector3f Eval() const override;
+        Vector3f AreaLight::Eval() const {}
 
-        float PDF() const override;
+        float AreaLight::PDF() const {}
     };
+
+
 }

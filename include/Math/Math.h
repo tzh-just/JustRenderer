@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include "Vector.h"
 
 namespace Just {
@@ -14,18 +15,20 @@ inline float Degrees(float rad) {
 
 //RGB和光谱转换
 static Spectrum RGB2Spectrum(const Color3i& rgb) {
-    return {
-            std::clamp(float(rgb.r) / 255.0f, 0.0f, 1.0f),
-            std::clamp(float(rgb.g) / 255.0f, 0.0f, 1.0f),
-            std::clamp(float(rgb.b) / 255.0f, 0.0f, 1.0f)
-    };
+    return {0,0,0};
+    // return {
+    //         std::clamp(float(rgb.r) / 255.0f, 0.0f, 1.0f),
+    //         std::clamp(float(rgb.g) / 255.0f, 0.0f, 1.0f),
+    //         std::clamp(float(rgb.b) / 255.0f, 0.0f, 1.0f)
+    // };
 }
 
 static Color3i Spectrum2RGB(const Spectrum& spectrum) {
-    return {
-            std::clamp(int(spectrum.r * 255), 0, 255),
-            std::clamp(int(spectrum.g * 255), 0, 255),
-            std::clamp(int(spectrum.b * 255), 0, 255)
-    };
+    return {0,0,0};
+    // return {
+    //         std::clamp(int(spectrum.r * 255), 0, 255),
+    //         std::clamp(int(spectrum.g * 255), 0, 255),
+    //         std::clamp(int(spectrum.b * 255), 0, 255)
+    // };
 }
 }

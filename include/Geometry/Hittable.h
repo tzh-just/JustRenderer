@@ -2,7 +2,6 @@
 
 #include "Global.h"
 #include "Math/Vector.h"
-#include "Math/Vector.h"
 
 namespace Just{
 

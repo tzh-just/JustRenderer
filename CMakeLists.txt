@@ -20,5 +20,5 @@ include_directories(
 
 add_executable(
         Test
-        src/Test.cpp
+        src/test/Test.cpp
 )
