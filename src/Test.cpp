@@ -62,10 +62,10 @@ static void TestMatrix() {
 static void TestTransform() {
     Point4f p(1, 0, 0, 1);
 
-    auto M = RotateZ(90);
+    auto M = Transform::RotateZ(90);
     auto r = M * p;
 
-    auto T = Translate(0, 1, 0);
+    auto T = Transform::Translate(0, 1, 0);
     auto t = T * r;
 
     std::cout << "p = " << p << "\n";
