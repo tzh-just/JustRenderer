@@ -12,7 +12,7 @@ struct Matrix {
 
     Matrix(const Matrix<N, T>& mat) {
         for (size_t row = 0; row < N; row++) {
-            for (size_t col = 0; col < N; col++){
+            for (size_t col = 0; col < N; col++) {
                 data[row][col] = mat.data[row][col];
             }
         }
@@ -66,12 +66,23 @@ struct Matrix {
         }
         return temp;
     }
+
+
+    static Matrix<N, T> Identity() {
+        Matrix < N, T > identity;
+        for (size_t row = 0; row < N; row++) {
+            for (size_t col = 0; col < N; col++) {
+                identity[row][col] = row == col ? 1 : 0;
+            }
+        }
+        return identity;
+    }
 };
 
 //余子式
 template<size_t N, typename T>
-Matrix<N - 1, T> Minor(const Matrix<N, T>& mat, size_t i, size_t j) {
-    Matrix<N - 1, T> minor;
+inline Matrix<N - 1, T> Minor(const Matrix<N, T>& mat, size_t i, size_t j) {
+    Matrix < N - 1, T > minor;
     for (size_t row = 0; row < N - 1; row++) {
         for (size_t col = 0; col < N - 1; col++) {
             minor[row][col] = mat.data[row < i ? row : row + 1][col < j ? col : col + 1];
@@ -82,19 +93,19 @@ Matrix<N - 1, T> Minor(const Matrix<N, T>& mat, size_t i, size_t j) {
 
 //代数余子式
 template<size_t N, typename T>
-T Cofactor(const Matrix<N, T>& mat, size_t row, size_t col) {
+inline T Cofactor(const Matrix<N, T>& mat, size_t row, size_t col) {
     return Det(Minor(mat, row, col)) * ((row + col) % 2 ? -1 : 1);
 }
 
 //一阶代数余子式
 template<typename T>
-T Cofactor(const Matrix<1, T>& mat, size_t row, size_t col) {
+inline T Cofactor(const Matrix<1, T>& mat, size_t row, size_t col) {
     return 0;
 }
 
 //行列式
 template<size_t N, typename T>
-T Det(const Matrix<N, T>& mat) {
+inline T Det(const Matrix<N, T>& mat) {
     T sum = 0;
     for (size_t col = 0; col < N; ++col) {
         sum += mat.data[0][col] * Cofactor(mat, 0, col);
@@ -104,21 +115,21 @@ T Det(const Matrix<N, T>& mat) {
 
 //一阶行列式
 template<typename T>
-T Det(const Matrix<1, T>& mat) {
+inline T Det(const Matrix<1, T>& mat) {
     return mat.data[0][0];
 }
 
 //二阶行列式
 template<typename T>
-T Det(const Matrix<2, T>& mat) {
+inline T Det(const Matrix<2, T>& mat) {
     return mat.data[0][0] * mat.data[1][1] - mat.data[0][1] * mat.data[1][0];;
 }
 
 
 //转置矩阵
 template<size_t N, typename T>
-Matrix<N, T> Transpose(const Matrix<N, T>& mat) {
-    Matrix<N, T> transpose;
+inline Matrix<N, T> Transpose(const Matrix<N, T>& mat) {
+    Matrix < N, T > transpose;
     for (size_t row = 0; row < N; ++row) {
         for (size_t col = 0; col < N; ++col) {
             transpose[col][row] = mat.data[row][col];
@@ -129,8 +140,8 @@ Matrix<N, T> Transpose(const Matrix<N, T>& mat) {
 
 //伴随矩阵
 template<size_t N, typename T>
-Matrix<N, T> Adjoint(const Matrix<N, T>& mat) {
-    Matrix<N, T> adjoint;
+inline Matrix<N, T> Adjoint(const Matrix<N, T>& mat) {
+    Matrix < N, T > adjoint;
     for (size_t row = 0; row < N; ++row) {
         for (size_t col = 0; col < N; ++col) {
             adjoint[col][row] = Cofactor(mat, row, col);
@@ -147,8 +158,8 @@ inline Matrix<N, T> Invert(const Matrix<N, T>& mat) {
 
 //M=A*k
 template<size_t N, typename T, typename U>
-Matrix<N, T> operator*(const Matrix<N, T>& A, U k) {
-    Matrix<N, T> temp;
+inline Matrix<N, T> operator*(const Matrix<N, T>& A, U k) {
+    Matrix < N, T > temp;
     for (size_t row = 0; row < N; row++) {
         for (size_t col = 0; col < N; col++) {
             temp[row][col] = A[row][col] * k;
@@ -159,20 +170,20 @@ Matrix<N, T> operator*(const Matrix<N, T>& A, U k) {
 
 //M=k*A
 template<size_t N, typename T>
-Matrix<N, T> operator*(T k, const Matrix<N, T>& A) {
+inline Matrix<N, T> operator*(T k, const Matrix<N, T>& A) {
     return A * k;
 }
 
 //M=A/k
 template<size_t N, typename T, typename U>
-Matrix<N, T> operator/(const Matrix<N, T>& A, U k) {
+inline Matrix<N, T> operator/(const Matrix<N, T>& A, U k) {
     return A * (1.0f / k);
 }
 
 //M=A*B
 template<size_t N, typename T>
-Matrix<N, T> operator*(const Matrix<N, T>& A, const Matrix<N, T>& B) {
-    Matrix<N, T> temp;
+inline Matrix<N, T> operator*(const Matrix<N, T>& A, const Matrix<N, T>& B) {
+    Matrix < N, T > temp;
     for (size_t row = 0; row < N; row++) {
         for (size_t col = 0; col < N; col++) {
             temp[row][col] = Dot(A.Row(row), B.Col(col));
@@ -183,7 +194,7 @@ Matrix<N, T> operator*(const Matrix<N, T>& A, const Matrix<N, T>& B) {
 
 //M=A*v
 template<size_t N, typename T>
-Vector<N, T> operator*(const Matrix<N, T>& A, const Vector<N, T>& v) {
+inline Vector<N, T> operator*(const Matrix<N, T>& A, const Vector<N, T>& v) {
     Vector<N, T> temp;
     for (size_t row = 0; row < N; row++) {
         temp[row] = Dot(v, A.Row(row));
@@ -192,7 +203,7 @@ Vector<N, T> operator*(const Matrix<N, T>& A, const Vector<N, T>& v) {
 }
 
 template<size_t N, typename T>
-std::ostream& operator<<(std::ostream& os, const Matrix<N, T>& A) {
+inline std::ostream& operator<<(std::ostream& os, const Matrix<N, T>& A) {
     for (size_t row = 0; row < N; row++) {
         os << "(";
         for (size_t col = 0; col < N; col++) {

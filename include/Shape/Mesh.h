@@ -5,6 +5,7 @@
 #include "Geometry/Bounds.h"
 #include "Geometry/Hittable.h"
 #include "Tools/ParseString.h"
+#include "Core/Shape.h"
 
 namespace Just {
 
@@ -45,12 +46,14 @@ struct VertexHash {
     }
 };
 
-struct Mesh {
+struct Mesh : Shape {
     std::vector<Point3f> positions;
     std::vector<Point<3, size_t>> faces;
     std::vector<Point2f> texcoords;
     std::vector<Vector3f> normals;
     std::vector<Vertex> vertices;
+
+    Mesh(std::shared_ptr<Transform> transform) : Shape(transform) {}
 
     Bounds3f bounds;
 

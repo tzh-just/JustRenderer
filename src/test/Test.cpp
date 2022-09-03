@@ -10,23 +10,13 @@
 #include <Tools/Loader.h>
 
 static void TestVector();
-
 static void TestMatrix();
-
-static void TestTransform();
-
-static void TestLoadMesh();
-
-static void TestLoadTexture();
 
 using namespace Just;
 
 int main() {
-
     TestVector();
     TestMatrix();
-    TestLoadMesh();
-    TestLoadTexture();
 }
 
 static void TestVector() {
@@ -60,32 +50,3 @@ static void TestMatrix() {
     std::cout << "mat1 * mat1 = " << mat1 * mat1 << "\n";
     std::cout << "mat1 * v1 = " << mat1 * v1 << "\n";
 }
-
-static void TestTransform() {
-    Point4f p(1, 0, 0, 1);
-
-    auto M = Transform::RotateZ(90);
-    auto r = M * p;
-
-    auto T = Transform::Translate(0, 1, 0);
-    auto t = T * r;
-
-    std::cout << "p = " << p << "\n";
-    std::cout << "M = " << M << "\n";
-    std::cout << "r = M * p =" << r << "\n";
-    std::cout << "T = " << T << "\n";
-    std::cout << "t = T * r = " << t << "\n";
-}
-
-static void TestLoadMesh() {
-    auto mesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(mesh, "Scene/CornellBox/Mesh/TallBlock.obj");
-}
-
-static void TestLoadTexture() {
-    auto texture = std::make_shared<Texture>();
-    Loader::LoadTexture(texture, "Scene/AfricanHead/Texture/Diffuse.tga");
-}
-
-
-

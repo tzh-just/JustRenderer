@@ -19,8 +19,6 @@
 namespace Just {
 class Loader {
 public:
-    static std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiter);
-
     static void LoadTexture(std::shared_ptr<Texture> texture, const std::string& filePath);
 
     static void LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath);
@@ -63,6 +61,7 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
             Point3f p;
             strStream >> p.x >> p.y >> p.z;
             positions.push_back(p);
+            mesh->bounds.Expand(p);
         } else if (prefix == "vn") {
             Vector3f vn;
             strStream >> vn.x >> vn.y >> vn.z;

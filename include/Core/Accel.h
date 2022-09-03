@@ -30,7 +30,7 @@ struct Accel {
     //场景总包围盒
     Bounds3f bounds;
     //场景图元索引
-    std::vector<std::pair<size_t, size_t>> indexes;
+    std::vector<std::pair<size_t, size_t>> faceIndices;
 
     int currDepth = 1;
     int leafCount = 1;
@@ -61,18 +61,20 @@ struct Accel {
 
 void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
     std::cout<< "Add Mesh" << "\n";
-    meshes.push_back(mesh);
+    //更新包围盒
     bounds = Bounds3f::Union(bounds, mesh->bounds);
+    //更新顶点索引
     for (int i = 0; i < mesh->faces.size(); i++) {
-        indexes.emplace_back(meshes.size() - 1, i);
+        faceIndices.emplace_back(meshes.size(), i);
     }
+    meshes.push_back(mesh);
 }
 
 void Accel::Build() {
     std::cout<< "Build Accel" << "\n";
     //初始化根节点
-    auto root = AccelNode(bounds, indexes.size());
-    root.indexes = indexes;
+    auto root = AccelNode(bounds, faceIndices.size());
+    root.indexes = faceIndices;
 
     //初始化树
     tree = std::vector<AccelNode>();
@@ -91,7 +93,7 @@ void Accel::Build() {
         for (int i = 0; i < size; ++i) {
             auto& node = tree[q.front()];
             //判断深度和图元数量是否超过符合限制
-            if (node.indexes.size() > minNumFaces && currDepth > maxDepth) {
+            if (node.indexes.size() > minNumFaces && currDepth < maxDepth) {
                 //设置子节点起始索引
                 node.child = tree.size();
                 //检测是否可以分割当前节点的空间

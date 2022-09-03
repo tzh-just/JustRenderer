@@ -4,15 +4,11 @@
 #include "Geometry/Bounds.h"
 
 namespace Just {
-    struct Shape {
-        std::shared_ptr<Transform> objToWorld;
-        std::shared_ptr<Transform> worldToObj;
+struct Shape {
+    std::shared_ptr<Transform> transform;
 
-        Shape(std::shared_ptr<Transform> objToWorld, std::shared_ptr<Transform> worldToObj)
-                : objToWorld(objToWorld), worldToObj(worldToObj) {}
+    Shape() = default;
 
-        virtual Bounds3f ObjectBound() const = 0;
-
-        virtual Bounds3f WorldBound() const = 0;
-    };
+    explicit Shape(std::shared_ptr<Transform> transform) : transform(transform) {}
+};
 }

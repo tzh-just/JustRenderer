@@ -53,18 +53,25 @@ int main() {
     //场景
     auto scene = std::make_shared<Scene>(bvh);
 
+    auto transform = std::make_shared<Transform>(Matrix4f::Identity());
+
     //模型
-    auto cboxFloorMesh = std::make_shared<Mesh>();
+    auto bunnyMesh = std::make_shared<Mesh>(transform);
+    Loader::LoadMesh(bunnyMesh, "scene/Bunny/Mesh/bunny.obj");
+    scene->meshes.push_back(bunnyMesh);
+
+    //模型
+/*    auto cboxFloorMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(cboxFloorMesh, "scene/CornellBox/Mesh/Floor.obj");
-    auto cboxCeilingMesh = std::make_shared<Mesh>();
+    auto cboxCeilingMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(cboxCeilingMesh, "scene/CornellBox/Mesh/Ceiling.obj");
-    auto cboxBackWallMesh = std::make_shared<Mesh>();
+    auto cboxBackWallMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(cboxBackWallMesh, "scene/CornellBox/Mesh/BackWall.obj");
-    auto cboxRightWallMesh = std::make_shared<Mesh>();
+    auto cboxRightWallMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(cboxRightWallMesh, "scene/CornellBox/Mesh/RightWall.obj");
-    auto cboxLeftWallMesh = std::make_shared<Mesh>();
+    auto cboxLeftWallMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(cboxLeftWallMesh, "scene/CornellBox/Mesh/LeftWall.obj");
-    auto cboxLightMesh = std::make_shared<Mesh>();
+    auto cboxLightMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(cboxLightMesh, "scene/CornellBox/Mesh/Light.obj");
 
     scene->meshes.push_back(cboxFloorMesh);
@@ -72,7 +79,8 @@ int main() {
     scene->meshes.push_back(cboxBackWallMesh);
     scene->meshes.push_back(cboxRightWallMesh);
     scene->meshes.push_back(cboxLeftWallMesh);
-    scene->meshes.push_back(cboxLightMesh);
+    scene->meshes.push_back(cboxLightMesh);*/
+
 
     scene->Activate();
 
