@@ -4,6 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <unordered_map>
 
 #include "Math/Vector.h"
 #include "Shape/Mesh.h"
@@ -18,6 +19,8 @@
 namespace Just {
 class Loader {
 public:
+    static std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiter);
+
     static void LoadTexture(std::shared_ptr<Texture> texture, const std::string& filePath);
 
     static void LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath);
@@ -43,52 +46,65 @@ void Loader::LoadTexture(std::shared_ptr<Texture> texture, const std::string& fi
 void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
     std::ifstream fileStream(filePath);
     std::string line;
+
+    std::unordered_map<Vertex, size_t, VertexHash> vertexMap;
+    std::vector<Point3f> positions;
+    std::vector<size_t> indices;
+    std::vector<Point2f> texcoords;
+    std::vector<Vector3f> normals;
+    std::vector<Vertex> vertices;
+
     while (std::getline(fileStream, line)) {
         std::istringstream strStream(line);
-        char trash;
-        if (!line.compare(0, 2, "v ")) {
-            strStream >> trash;
-            Point3f position;
-            for (int i = 0; i < 3; ++i) {
-                strStream >> position[i];
+        std::string prefix;
+        strStream >> prefix;
+
+        if (prefix == "v") {
+            Point3f p;
+            strStream >> p.x >> p.y >> p.z;
+            positions.push_back(p);
+        } else if (prefix == "vn") {
+            Vector3f vn;
+            strStream >> vn.x >> vn.y >> vn.z;
+            normals.push_back(vn);
+        } else if (prefix == "vt") {
+            Point2f vt;
+            strStream >> vt.x >> vt.y;
+            texcoords.push_back(vt);
+        } else if (prefix == "f") {
+            std::string v1, v2, v3, v4;
+            strStream >> v1 >> v2 >> v3 >> v4;
+            Vertex verts[6];
+            int vNums = 3;
+            verts[0] = Vertex(v1);
+            verts[1] = Vertex(v2);
+            verts[2] = Vertex(v3);
+            if (!v4.empty()) {
+                vNums = 6;
+                verts[0] = Vertex(v4);
+                verts[1] = Vertex(v2);
+                verts[2] = Vertex(v3);
             }
-            mesh->positions.push_back(position);
-        } else if (!line.compare(0, 3, "vn ")) {
-            strStream >> trash >> trash;
-            Vector3f normal;
-            for (int i = 0; i < 3; ++i) {
-                strStream >> normal[i];
-            }
-            mesh->normals.push_back(normal);
-        } else if (!line.compare(0, 3, "vt ")) {
-            strStream >> trash >> trash;
-            Tuple2f uv;
-            for (int i = 0; i < 2; ++i) {
-                strStream >> uv[i];
-            }
-            mesh->uvs.push_back(uv);
-        } else if (!line.compare(0, 2, "f ")) {
-            strStream >> trash;
-            Face face;
-            int index = 0;
-            for (int i = 0; i < 3; i++) {
-                strStream >> index;
-                face.posIndexes.push_back(--index);
-                auto a = strStream.str();
-                if (!mesh->uvs.empty()) {
-                    strStream >> trash >> index;
-                    face.uvIndexes.push_back(--index);
+            for (int i = 0; i < vNums; i++) {
+                const Vertex& v = verts[i];
+                //在散列表中查找顶点
+                auto it = vertexMap.find(v);
+                if (it == vertexMap.end()) {
+                    //顶点不存在则在散列表中存储
+                    vertexMap[v] = vertices.size();
+                    indices.push_back(vertices.size());
+                    vertices.push_back(v);
+                } else {
+                    indices.push_back(it->second);
                 }
-                if (!mesh->normals.empty()) {
-                    if (mesh->uvs.empty()) {
-                        strStream >> trash;
-                    }
-                    strStream >> trash >> index;
-                    face.normalIndexes.push_back(--index);
-                }
             }
-            mesh->faces.push_back(face);
         }
     }
+
+    mesh->positions = std::move(positions);
+    mesh->faces.resize(indices.size() / 3);
+    memcpy(mesh->faces.data(), indices.data(), sizeof(size_t) * indices.size());
+    mesh->texcoords = std::move(texcoords);
+    mesh->vertices = std::move(vertices);
 }
 }

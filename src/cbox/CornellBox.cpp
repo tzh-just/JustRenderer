@@ -55,17 +55,17 @@ int main() {
 
     //模型
     auto cboxFloorMesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(cboxFloorMesh, "scene/CornellBox/Mesh/Floor");
+    Loader::LoadMesh(cboxFloorMesh, "scene/CornellBox/Mesh/Floor.obj");
     auto cboxCeilingMesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(cboxCeilingMesh, "scene/CornellBox/Mesh/Ceiling");
+    Loader::LoadMesh(cboxCeilingMesh, "scene/CornellBox/Mesh/Ceiling.obj");
     auto cboxBackWallMesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(cboxBackWallMesh, "scene/CornellBox/Mesh/BackWall");
+    Loader::LoadMesh(cboxBackWallMesh, "scene/CornellBox/Mesh/BackWall.obj");
     auto cboxRightWallMesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(cboxRightWallMesh, "scene/CornellBox/Mesh/RightWall");
+    Loader::LoadMesh(cboxRightWallMesh, "scene/CornellBox/Mesh/RightWall.obj");
     auto cboxLeftWallMesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(cboxLeftWallMesh, "scene/CornellBox/Mesh/LeftWall");
+    Loader::LoadMesh(cboxLeftWallMesh, "scene/CornellBox/Mesh/LeftWall.obj");
     auto cboxLightMesh = std::make_shared<Mesh>();
-    Loader::LoadMesh(cboxLightMesh, "scene/CornellBox/Mesh/Light");
+    Loader::LoadMesh(cboxLightMesh, "scene/CornellBox/Mesh/Light.obj");
 
     scene->meshes.push_back(cboxFloorMesh);
     scene->meshes.push_back(cboxCeilingMesh);
@@ -73,6 +73,8 @@ int main() {
     scene->meshes.push_back(cboxRightWallMesh);
     scene->meshes.push_back(cboxLeftWallMesh);
     scene->meshes.push_back(cboxLightMesh);
+
+    scene->Activate();
 
     //光源
     auto light = std::make_shared<AreaLight>();

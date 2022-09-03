@@ -15,8 +15,10 @@ namespace Just {
         std::vector<std::shared_ptr<Mesh>> meshes;
         std::vector<std::shared_ptr<Light>> lights;
 
-        explicit Scene(std::shared_ptr<Accel> accel) : accel(accel) {
-            for (auto& mesh: meshes) {
+        explicit Scene(std::shared_ptr<Accel> accel) : accel(accel) {}
+
+        void Activate(){
+            for (const auto& mesh: meshes) {
                 accel->AddMesh(mesh);
             }
             accel->Build();
