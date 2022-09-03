@@ -19,6 +19,11 @@ include_directories(
 )
 
 add_executable(
-        Test
+        test
         src/test/Test.cpp
+)
+
+add_executable(
+        cbox
+        src/cbox/CornellBox.cpp
 )

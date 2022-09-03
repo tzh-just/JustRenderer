@@ -10,12 +10,12 @@ protected:
 public:
     BVH() : Accel(16, 32) {}
 
-    void Divide(size_t nodeIndex, std::vector <AccelNode>* children) override;
+    void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
 
     bool Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const override;
 };
 
-void BVH::Divide(size_t nodeIndex, std::vector <AccelNode>* children) {
+void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
     auto& node = tree[nodeIndex];
 
     AccelNode leftNode, rightNode;
@@ -40,8 +40,8 @@ void BVH::Divide(size_t nodeIndex, std::vector <AccelNode>* children) {
         auto begin = node.indexes.begin();
         auto mid = node.indexes.begin() + static_cast<int>((node.indexes.size()) * i / kNumBuckets);
         auto end = node.indexes.end();
-        auto leftIndexes = std::vector < std::pair < size_t, size_t>>(begin, mid);
-        auto rightIndexes = std::vector < std::pair < size_t, size_t>>(mid, end);
+        auto leftIndexes = std::vector<std::pair<size_t, size_t>>(begin, mid);
+        auto rightIndexes = std::vector<std::pair<size_t, size_t>>(mid, end);
 
         //合并左右包围盒
         Bounds3f leftBounds, rightBounds;
@@ -76,7 +76,7 @@ void BVH::Divide(size_t nodeIndex, std::vector <AccelNode>* children) {
 
 bool BVH::Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const {
     //初始化辅助队列
-    std::queue <size_t> q;
+    std::queue<size_t> q;
     q.push(0);
 
     //层次遍历树
@@ -108,5 +108,6 @@ bool BVH::Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const {
             }
         }//for遍历层
     }//while遍历树
+    return false;
 }
 }

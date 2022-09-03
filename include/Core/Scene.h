@@ -5,6 +5,8 @@
 #include "Light.h"
 #include "Shape.h"
 
+
+
 namespace Just {
     struct Scene {
     public:
