@@ -53,7 +53,7 @@ int main() {
     //场景
     auto scene = std::make_shared<Scene>(bvh);
 
-    auto transform = std::make_shared<Transform>(Matrix4f::Identity());
+    auto* transform = new Transform(Matrix4f::Identity());
 
     //模型
     auto bunnyMesh = std::make_shared<Mesh>(transform);

@@ -60,6 +60,7 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
         if (prefix == "v") {
             Point3f p;
             strStream >> p.x >> p.y >> p.z;
+            p = *mesh->transform * p;
             positions.push_back(p);
             mesh->bounds.Expand(p);
         } else if (prefix == "vn") {
@@ -100,10 +101,26 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
         }
     }
 
-    mesh->positions = std::move(positions);
     mesh->faces.resize(indices.size() / 3);
     memcpy(mesh->faces.data(), indices.data(), sizeof(size_t) * indices.size());
-    mesh->texcoords = std::move(texcoords);
-    mesh->vertices = std::move(vertices);
+
+    mesh->vertices.resize(vertices.size());
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        mesh->vertices[i] = positions.at(vertices[i].p - 1);
+    }
+
+    if (!normals.empty()) {
+        mesh->normals.resize(vertices.size());
+        for (size_t i = 0; i < vertices.size(); ++i) {
+            mesh->normals[i] = normals.at(vertices[i].n - 1);
+        }
+    }
+
+    if (!texcoords.empty()) {
+        mesh->texcoords.resize(vertices.size());
+        for (size_t i = 0; i < vertices.size(); ++i) {
+            mesh->texcoords[i] = texcoords.at(vertices[i].uv - 1);
+        }
+    }
 }
 }

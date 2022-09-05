@@ -27,10 +27,10 @@ void OctTree::Divide(size_t nodeIndex, std::vector <AccelNode>* children) {
 
         //分配属于各个子节点的图元
         AccelNode subNode(subBounds);
-        for (const auto& [meshIndex, faceIndex]: node.indexes) {
+        for (const auto& [meshIndex, faceIndex]: node.faceIndices) {
             //检测每个图元与子包围盒是否碰撞
             if (Bounds3f::Overlaps(subNode.bounds, meshes[meshIndex]->GetFaceBounds(faceIndex))) {
-                subNode.indexes.emplace_back(meshIndex, faceIndex);
+                subNode.faceIndices.emplace_back(meshIndex, faceIndex);
             }
         }
         children->emplace_back(subNode);

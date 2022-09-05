@@ -2,24 +2,27 @@
 
 #include <queue>
 #include <vector>
+#include <chrono>
+
 #include "Global.h"
 #include "Geometry/Ray.h"
 #include "Geometry/Bounds.h"
 #include "Geometry/Hittable.h"
 #include "Shape/Mesh.h"
+#include "Tools/Timer.h"
 
 namespace Just {
 struct AccelNode {
     size_t child;
     Bounds3f bounds;
-    std::vector<std::pair<size_t, size_t>> indexes;
+    std::vector<std::pair<size_t, size_t>> faceIndices;
 
     AccelNode() : bounds(), child(0) {}
 
     explicit AccelNode(const Bounds3f& bounds) : bounds(bounds), child(0) {}
 
     AccelNode(const Bounds3f& bounds, size_t size)
-            : bounds(bounds), indexes(size), child(0) {}
+            : bounds(bounds), faceIndices(size), child(0) {}
 };
 
 struct Accel {
@@ -60,7 +63,7 @@ struct Accel {
 };
 
 void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
-    std::cout<< "Add Mesh" << "\n";
+    std::cout << "Add Mesh" << "\n";
     //更新包围盒
     bounds = Bounds3f::Union(bounds, mesh->bounds);
     //更新顶点索引
@@ -71,10 +74,16 @@ void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
 }
 
 void Accel::Build() {
-    std::cout<< "Build Accel" << "\n";
+    assert(!meshes.empty());
+
+    //统计构建时间
+    Timer timer;
+    timer.Begin();
+    std::cout << "Build Accel" << "\n";
+
     //初始化根节点
     auto root = AccelNode(bounds, faceIndices.size());
-    root.indexes = faceIndices;
+    root.faceIndices = faceIndices;
 
     //初始化树
     tree = std::vector<AccelNode>();
@@ -93,7 +102,7 @@ void Accel::Build() {
         for (int i = 0; i < size; ++i) {
             auto& node = tree[q.front()];
             //判断深度和图元数量是否超过符合限制
-            if (node.indexes.size() > minNumFaces && currDepth < maxDepth) {
+            if (node.faceIndices.size() > minNumFaces && currDepth < maxDepth) {
                 //设置子节点起始索引
                 node.child = tree.size();
                 //检测是否可以分割当前节点的空间
@@ -105,20 +114,19 @@ void Accel::Build() {
                     tree.emplace_back(child);
                     ++leafCount;
                     ++nodeCount;
-                } // for遍历子节点
+                }
             }
-            //清理无用数据
             q.pop();
             children.clear();
             children.shrink_to_fit();
-        }            // for遍历层
-        currDepth++; //记录树深度
-    }                // while遍历树
+        }
+        currDepth++;
+    }
 
-    //修正无加速结构时的统计数据
-    currDepth = currDepth < maxDepth ? currDepth : maxDepth;
+    timer.End();
 
     //统计数据
+    std::cout << "[Build time]: " << timer.time << "ms" << std::endl;
     std::cout << "[Max depth]: " << currDepth << std::endl;
     std::cout << "[node count]: " << nodeCount << std::endl;
     std::cout << "[leaf count]: " << leafCount << std::endl;
