@@ -126,6 +126,8 @@ bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = fa
     //初始化辅助队列
     std::queue<size_t> q;
     q.push(0);
+    auto hitFaceIndex = (size_t) -1;
+    bool isHit = false;
     //层次遍历树
     while (!q.empty()) {
         auto size = q.size();
@@ -147,20 +149,25 @@ bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = fa
                             return true;
                         }
                         record.hitTime = ray.hitTime;
-                        record
+                        record.mesh = meshes[meshIndex];
+                        hitFaceIndex = faceIndex;
+                        isHit = true;
                     }
                 }
+                //在叶子节点内的图元击中则终止遍历
+                if (isHit) {
+                    break;
+                }
             } else {
+                //子节点入队
                 q.push(node.child);
                 q.push(node.child + 1);
             }
         }
     }
-    return false;
-    bool found = Traverse(ray, record, false);
-    //检测阴影则直接返回相交结果
+    //阴影射线未击中物体
     if (isShadow) {
-        return found;
+        return isHit;
     }
     //记录相交信息
     if (found) {

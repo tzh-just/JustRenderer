@@ -8,17 +8,17 @@
 namespace Just {
 
     struct Sphere {
-        Point3f position;
+        Point3f center;
         float radius;
 
-        Sphere() : position(), radius() {}
+        Sphere() : center(), radius() {}
 
-        Sphere(const Point3f& position, float radius) : position(position), radius(radius) {}
+        Sphere(const Point3f& position, float radius) : center(position), radius(radius) {}
 
         //球体与光线求交
         bool Intersect(const Ray3f& ray, HitRecord* record) const {
             //t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
-            Vector3f op = ray.origin - position;
+            Vector3f op = ray.origin - center;
             float h = Dot(op, ray.direction);//h=b/2
             float det = h * h - Dot(op, op) + radius * radius;
 

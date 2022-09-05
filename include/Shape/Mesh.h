@@ -10,13 +10,15 @@
 namespace Just {
 
 struct Mesh;
+
 struct HitRecord {
     Point3f point;
     Point2f uv;
     float hitTime;
     Frame shadingFrame;
-    Mesh* mesh;
-    HitRecord() : hitTime(0), mesh(nullptr) {}
+    std::shared_ptr<Mesh> mesh;
+
+    HitRecord() : hitTime(0) {}
 };
 
 struct Vertex {
