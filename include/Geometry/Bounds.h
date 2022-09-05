@@ -42,7 +42,7 @@ struct Bounds3f {
         float exitTime = MinComponent(maxTime);
 
         //离开时间为正 && 大于进入时间 && 进入时间小于射线第一次击中时间
-        return exitTime > 0.0f && exitTime + kEpsilon > enterTime && enterTime < ray.tMax;
+        return exitTime > 0.0f && exitTime + kEpsilon > enterTime && enterTime < ray.hitTime;
     }
 
     //包围盒拐角点

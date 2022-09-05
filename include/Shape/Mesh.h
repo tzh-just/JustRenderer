@@ -3,11 +3,21 @@
 #include <vector>
 #include "Math/Vector.h"
 #include "Geometry/Bounds.h"
-#include "Geometry/Hittable.h"
 #include "Tools/Parse.h"
 #include "Core/Shape.h"
+#include "Tools/Frame.h"
 
 namespace Just {
+
+struct Mesh;
+struct HitRecord {
+    Point3f point;
+    Point2f uv;
+    float hitTime;
+    Frame shadingFrame;
+    Mesh* mesh;
+    HitRecord() : hitTime(0), mesh(nullptr) {}
+};
 
 struct Vertex {
     size_t p = (size_t) -1;
@@ -58,7 +68,7 @@ struct Mesh : Shape {
 
     Bounds3f GetFaceBounds(size_t faceIndex);
 
-    bool RayIntersect(const Ray3f& ray, HitRecord& record, size_t f) const;
+    bool RayIntersect(size_t faceIndex, const Ray3f& ray, HitRecord& record) const;
 };
 
 Bounds3f Mesh::GetFaceBounds(size_t faceIndex) {
@@ -68,9 +78,9 @@ Bounds3f Mesh::GetFaceBounds(size_t faceIndex) {
     return faceBounds;
 }
 
-bool Mesh::RayIntersect(const Ray3f& ray, HitRecord& record, size_t f) const {
+bool Mesh::RayIntersect(size_t faceIndex, const Ray3f& ray, HitRecord& record) const {
     //读取三角形顶点坐标
-    auto& face = faces[f];
+    auto& face = faces[faceIndex];
     const Point3f& A = vertices[face[0]];
     const Point3f& B = vertices[face[1]];
     const Point3f& C = vertices[face[2]];
@@ -101,13 +111,12 @@ bool Mesh::RayIntersect(const Ray3f& ray, HitRecord& record, size_t f) const {
     }
 
     //不是正向第一个相交的三角形
-    if (hitTime <= 0.f || hitTime > ray.tMax) {
+    if (hitTime <= 0.f || hitTime > ray.hitTime) {
         return false;
     }
 
-    ray.tMax = hitTime;
-    record.hitTime = hitTime;
-    record.point = alpha * A + beta * B + (1 - alpha - beta) * C;
+    ray.hitTime = hitTime;
+    record.uv = Point2f(alpha, beta);
     return true;
 }
 }

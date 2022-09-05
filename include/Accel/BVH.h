@@ -73,39 +73,6 @@ void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
 }
 
 bool BVH::Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const {
-    //初始化辅助队列
-    std::queue<size_t> q;
-    q.push(0);
 
-    //层次遍历树
-    while (!q.empty()) {
-        auto size = q.size();
-        for (int i = 0; i < size; ++i) {
-            auto& node = tree[q.front()];
-            q.pop();
-            //包围盒相交测试
-            if (!node.bounds.RayIntersect(ray)) {
-                continue;
-            }
-            //节点为叶子节点
-            if (node.child == 0) {
-                //遍历节点得图元进行相交测试
-                for (const auto& [m, f]: node.faceIndices) {
-                    if (meshes[m]->RayIntersect(ray, record, f)) {
-                        //阴影测试击中直接返回
-                        if (shadow) {
-                            return true;
-                        }
-                        return true;
-                    }
-                }//for遍历图元
-            } else {
-                //子节点索引入队
-                q.push(node.child);
-                q.push(node.child + 1);
-            }
-        }//for遍历层
-    }//while遍历树
-    return false;
 }
 }

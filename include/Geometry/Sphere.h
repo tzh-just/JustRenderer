@@ -2,7 +2,7 @@
 
 #include "Global.h"
 #include "Math/Vector.h"
-#include "Hittable.h"
+#include "Shape/Mesh.h"
 #include "Geometry/Ray.h"
 
 namespace Just {
@@ -27,9 +27,9 @@ namespace Just {
                 return false;
             det = sqrt(det);
             record->hitTime = -h - det;
-            if (record->hitTime < kEpsilon || record->hitTime > ray.tMax)
+            if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
                 record->hitTime = -h + det;
-            if (record->hitTime < kEpsilon || record->hitTime > ray.tMax)
+            if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
                 return false;
 
             //记录相交信息

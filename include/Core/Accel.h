@@ -7,7 +7,6 @@
 #include "Global.h"
 #include "Geometry/Ray.h"
 #include "Geometry/Bounds.h"
-#include "Geometry/Hittable.h"
 #include "Shape/Mesh.h"
 #include "Tools/Timer.h"
 
@@ -53,7 +52,7 @@ struct Accel {
     virtual void Divide(size_t nodeIndex, std::vector<AccelNode>* children) = 0;
 
     //射线相交测试
-    bool RayIntersect(const Ray3f& ray, HitRecord& it, bool isShadowRay) const;
+    bool RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow) const;
 
     //阴影测试
     bool RayIntersect(const Ray3f& ray, bool shadow) const;
@@ -75,27 +74,19 @@ void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
 
 void Accel::Build() {
     assert(!meshes.empty());
-
-    //统计构建时间
-    Timer timer;
-    timer.Begin();
+    auto start = std::chrono::high_resolution_clock::now();
     std::cout << "Build Accel" << "\n";
-
     //初始化根节点
     auto root = AccelNode(bounds, faceIndices.size());
     root.faceIndices = faceIndices;
-
     //初始化树
     tree = std::vector<AccelNode>();
     tree.emplace_back(root);
-
     //初始化辅助队列
     std::queue<size_t> q;
     q.push(0);
-
     //初始化子节点集合
     std::vector<AccelNode> children;
-
     //构建树
     while (!q.empty()) {
         auto size = q.size(); //层次遍历
@@ -122,24 +113,55 @@ void Accel::Build() {
         }
         currDepth++;
     }
-
-    timer.End();
-
+    auto over = std::chrono::high_resolution_clock::now();
+    auto time = std::chrono::duration_cast<std::chrono::milliseconds>(over - start).count();
+    std::cout << "[Build time]: " << time << "ms" << std::endl;
     //统计数据
-    std::cout << "[Build time]: " << timer.time << "ms" << std::endl;
     std::cout << "[Max depth]: " << currDepth << std::endl;
-    std::cout << "[node count]: " << nodeCount << std::endl;
-    std::cout << "[leaf count]: " << leafCount << std::endl;
+    std::cout << "[Node count]: " << nodeCount << std::endl;
+    std::cout << "[Leaf count]: " << leafCount << std::endl;
 }
 
-bool Accel::RayIntersect(const Ray3f& ray, HitRecord& it, bool isShadowRay = false) const {
-    bool found = Traverse(ray, it, false);
-
+bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = false) const {
+    //初始化辅助队列
+    std::queue<size_t> q;
+    q.push(0);
+    //层次遍历树
+    while (!q.empty()) {
+        auto size = q.size();
+        for (int i = 0; i < size; ++i) {
+            auto& node = tree[q.front()];
+            q.pop();
+            //包围盒相交测试
+            if (!node.bounds.RayIntersect(ray)) {
+                continue;
+            }
+            //节点为叶子节点
+            if (node.child == 0) {
+                float u, v;
+                //遍历节点内图元进行相交测试
+                for (auto [meshIndex, faceIndex]: node.faceIndices) {
+                    if (meshes[meshIndex]->RayIntersect(faceIndex, ray, record)) {
+                        //阴影测试击中直接返回
+                        if (isShadow) {
+                            return true;
+                        }
+                        record.hitTime = ray.hitTime;
+                        record
+                    }
+                }
+            } else {
+                q.push(node.child);
+                q.push(node.child + 1);
+            }
+        }
+    }
+    return false;
+    bool found = Traverse(ray, record, false);
     //检测阴影则直接返回相交结果
-    if (isShadowRay) {
+    if (isShadow) {
         return found;
     }
-
     //记录相交信息
     if (found) {
         //本地坐标系
