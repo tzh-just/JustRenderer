@@ -10,8 +10,18 @@
 namespace Just {
 
 // Global Forward Declarations
+template <typename T>
+struct Point2;
+template <typename T>
+struct Point3;
+template <typename T>
+struct Vector2;
+template <typename T>
+struct Vector3;
+template <typename T>
+struct Normal3;
 
-//全局变量
+// Global Constants
 float kPI = 3.14159265358979323846f;
 float kInvPI = 0.31830988618379067154f;
 float kInv2PI = 0.15915494309189533577f;
@@ -22,7 +32,7 @@ float kEpsilon = 1e-4f;
 float kFloatMax = std::numeric_limits<float>::max();
 float kFloatLower = std::numeric_limits<float>::lowest();
 
-//打印
+// Global Functions
 template<typename T, typename ... U>
 inline void Print(T first, U ... rest) {
     if (sizeof...(rest)) {

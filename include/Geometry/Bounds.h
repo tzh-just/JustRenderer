@@ -32,24 +32,24 @@ struct Bounds3f {
     bool RayIntersect(const Ray& ray) const {
         float nearTime = -std::numeric_limits<float>::infinity();
         float farTime = std::numeric_limits<float>::infinity();
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             float origin = ray.origin[i];
             float minVal = pMin[i], maxVal = pMax[i];
 
             if (ray.direction[i] == 0) {
-                if (origin < minVal || origin > maxVal){
+                if (origin < minVal || origin > maxVal) {
                     return false;
                 }
             } else {
                 float t1 = (minVal - origin) / ray.direction[i];
                 float t2 = (maxVal - origin) / ray.direction[i];
 
-                if (t1 > t2){
+                if (t1 > t2) {
                     std::swap(t1, t2);
                 }
                 nearTime = std::max(t1, nearTime);
                 farTime = std::min(t2, farTime);
-                if (nearTime > farTime){
+                if (nearTime > farTime) {
                     return false;
                 }
             }

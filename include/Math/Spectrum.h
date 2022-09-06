@@ -6,7 +6,7 @@ enum class SpectrumType{
     Illumination
 };
 struct Spectrum {
-
+    
 };
 
 }

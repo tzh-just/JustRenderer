@@ -36,15 +36,15 @@ struct Frame {
         return temp <= 0.0f ? 0.0f : std::sqrt(temp) / v.z;
     }
 
-    static void CoordinateSystem(const Vector3f& v, Vector3f& s, Vector3f& t) {
-        if (std::abs(v.x) > std::abs(v.y)) {
-            float invLength = 1.0f / std::sqrt(v.x * v.x + v.z * v.z);
-            t = Vector3f(v.z * invLength, 0.0f, -v.x * invLength);
+    static void CoordinateSystem(const Vector3f& v1, Vector3f& v2, Vector3f& v3) {
+        if (std::abs(v1.x) > std::abs(v1.y)) {
+            float invLen = 1.0f / std::sqrt(v1.x * v1.x + v1.z * v1.z);
+            v2 = Vector3f(-v1.z * invLen, 0.0f, v1.x * invLen);
         } else {
-            float invLength = 1.0f / std::sqrt(v.y * v.y + v.z * v.z);
-            t = Vector3f(0.0f, v.z * invLength, -v.y * invLength);
+            float invLen = 1.0f / std::sqrt(v1.y * v1.y + v1.z * v1.z);
+            v2 = Vector3f(0.0f, v1.z * invLen, -v1.y * invLen);
         }
-        s = Cross(t, v);
+        v3 = Cross(v1, v2);
     }
 };
 }
