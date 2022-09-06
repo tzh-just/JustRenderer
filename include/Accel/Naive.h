@@ -9,10 +9,10 @@ public:
 
     void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
-    void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
+    void Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
 void Naive::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {}
 
-void Naive::Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const {}
+void Naive::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {}
 }

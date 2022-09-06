@@ -52,13 +52,13 @@ struct Accel {
     virtual void Divide(size_t nodeIndex, std::vector<AccelNode>& children) = 0;
 
     //射线相交测试
-    bool RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow) const;
+    bool RayIntersect(const Ray& ray, HitRecord& record, bool isShadow) const;
 
     //阴影测试
-    bool RayIntersect(const Ray3f& ray, bool shadow) const;
+    bool RayIntersect(const Ray& ray, bool shadow) const;
 
     //遍历子节点
-    virtual void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const = 0;
+    virtual void Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const = 0;
 };
 
 void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
@@ -122,7 +122,7 @@ void Accel::Build() {
     std::cout << "[Leaf count]: " << leafCount << std::endl;
 }
 
-bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = false) const {
+bool Accel::RayIntersect(const Ray& ray, HitRecord& record, bool isShadow = false) const {
     //初始化辅助队列
     std::queue<size_t> q;
     q.push(0);
@@ -216,7 +216,7 @@ bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = fa
     return isHit;
 }
 
-bool Accel::RayIntersect(const Ray3f& ray, bool shadow = true) const {
+bool Accel::RayIntersect(const Ray& ray, bool shadow = true) const {
     HitRecord unused;
     return RayIntersect(ray, unused, shadow);
 }

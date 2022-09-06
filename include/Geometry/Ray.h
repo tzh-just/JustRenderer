@@ -3,18 +3,22 @@
 #include "Math/Vector.h"
 
 namespace Just {
-struct Ray3f {
+struct Ray {
     Point3f origin;
     Vector3f direction;
     mutable float hitTime;
 
-    Ray3f() : hitTime(kFloatMax) {}
+    Ray() : hitTime(kFloatMax) {}
 
-    Ray3f(const Point3f& origin, const Vector3f& direction) :
+    Ray(const Point3f& origin, const Vector3f& direction) :
             origin(origin), direction(Normalize(direction)), hitTime(kFloatMax) {}
 
     Point3f At(float t) const {
         return origin + direction * t;
     }
+};
+
+struct RayDifferential{
+
 };
 }

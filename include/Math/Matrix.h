@@ -18,6 +18,15 @@ struct Matrix {
         }
     }
 
+    Matrix(const std::initializer_list<T>& list) {
+        auto it = list.begin();
+        for (size_t i = 0; i < N; i++) {
+            for (size_t j = 0; j < N; j++) {
+                data[i][j] = *it++;
+            }
+        }
+    }
+
     Matrix(const std::initializer_list<Vector<N, T>>& list) {
         auto it = list.begin();
         for (size_t i = 0; i < N; i++) {
@@ -215,7 +224,7 @@ inline std::ostream& operator<<(std::ostream& os, const Matrix<N, T>& A) {
     return os;
 }
 
-using Matrix4f = Matrix<4, float>;
+using  Matrix4f = Matrix<4, float>;
 using Matrix3f = Matrix<3, float>;
 using Matrix2f = Matrix<2, float>;
 }

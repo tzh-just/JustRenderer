@@ -9,7 +9,7 @@ public:
 
     void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
-    void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
+    void Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
 void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
@@ -37,7 +37,7 @@ void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     }
 }
 
-void OctTree::Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
+void OctTree::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
     //初始化子节点索引
     size_t children[8];
     for (size_t i = 0; i < 8; i++) {

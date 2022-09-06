@@ -283,12 +283,6 @@ inline Vector<N, T> Normalize(const Vector<N, T>& v) {
     return v / Length(v);
 }
 
-template<size_t N, typename T>
-inline Vector<N, T>& Normalized(Vector<N, T>& v) {
-    v /= Length(v);
-    return v;
-}
-
 //二维矢量叉乘
 template<typename T>
 inline T Cross(const Vector<2, T>& v1, const Vector<2, T>& v2) {

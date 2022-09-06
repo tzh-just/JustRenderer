@@ -29,7 +29,7 @@ struct Bounds3f {
     }
 
     //与射线求交
-    bool RayIntersect(const Ray3f& ray) const {
+    bool RayIntersect(const Ray& ray) const {
         float nearTime = -std::numeric_limits<float>::infinity();
         float farTime = std::numeric_limits<float>::infinity();
         for (int i=0; i<3; i++) {

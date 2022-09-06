@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Global.h"
 #include "Core/Camera.h"
-#include "Math/Math.h"
 
 namespace Just {
 struct PerspectiveCamera : public Camera {
@@ -15,6 +15,8 @@ struct PerspectiveCamera : public Camera {
     float width, height;
     //视口宽高向量
     Vector3f horizontal, vertical;
+
+
 
     PerspectiveCamera(const Point3f& origin, const Point3f& target, const Vector3f& up,
                       float near, float far, float aspectRatio, float fov)
@@ -38,10 +40,11 @@ struct PerspectiveCamera : public Camera {
     }
 
 
-
     //从摄像机向视口投射光线
-    Ray3f GenerateRay(const CameraSample& sample, Ray* ray) const override {
-        return {origin, start + i * horizontal + j * vertical - origin};
+    float GenerateRay(const CameraSample& sample, Ray& ray) const override {
+        ray.origin = origin;
+        ray.direction = Normalize(start + sample.pFilm.x * horizontal + sample.pFilm.y * vertical - origin);
+        return 1;
     }
 };
 }

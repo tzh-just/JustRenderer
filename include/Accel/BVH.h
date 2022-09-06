@@ -12,7 +12,7 @@ public:
 
     void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
-    void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
+    void Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
 void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
@@ -72,7 +72,7 @@ void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     children.emplace_back(rightNode);
 }
 
-void BVH::Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
+void BVH::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
     //子节点入队
     queue.push(tree[nodeIndex].child);
     queue.push(tree[nodeIndex].child + 1);

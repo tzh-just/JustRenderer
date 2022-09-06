@@ -6,7 +6,7 @@
 
 namespace Just {
 struct CameraSample {
-    Point2f pFile;
+    Point2f pFilm;
     Point2f pLens;
     float time;
 
@@ -14,6 +14,7 @@ struct CameraSample {
 };
 
 struct Camera {
+
     //相机位置和朝向点
     Point3f origin, target;
     //相机头顶向量
@@ -22,8 +23,6 @@ struct Camera {
     float near, far;
     //宽高比
     float aspectRatio;
-    const float shutterOpen, shutterClose;
-    std::shared_ptr<Film> film;
 
     Camera(const Point3f& origin, const Point3f& target, const Vector3f& up,
            float near, float far, float aspectRatio)
@@ -32,6 +31,6 @@ struct Camera {
     }
 
     //从摄像机向视口投射光线
-    virtual float GenerateRay(const CameraSample& sample, Ray3f& ray) const = 0;
+    virtual float GenerateRay(const CameraSample& sample, Ray& ray) const = 0;
 };
 }

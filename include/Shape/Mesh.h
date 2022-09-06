@@ -70,7 +70,7 @@ struct Mesh : Shape {
 
     Bounds3f GetFaceBounds(size_t faceIndex);
 
-    bool RayIntersect(size_t faceIndex, const Ray3f& ray, HitRecord& record) const;
+    bool RayIntersect(size_t faceIndex, const Ray& ray, HitRecord& record) const;
 };
 
 Bounds3f Mesh::GetFaceBounds(size_t faceIndex) {
@@ -80,7 +80,7 @@ Bounds3f Mesh::GetFaceBounds(size_t faceIndex) {
     return faceBounds;
 }
 
-bool Mesh::RayIntersect(size_t faceIndex, const Ray3f& ray, HitRecord& record) const {
+bool Mesh::RayIntersect(size_t faceIndex, const Ray& ray, HitRecord& record) const {
     //读取三角形顶点坐标
     auto& face = faces[faceIndex];
     const Point3f& A = vertices[face[0]];
