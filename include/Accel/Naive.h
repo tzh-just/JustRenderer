@@ -5,18 +5,14 @@
 namespace Just {
 class Naive : public Accel {
 public:
-    Naive() : Accel(16, 1) {}
+    Naive() : Accel(1, 0) {}
 
-    void Divide(size_t nodeIndex, std::vector <AccelNode>* children) override;
+    void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
-    bool Traverse(const Ray3f& ray, HitRecord& record, bool isShadowRay) const override;
+    void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
-void Naive::Divide(size_t nodeIndex, std::vector <AccelNode>* children) {
+void Naive::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {}
 
-}
-
-bool Naive::Traverse(const Ray3f& ray, HitRecord& record, bool isShadowRay) const {
-    //暴力遍历所有图元进行相交测试
-}
+void Naive::Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const {}
 }

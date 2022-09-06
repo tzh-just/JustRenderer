@@ -32,7 +32,7 @@ struct Vector<2, T> {
     Vector() : x(T()), y(T()) {}
 
 
-    explicit Vector(T val) : x(val), y(val){}
+    explicit Vector(T val) : x(val), y(val) {}
 
     Vector(T x, T y) : x(x), y(y) {}
 
@@ -208,10 +208,10 @@ Vector<N, T>& operator/=(Vector<N, T>& v, U k) {
 
 //v=a*k
 template<size_t N, typename T, typename U>
-Vector<N, T> operator*(const Vector<N, T>& v1, U k) {
+Vector<N, T> operator*(const Vector<N, T>& v, U k) {
     Vector<N, T> temp;
     for (size_t i = 0; i < N; i++) {
-        temp[i] = v1[i] * k;
+        temp[i] = v[i] * k;
     }
     return temp;
 }
@@ -225,7 +225,11 @@ Vector<N, T> operator*(U k, const Vector<N, T>& v) {
 //v=a/k
 template<size_t N, typename T, typename U>
 Vector<N, T> operator/(const Vector<N, T>& v, U k) {
-    return v * (1.0f / k);
+    Vector<N, T> temp;
+    for (size_t i = 0; i < N; i++) {
+        temp[i] = v[i] / k;
+    }
+    return temp;
 }
 
 template<size_t N, typename T>
@@ -260,12 +264,17 @@ T Dot(const Vector<N, T>& v1, const Vector<N, T>& v2) {
 
 //向量的模
 template<size_t N, typename T>
-inline T Length(const Vector<N, T>& v) {
+inline T LengthSqrt(const Vector<N, T>& v) {
     T sum = 0;
     for (int i = 0; i < N; i++) {
         sum += v[i] * v[i];
     }
-    return std::sqrt(sum);
+    return sum;
+}
+
+template<size_t N, typename T>
+inline T Length(const Vector<N, T>& v) {
+    return std::sqrt(LengthSqrt(v));
 }
 
 //向量归一化

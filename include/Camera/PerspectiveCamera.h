@@ -34,11 +34,13 @@ struct PerspectiveCamera : public Camera {
         vertical = height * v;
 
         //图像从左上角开始
-        start = origin - horizontal / 2.0f - vertical / 2.0f + Vector3f(0, 0, near);
+        start = origin - horizontal / 2.0f - vertical / 2.0f - Vector3f(0, 0, near);
     }
 
+
+
     //从摄像机向视口投射光线
-    Ray3f CastRay(float i, float j) const override {
+    Ray3f GenerateRay(const CameraSample& sample, Ray* ray) const override {
         return {origin, start + i * horizontal + j * vertical - origin};
     }
 };

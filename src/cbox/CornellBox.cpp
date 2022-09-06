@@ -14,26 +14,29 @@
 #include <Camera/PerspectiveCamera.h>
 #include <Integrator/WhittedIntegrator.h>
 #include <Sampler/TrapezoidalSampler.h>
+#include <Sampler/IndependentSampler.h>
 
 using namespace Just;
 
 int main() {
     //屏幕分辨率
-    int width = 1024;
-    int height = 1024;
+    int width = 768;
+    int height = 768;
     Point2i resolution(width, height);
 
     //采样数
-    int spp = 12;
+    int spp = 1;
 
     //摄像机参数
-    Point3f origin(278, 273, -800);
-    Point3f target(278, 273, -799);
-    Vector3f up(0, 1, 0);
+/*    Point3f origin(278, 273, -800);
+    Point3f target(278, 273, -799);*/
+    Point3f origin(-0.0123771, 0.0540913, -0.239922);
+    Point3f target(-0.0315182, 0.284011, 0.7331);
+    Vector3f up(0.00717446, 0.973206, -0.229822);
     float aspectRatio = 1;
-    float fov = 45;
-    float near = 0.035;
-    float far = 50;
+    float fov = 16;
+    float near = 1e-4f;
+    float far = 1e4f;
 
     //胶片
     auto film = std::make_shared<Film>(resolution);
@@ -42,7 +45,7 @@ int main() {
     auto camera = std::make_shared<PerspectiveCamera>(origin, target, up, near, far, aspectRatio, fov);
 
     //采样器
-    auto sampler = std::make_shared<TrapezoidalSampler>(spp);
+    auto sampler = std::make_shared<IndependentSampler>(spp);
 
     //积分器
     auto integrator = std::make_shared<WhittedIntegrator>(camera, sampler, film);
@@ -54,7 +57,6 @@ int main() {
     auto scene = std::make_shared<Scene>(bvh);
 
     auto* transform = new Transform(Matrix4f::Identity());
-
     //模型
     auto bunnyMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(bunnyMesh, "scene/Bunny/Mesh/bunny.obj");
@@ -89,5 +91,5 @@ int main() {
     scene->lights.push_back(light);
 
     //渲染
-    integrator->Render();
+    integrator->Render(scene);
 }

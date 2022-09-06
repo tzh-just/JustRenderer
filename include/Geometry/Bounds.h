@@ -30,19 +30,32 @@ struct Bounds3f {
 
     //与射线求交
     bool RayIntersect(const Ray3f& ray) const {
-        //t = (P' - O) dot N / D dot N
-        //t[tx,ty,tz] = (P' - O) / D
-        Vector3f t0 = (pMin - ray.origin) / ray.direction;
-        Vector3f t1 = (pMax - ray.origin) / ray.direction;
+        float nearTime = -std::numeric_limits<float>::infinity();
+        float farTime = std::numeric_limits<float>::infinity();
+        for (int i=0; i<3; i++) {
+            float origin = ray.origin[i];
+            float minVal = pMin[i], maxVal = pMax[i];
 
-        Vector3f maxTime = Max(t0, t1);
-        Vector3f minTime = Min(t0, t1);
+            if (ray.direction[i] == 0) {
+                if (origin < minVal || origin > maxVal){
+                    return false;
+                }
+            } else {
+                float t1 = (minVal - origin) / ray.direction[i];
+                float t2 = (maxVal - origin) / ray.direction[i];
 
-        float enterTime = MaxComponent(minTime);
-        float exitTime = MinComponent(maxTime);
+                if (t1 > t2){
+                    std::swap(t1, t2);
+                }
+                nearTime = std::max(t1, nearTime);
+                farTime = std::min(t2, farTime);
+                if (nearTime > farTime){
+                    return false;
+                }
+            }
+        }
 
-        //离开时间为正 && 大于进入时间 && 进入时间小于射线第一次击中时间
-        return exitTime > 0.0f && exitTime + kEpsilon > enterTime && enterTime < ray.hitTime;
+        return nearTime <= ray.hitTime;
     }
 
     //包围盒拐角点

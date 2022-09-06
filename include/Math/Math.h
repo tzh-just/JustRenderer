@@ -13,24 +13,7 @@ inline float Degrees(float rad) {
     return 180.0f / kPI * rad;
 }
 
-//RGB和光谱转换
-static Spectrum RGB2Spectrum(const Color3i& rgb) {
-    return {0,0,0};
-    // return {
-    //         std::clamp(float(rgb.r) / 255.0f, 0.0f, 1.0f),
-    //         std::clamp(float(rgb.g) / 255.0f, 0.0f, 1.0f),
-    //         std::clamp(float(rgb.b) / 255.0f, 0.0f, 1.0f)
-    // };
-}
 
-static Color3i Spectrum2RGB(const Spectrum& spectrum) {
-    return {0,0,0};
-    // return {
-    //         std::clamp(int(spectrum.r * 255), 0, 255),
-    //         std::clamp(int(spectrum.g * 255), 0, 255),
-    //         std::clamp(int(spectrum.b * 255), 0, 255)
-    // };
-}
 
 //旋转变换
 static Matrix4f RotateX(float angle) {

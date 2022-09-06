@@ -34,7 +34,7 @@ struct Accel {
     //场景图元索引
     std::vector<std::pair<size_t, size_t>> faceIndices;
 
-    int currDepth = 1;
+    int currDepth = 0;
     int leafCount = 1;
     int nodeCount = 1;
 
@@ -49,7 +49,7 @@ struct Accel {
     void Build();
 
     //划分子节点
-    virtual void Divide(size_t nodeIndex, std::vector<AccelNode>* children) = 0;
+    virtual void Divide(size_t nodeIndex, std::vector<AccelNode>& children) = 0;
 
     //射线相交测试
     bool RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow) const;
@@ -58,7 +58,7 @@ struct Accel {
     bool RayIntersect(const Ray3f& ray, bool shadow) const;
 
     //遍历子节点
-    virtual bool Traverse(const Ray3f& ray, HitRecord& record, bool isShadowRay) const = 0;
+    virtual void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const = 0;
 };
 
 void Accel::AddMesh(std::shared_ptr<Mesh> mesh) {
@@ -97,7 +97,7 @@ void Accel::Build() {
                 //设置子节点起始索引
                 node.child = tree.size();
                 //检测是否可以分割当前节点的空间
-                Divide(q.front(), &children);
+                Divide(q.front(), children);
                 --leafCount;
                 //将分离的子节点加入树，索引入队
                 for (auto& child: children) {
@@ -126,31 +126,32 @@ bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = fa
     //初始化辅助队列
     std::queue<size_t> q;
     q.push(0);
-    auto hitFaceIndex = (size_t) -1;
+    auto [m, f] = std::tuple<size_t, size_t>();
     bool isHit = false;
     //层次遍历树
     while (!q.empty()) {
         auto size = q.size();
         for (int i = 0; i < size; ++i) {
-            auto& node = tree[q.front()];
+            auto nodeIndex = q.front();
             q.pop();
             //包围盒相交测试
-            if (!node.bounds.RayIntersect(ray)) {
+            if (!tree[nodeIndex].bounds.RayIntersect(ray)) {
                 continue;
             }
             //节点为叶子节点
-            if (node.child == 0) {
+            if (tree[nodeIndex].child == 0) {
                 float u, v;
                 //遍历节点内图元进行相交测试
-                for (auto [meshIndex, faceIndex]: node.faceIndices) {
+                for (auto [meshIndex, faceIndex]: tree[nodeIndex].faceIndices) {
                     if (meshes[meshIndex]->RayIntersect(faceIndex, ray, record)) {
                         //阴影测试击中直接返回
                         if (isShadow) {
                             return true;
                         }
+                        //记录交点信息
                         record.hitTime = ray.hitTime;
                         record.mesh = meshes[meshIndex];
-                        hitFaceIndex = faceIndex;
+                        f = faceIndex;
                         isHit = true;
                     }
                 }
@@ -159,24 +160,60 @@ bool Accel::RayIntersect(const Ray3f& ray, HitRecord& record, bool isShadow = fa
                     break;
                 }
             } else {
-                //子节点入队
-                q.push(node.child);
-                q.push(node.child + 1);
+                //对非叶子节点继续遍历
+                Traverse(ray, nodeIndex, q);
             }
         }
     }
+
     //阴影射线未击中物体
     if (isShadow) {
-        return isHit;
-    }
-    //记录相交信息
-    if (found) {
-        //本地坐标系
-
-        //
+        return false;
     }
 
-    return found;
+    //击中物体，插值计算
+    if (isHit) {
+        auto [alpha, beta, gamma] = std::tuple{
+                record.texcoords.x,                             //alpha
+                record.texcoords.y,                             //beta
+                1 - record.texcoords.x - record.texcoords.y     //gamma
+        };
+
+        auto [a, b, c] = std::tuple{
+                record.mesh->faces[f].x,    //vertex A
+                record.mesh->faces[f].y,    //vertex B
+                record.mesh->faces[f].z     //vertex C
+        };
+
+        auto p0 = record.mesh->vertices[a];
+        auto p1 = record.mesh->vertices[b];
+        auto p2 = record.mesh->vertices[c];
+
+        //插值交点三维坐标
+        record.point = alpha * p0 + beta * p1 + gamma * p2;
+
+        //插值纹理坐标
+        if (!record.mesh->texcoords.empty()) {
+
+            record.texcoords = alpha * record.mesh->texcoords[a] +
+                               beta * record.mesh->texcoords[b] +
+                               gamma * record.mesh->texcoords[c];
+        }
+
+        if (!record.mesh->normals.empty()) {
+            //插值法线
+            auto normal = alpha * record.mesh->normals[a] +
+                          beta * record.mesh->normals[b] +
+                          gamma * record.mesh->normals[c];
+            record.shadingFrame = Frame(Normalized(normal));
+        } else {
+            //面法线
+            auto faceNormal = Cross(p1 - p0, p2 - p0);
+            record.shadingFrame = Frame(Normalized(faceNormal));
+        }
+    }
+
+    return isHit;
 }
 
 bool Accel::RayIntersect(const Ray3f& ray, bool shadow = true) const {

@@ -10,12 +10,12 @@ protected:
 public:
     BVH() : Accel(16, 32) {}
 
-    void Divide(size_t nodeIndex, std::vector<AccelNode>* children) override;
+    void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
-    bool Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const override;
+    void Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
-void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
+void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     auto& node = tree[nodeIndex];
     //在最长维度排序
     size_t axis = node.bounds.MajorAxis();
@@ -68,11 +68,13 @@ void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>* children) {
         }
     }
 
-    children->emplace_back(leftNode);
-    children->emplace_back(rightNode);
+    children.emplace_back(leftNode);
+    children.emplace_back(rightNode);
 }
 
-bool BVH::Traverse(const Ray3f& ray, HitRecord& record, bool shadow) const {
-
+void BVH::Traverse(const Ray3f& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
+    //子节点入队
+    queue.push(tree[nodeIndex].child);
+    queue.push(tree[nodeIndex].child + 1);
 }
 }

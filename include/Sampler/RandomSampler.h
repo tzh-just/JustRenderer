@@ -7,7 +7,7 @@ namespace Just {
 
         explicit RandomSampler(int spp) : Sampler(spp) {}
 
-        std::tuple<float, float> RandomSampler::Sample(float i, float j) {
+        std::tuple<float, float> Sample(float i, float j) override {
             //随机偏移点坐标
             return {i + Get1D(), j + Get1D()};
         }

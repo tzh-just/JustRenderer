@@ -8,7 +8,7 @@ struct Frame {
 
     Frame() = default;
 
-    explicit Frame(const Vector3f& n) {
+    explicit Frame(const Vector3f& n) : n(n) {
         CoordinateSystem(n, s, t);
     }
 
@@ -36,14 +36,15 @@ struct Frame {
         return temp <= 0.0f ? 0.0f : std::sqrt(temp) / v.z;
     }
 
-    static void CoordinateSystem(const Vector3f& v, Vector3f& other1, Vector3f& other2) {
+    static void CoordinateSystem(const Vector3f& v, Vector3f& s, Vector3f& t) {
         if (std::abs(v.x) > std::abs(v.y)) {
             float invLength = 1.0f / std::sqrt(v.x * v.x + v.z * v.z);
-            other2 = Vector3f(v.z * invLength, 0.0f, -v.x * invLength);
+            t = Vector3f(v.z * invLength, 0.0f, -v.x * invLength);
         } else {
             float invLength = 1.0f / std::sqrt(v.y * v.y + v.z * v.z);
-            other1 = Vector3f(0.0f, v.z * invLength, -v.y * invLength);
+            t = Vector3f(0.0f, v.z * invLength, -v.y * invLength);
         }
+        s = Cross(t, v);
     }
 };
 }

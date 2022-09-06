@@ -7,10 +7,10 @@ struct NormalsIntegrator : public SamplerIntegrator {
     NormalsIntegrator(std::shared_ptr<Camera> camera, std::shared_ptr<Sampler> sampler, std::shared_ptr<Film> film)
             : SamplerIntegrator(camera, sampler, film, std::shared_ptr<Scene>()) {}
 
-    Spectrum Li(const Ray3f& ray) const override;
+    Spectrum Li(const Ray3f& ray, std::shared_ptr<Scene> scene) const override;
 };
 
-Spectrum NormalsIntegrator::Li(const Ray3f& ray) const {
+Spectrum NormalsIntegrator::Li(const Ray3f& ray, std::shared_ptr<Scene> scene) const {
     //射线相交测试
     HitRecord record;
     if (!scene->RayIntersect(ray, record)) {

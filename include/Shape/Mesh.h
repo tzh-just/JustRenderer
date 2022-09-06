@@ -13,7 +13,7 @@ struct Mesh;
 
 struct HitRecord {
     Point3f point;
-    Point2f uv;
+    Point2f texcoords;
     float hitTime;
     Frame shadingFrame;
     std::shared_ptr<Mesh> mesh;
@@ -74,9 +74,9 @@ struct Mesh : Shape {
 };
 
 Bounds3f Mesh::GetFaceBounds(size_t faceIndex) {
-    Bounds3f faceBounds(vertices[faces[faceIndex][0]]);
-    faceBounds.Expand(vertices[faces[faceIndex][1]]);
-    faceBounds.Expand(vertices[faces[faceIndex][2]]);
+    Bounds3f faceBounds(vertices[faces[faceIndex].x]);
+    faceBounds.Expand(vertices[faces[faceIndex].y]);
+    faceBounds.Expand(vertices[faces[faceIndex].z]);
     return faceBounds;
 }
 
@@ -118,7 +118,7 @@ bool Mesh::RayIntersect(size_t faceIndex, const Ray3f& ray, HitRecord& record) c
     }
 
     ray.hitTime = hitTime;
-    record.uv = Point2f(alpha, beta);
+    record.texcoords = Point2f(alpha, beta);
     return true;
 }
 }
