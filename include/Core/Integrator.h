@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
 #include "Geometry/Ray.h"
 #include "Scene.h"
 #include "Sampler.h"
@@ -41,17 +41,18 @@ void SamplerIntegrator::Render(std::shared_ptr<Scene> scene) {
                       << "%" << std::endl;
 
             radiance = Spectrum(0.0f);
-
             for (int i = 0; i < sampler->spp; ++i) {
                 //计算光线投射点
                 auto [sx, sy] = sampler->Sample(float(x), float(y));
                 float s = sx / float(film->resolution.x);
                 float t = sy / float(film->resolution.y);
                 //投射光线并累计颜色
-                radiance += Li(camera->GenerateRay(<#initializer#>, nullptr), scene);
+                Ray ray;
+                camera->GenerateRay(Point2f(s, t), ray);
+                radiance += Li(ray, scene);
             }
             radiance /= sampler->spp;
-            film->pixels.emplace_back(Spectrum2RGB(radiance));
+            film->pixels.push_back(ToRGB(radiance));
         }
     }
 

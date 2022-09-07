@@ -17,7 +17,6 @@ struct PerspectiveCamera : public Camera {
     Vector3f horizontal, vertical;
 
 
-
     PerspectiveCamera(const Point3f& origin, const Point3f& target, const Vector3f& up,
                       float near, float far, float aspectRatio, float fov)
             : Camera(origin, target, up, near, far, aspectRatio), fov(fov) {
@@ -41,7 +40,7 @@ struct PerspectiveCamera : public Camera {
 
 
     //从摄像机向视口投射光线
-    float GenerateRay(const CameraSample& sample, Ray& ray) const override {
+    float GenerateRay(const Point2f& sample, Ray& ray) const override {
         ray.origin = origin;
         ray.direction = Normalize(start + sample.pFilm.x * horizontal + sample.pFilm.y * vertical - origin);
         return 1;

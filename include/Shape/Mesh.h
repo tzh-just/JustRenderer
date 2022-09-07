@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
 #include "Geometry/Bounds.h"
 #include "Tools/Parse.h"
 #include "Core/Shape.h"
@@ -60,11 +61,11 @@ struct VertexHash {
 
 struct Mesh : Shape {
     std::vector<Point3f> vertices;
-    std::vector<Point<3, size_t>> faces;
+    std::vector<Point3<size_t>> faces;
     std::vector<Point2f> texcoords;
     std::vector<Vector3f> normals;
 
-    explicit Mesh(Transform* transform) : Shape(transform) {}
+    explicit Mesh(std::shared_ptr<Transform> transform) : Shape(transform) {}
 
     Bounds3f bounds;
 

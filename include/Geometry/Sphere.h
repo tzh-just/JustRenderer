@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
 #include "Shape/Mesh.h"
 #include "Geometry/Ray.h"
 

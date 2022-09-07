@@ -1,17 +1,12 @@
 #pragma once
 
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
+#include "Math/Point2.h"
 #include "Geometry/Ray.h"
 #include "Film.h"
 
 namespace Just {
-struct CameraSample {
-    Point2f pFilm;
-    Point2f pLens;
-    float time;
-
-    CameraSample() : time(0) {};
-};
 
 struct Camera {
 
@@ -31,6 +26,6 @@ struct Camera {
     }
 
     //从摄像机向视口投射光线
-    virtual float GenerateRay(const CameraSample& sample, Ray& ray) const = 0;
+    virtual float GenerateRay(const Point2f& sample, Ray& ray) const = 0;
 };
 }

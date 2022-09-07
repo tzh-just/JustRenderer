@@ -7,25 +7,22 @@ template<typename T>
 struct Point2 {
     T x, y;
 
-    //构造函数
-    Point2() : x(T()), y(T()) {}
-
-    explicit Point2(T val) : x(val), y(val) {
-        assert(!HasNaNs());
-    }
-
-    explicit Point2(const Point3<T>& p) : x(p.x), y(p.y) {
-        assert(!HasNaNs());
-    }
-
-    Point2(T x, T y) : x(x), y(y) {
-        assert(!HasNaNs());
-    }
-
     //合法性判断
     bool HasNaNs() const {
         return std::isnan(x) || std::isnan(y);
     }
+
+    //构造函数
+    Point2() : x(T()), y(T()) {}
+
+    explicit Point2(T val) : x(val), y(val) {}
+
+
+    explicit Point2(const Point3<T>& p) : x(p.x), y(p.y) {}
+
+    Point2(T x, T y) : x(x), y(y) {}
+
+
 
     //索引操作符重载
     T& operator[](size_t i) {

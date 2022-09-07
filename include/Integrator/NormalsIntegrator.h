@@ -5,7 +5,7 @@
 namespace Just {
 struct NormalsIntegrator : public SamplerIntegrator {
     NormalsIntegrator(std::shared_ptr<Camera> camera, std::shared_ptr<Sampler> sampler, std::shared_ptr<Film> film)
-            : SamplerIntegrator(camera, sampler, film, std::shared_ptr<Scene>()) {}
+            : SamplerIntegrator(camera, sampler, film) {}
 
     Spectrum Li(const Ray& ray, std::shared_ptr<Scene> scene) const override;
 };
@@ -16,7 +16,7 @@ Spectrum NormalsIntegrator::Li(const Ray& ray, std::shared_ptr<Scene> scene) con
     if (!scene->RayIntersect(ray, record)) {
         return Spectrum(0.0f);
     }
-    Spectrum normal = Abs(record.shadingFrame.n);
-    return normal;
+    Vector3f normal = record.shadingFrame.n;
+    return {normal.x, normal.y, normal.z};
 }
 }

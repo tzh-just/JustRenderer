@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Global.h"
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
 #include "Ray.h"
 
 namespace Just {
@@ -61,9 +62,9 @@ struct Bounds3f {
     //包围盒拐角点
     Point3f Corner(int i) const {
         return {
-                (*this)[(i & 1)].r,
-                (*this)[(i & 2)].g,
-                (*this)[(i & 4)].b
+                (*this)[(i & 1)].x,
+                (*this)[(i & 2)].y,
+                (*this)[(i & 4)].z
         };
     }
 
@@ -71,23 +72,23 @@ struct Bounds3f {
     Point3f Centroid() const { return (pMax + pMin) * 0.5f; }
 
     //包围盒对角线向量
-    Point3f Diagonal() const { return pMax - pMin; }
+    Vector3f Diagonal() const { return pMax - pMin; }
 
     //包围盒最长维度
     size_t MajorAxis() const {
-        Point3f d = Diagonal();
+        Vector3f d = Diagonal();
         return (d.x > d.y) ? ((d.x > d.z) ? 0 : 2) : ((d.y > d.z) ? 1 : 2);
     }
 
     //包围盒表面积
     float SurfaceArea() const {
-        Point3f d = Diagonal();
+        Vector3f d = Diagonal();
         return 2 * (d.x * d.y + d.x * d.z + d.y * d.z);
     }
 
     //包围盒体积
     float Volume() const {
-        Point3f d = Diagonal();
+        Vector3f d = Diagonal();
         return d.x * d.y * d.z;
     }
 

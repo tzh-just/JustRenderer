@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
 #include "Tools/RNG.h"
 
 namespace Just {

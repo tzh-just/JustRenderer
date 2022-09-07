@@ -1,8 +1,11 @@
 
 #include <Global.h>
 
-#include "Math/Vector.h"
-#include <Math/Matrix.h>
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
+#include "Math/Point2.h"
+#include "Math/Color3.h"
+#include <Math/Matrix4x4.h>
 #include <Math/Transform.h>
 
 #include <Tools/RNG.h>
@@ -56,7 +59,7 @@ int main() {
     //场景
     auto scene = std::make_shared<Scene>(bvh);
 
-    auto* transform = new Transform(Matrix4f::Identity());
+    auto transform = std::make_shared<Transform>(Matrix4x4::Identity());
     //模型
     auto bunnyMesh = std::make_shared<Mesh>(transform);
     Loader::LoadMesh(bunnyMesh, "scene/Bunny/Mesh/bunny.obj");

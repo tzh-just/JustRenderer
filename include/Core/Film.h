@@ -12,7 +12,7 @@
 namespace Just {
 
 struct Film {
-    std::vector<uint8_t> pixels;
+    std::vector<RGB> pixels;
 
     Bounds2i bounds;
 

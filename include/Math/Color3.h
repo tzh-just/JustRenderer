@@ -8,9 +8,9 @@ template<typename T>
 struct Color3 {
     T r, g, b;
 
-    Color3() : r(0), g(0), b(0) {}
+    Color3() : r(T()), g(T()), b(T()) {}
 
-    explicit Color3(T value = 0) : r(value), g(value), b(value) {}
+    explicit Color3(T value) : r(value), g(value), b(value) {}
 
     Color3(T r, T g, T b) : r(r), g(g), b(b) {}
 
@@ -32,60 +32,60 @@ struct Color3 {
 //c=-a
 template<typename T>
 Color3<T> operator-(const Color3<T>& c) {
-    return {-c.x, -c.y, -c.z};
+    return {-c.r, -c.g, -c.b};
 }
 
 //c=a+b
 template<typename T>
 Color3<T> operator+(const Color3<T>& c1, const Color3<T>& c2) {
-    return {c1.x + c2.x, c1.y + c2.y, c1.z + c2.z};
+    return {c1.r + c2.r, c1.g + c2.g, c1.b + c2.b};
 }
 
 //c=a-b
 template<typename T>
 Color3<T> operator-(const Color3<T>& c1, const Color3<T>& c2) {
-    return {c1.x - c2.x, c1.y - c2.y};
+    return {c1.r - c2.r, c1.g - c2.g};
 }
 
 //c=a*b
 template<typename T>
 Color3<T> operator*(const Color3<T>& c1, const Color3<T>& c2) {
-    return {c1.x * c2.x, c1.y * c2.y, c1.z * c2.z};
+    return {c1.r * c2.r, c1.g * c2.g, c1.b * c2.b};
 }
 
 //a+=b
 template<typename T>
 Color3<T>& operator+=(Color3<T>& c1, const Color3<T>& c2) {
-    c1.x += c2.x;
-    c1.y += c2.y;
-    c1.z += c2.z;
+    c1.r += c2.r;
+    c1.g += c2.g;
+    c1.b += c2.b;
     return c1;
 }
 
 //a-=b
 template<typename T>
 Color3<T>& operator-=(Color3<T>& c1, const Color3<T>& c2) {
-    c1.x -= c2.x;
-    c1.y -= c2.y;
-    c1.z -= c2.z;
+    c1.r -= c2.r;
+    c1.g -= c2.g;
+    c1.b -= c2.b;
     return c1;
 }
 
 //a*=b
 template<typename T>
 Color3<T>& operator*=(Color3<T>& c1, const Color3<T>& c2) {
-    c1.x *= c2.x;
-    c1.y *= c2.y;
-    c1.z *= c2.z;
+    c1.r *= c2.r;
+    c1.g *= c2.g;
+    c1.b *= c2.b;
     return c1;
 }
 
 //a*=k
 template<typename T, typename U>
 Color3<T>& operator*=(Color3<T>& c, U k) {
-    c.x *= k;
-    c.y *= k;
-    c.z *= k;
+    c.r *= k;
+    c.g *= k;
+    c.b *= k;
     return c;
 }
 
@@ -93,46 +93,46 @@ Color3<T>& operator*=(Color3<T>& c, U k) {
 template<typename T, typename U>
 Color3<T>& operator/=(Color3<T>& c, U k) {
     assert(k != 0);
-    c.x /= k;
-    c.y /= k;
-    c.z /= k;
+    c.r /= k;
+    c.g /= k;
+    c.b /= k;
     return c;
 }
 
 //c=a*k
 template<typename T, typename U>
 Color3<T> operator*(const Color3<T>& c, U k) {
-    return {c.x * k, c.y * k, c.z * k};
+    return {c.r * k, c.g * k, c.b * k};
 }
 
 //c=k*a
 template<typename T, typename U>
 Color3<T> operator*(U k, const Color3<T>& c) {
-    return {c.x * k, c.y * k, c.z * k};
+    return {c.r * k, c.g * k, c.b * k};
 }
 
 //c=a/k
 template<typename T, typename U>
 Color3<T> operator/(const Color3<T>& c, U k) {
     assert(k != 0);
-    return {c.x / k, c.y / k, c.z / k};
+    return {c.r / k, c.g / k, c.b / k};
 }
 
 //a==b
 template<typename T>
 bool operator==(const Color3<T>& c1, const Color3<T>& c2) {
-    return c1.x == c2.x && c1.y == c2.y && c1.z == c2.z;
+    return c1.r == c2.r && c1.g == c2.g && c1.b == c2.b;
 }
 
 //a!=b
 template<typename T>
 bool operator!=(const Color3<T>& c1, const Color3<T>& c2) {
-    return c1.x != c2.x || c1.y != c2.y || c1.z != c2.z;
+    return c1.r != c2.r || c1.g != c2.g || c1.b != c2.b;
 }
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Color3<T>& c) {
-    os << "[ " << c.x << ", " << c.y << ", " << c.z << " ]";
+    os << "[ " << c.r << ", " << c.g << ", " << c.b << " ]";
     return os;
 }
 
@@ -145,13 +145,13 @@ inline Color3<T> Lerp(float t, const Color3<T>& c1, const Color3<T>& c2) {
 //Sqrt
 template<typename T>
 inline Color3<T> Sqrt(const Color3<T>& s) {
-    return {std::sqrt(s.x), std::sqrt(s.y), std::sqrt(s.z)};
+    return {std::sqrt(s.r), std::sqrt(s.g), std::sqrt(s.b)};
 }
 
 //Clamp
 template<typename T>
 inline Color3<T> Clamp(const Color3<T>& s, float low, float high) {
-    return {std::clamp(s.x, low, high), std::clamp(s.y, low, high), std::clamp(s.z, low, high)};
+    return {std::clamp(s.r, low, high), std::clamp(s.g, low, high), std::clamp(s.b, low, high)};
 }
 
 using Spectrum = Color3<float>;
