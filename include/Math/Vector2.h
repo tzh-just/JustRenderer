@@ -14,24 +14,9 @@ struct Vector2 {
 
     Vector2(T x, T y) : x(x), y(y) {}
 
-    //拷贝构造函数
-    Vector2(const Vector2& v) {
-        assert(!HasNaNs());
-        x = v.x;
-        y = v.y;
-    }
-
-    //拷贝赋值操作符重载
-    Vector2<T>& operator=(const Vector2& v) {
-        assert(!HasNaNs());
-        x = v.x;
-        y = v.y;
-        return *this;
-    }
-
     //合法性判断
     bool HasNaNs() const {
-        return std::isnan(x) || isnan(y);
+        return std::isnan(x) || std::isnan(y);
     }
 
     //索引操作符重载

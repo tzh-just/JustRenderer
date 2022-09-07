@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
+#include "Math/Point3.h"
 
 namespace Just {
 struct Ray {

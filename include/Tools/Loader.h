@@ -6,7 +6,8 @@
 #include <fstream>
 #include <unordered_map>
 
-#include "Math/Vector.h"
+#include "Math/Vector3.h"
+#include "Math/Point2.h"
 #include "Shape/Mesh.h"
 #include "Tools/Texture.h"
 
@@ -36,7 +37,7 @@ void Loader::LoadTexture(std::shared_ptr<Texture> texture, const std::string& fi
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             unsigned char* rgb = data + (i + height * j);
-            texture->pixels.emplace_back((int) rgb[0], (int) rgb[1], (int) rgb[2]);
+            texture->pixels.emplace_back(rgb[0], rgb[1], rgb[2]);
         }
     }
 }
@@ -60,7 +61,7 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
         if (prefix == "v") {
             Point3f p;
             strStream >> p.x >> p.y >> p.z;
-            p = *mesh->transform * p;
+            p = (*mesh->transform)(p);
             positions.push_back(p);
             mesh->bounds.Expand(p);
         } else if (prefix == "vn") {

@@ -5,10 +5,10 @@
 
 namespace Just {
 struct Shape {
-    const Transform* transform;
+    std::shared_ptr<Transform> transform;
 
     Shape() = default;
 
-    explicit Shape(Transform* transform) : transform(transform) {}
+    explicit Shape(std::shared_ptr<Transform> transform) : transform(transform) {}
 };
 }

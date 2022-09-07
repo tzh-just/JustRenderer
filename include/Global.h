@@ -10,16 +10,26 @@
 namespace Just {
 
 // Global Forward Declarations
-template <typename T>
+template<typename T>
 struct Point2;
-template <typename T>
+template<typename T>
 struct Point3;
-template <typename T>
+template<typename T>
 struct Vector2;
-template <typename T>
+template<typename T>
 struct Vector3;
-template <typename T>
+template<typename T>
 struct Normal3;
+template<typename T>
+struct Color3;
+template<typename T>
+struct Bounds2;
+template<typename T>
+struct Bounds3;
+
+struct Ray;
+struct Transform;
+
 
 // Global Constants
 float kPI = 3.14159265358979323846f;

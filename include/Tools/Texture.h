@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Math/Vector.h"
+#include "Global.h"
+#include "Math/Color3.h"
 
 namespace Just {
     struct Image {
@@ -8,6 +9,6 @@ namespace Just {
 
     struct Texture {
         int width, height;
-        std::vector<Color3i> pixels;
+        std::vector<Spectrum> pixels;
     };
 }

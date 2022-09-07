@@ -22,24 +22,9 @@ struct Point2 {
         assert(!HasNaNs());
     }
 
-    //拷贝构造函数
-    Point2(const Point2& p) {
-        assert(!HasNaNs());
-        x = p.x;
-        y = p.y;
-    }
-
-    //拷贝赋值操作符重载
-    Point2<T>& operator=(const Point2& p) {
-        assert(!HasNaNs());
-        x = p.x;
-        y = p.y;
-        return *this;
-    }
-
     //合法性判断
     bool HasNaNs() const {
-        return std::isnan(x) || isnan(y);
+        return std::isnan(x) || std::isnan(y);
     }
 
     //索引操作符重载
@@ -68,7 +53,7 @@ Point2<T> operator+(const Point2<T>& p1, const Point2<T>& p2) {
 
 //p=a-b
 template<typename T>
-Point2<T> operator-(const Point2<T>& p1, const Point2<T>& p2) {
+Vector3<T> operator-(const Point2<T>& p1, const Point2<T>& p2) {
     return {p1.x - p2.x, p1.y - p2.y};
 }
 
