@@ -52,11 +52,11 @@ void SamplerIntegrator::Render(std::shared_ptr<Scene> scene) {
                 radiance += Li(ray, scene);
             }
             radiance /= sampler->spp;
-            film->pixels.push_back(ToRGB(radiance));
+            film->frameBuffer.push_back(ToRGB(radiance));
         }
     }
 
     //保存渲染结果
-    film->StoreImage("out.tga");
+    film->StoreImage("test/output.tga", ImageType::TGA);
 }
 }

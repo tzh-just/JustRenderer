@@ -9,6 +9,6 @@ namespace Just {
 
     struct Texture {
         int width, height;
-        std::vector<Spectrum> pixels;
+        std::vector<RGB> pixels;
     };
 }

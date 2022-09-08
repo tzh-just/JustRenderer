@@ -28,18 +28,23 @@ public:
 void Loader::LoadTexture(std::shared_ptr<Texture> texture, const std::string& filePath) {
     int width, height, channel;
     //读取纹理
-    unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channel, 3);
+    unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channel, STBI_rgb);
 
+    //设置纹理大小
+    texture->pixels.reserve(width * height);
     texture->width = width;
     texture->height = height;
 
-    //转为RGB存入数组
+    //纹理存入数组
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            unsigned char* rgb = data + (i + height * j);
+            unsigned char* rgb = data + (i * height + j) * 3;
             texture->pixels.emplace_back(rgb[0], rgb[1], rgb[2]);
         }
     }
+
+    //释放资源
+    stbi_image_free(data);
 }
 
 void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
