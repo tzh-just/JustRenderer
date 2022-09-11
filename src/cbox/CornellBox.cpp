@@ -55,7 +55,7 @@ int main() {
 
     //积分器
     auto integrator = std::make_shared<WhittedIntegrator>(camera, sampler, film);
-    integrator->Render(scene);
+    integrator->Render(scene, "test/output1.tga");
 
     //模型
 /*    auto cboxFloorMesh = std::make_shared<Mesh>(transform);

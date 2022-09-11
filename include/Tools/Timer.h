@@ -13,6 +13,7 @@ namespace Just {
         Timer() : time(0) {}
 
         void Begin() {
+            time = 0;
             start = std::chrono::high_resolution_clock::now();
         }
 
