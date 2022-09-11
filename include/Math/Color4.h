@@ -27,10 +27,6 @@ struct Color4 {
         assert(i < 4);
         return (&r)[i];
     }
-
-    bool HasNaNs() const {
-        return std::isnan(r) || std::isnan(g) || std::isnan(b) || std::isnan(a);
-    }
 };
 
 template<typename T>

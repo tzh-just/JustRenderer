@@ -149,7 +149,6 @@ bool Accel::RayIntersect(const Ray& ray, HitRecord& record, bool isShadow = fals
                             return true;
                         }
                         //记录交点信息
-                        record.hitTime = ray.hitTime;
                         record.mesh = meshes[meshIndex];
                         f = faceIndex;
                         isHit = true;
@@ -205,11 +204,11 @@ bool Accel::RayIntersect(const Ray& ray, HitRecord& record, bool isShadow = fals
             auto normal = alpha * record.mesh->normals[a] +
                           beta * record.mesh->normals[b] +
                           gamma * record.mesh->normals[c];
-            record.shadingFrame = Frame(Normalized(normal));
+            record.shadingFrame = Frame(Normalize(normal));
         } else {
             //面法线
             auto faceNormal = Cross(p1 - p0, p2 - p0);
-            record.shadingFrame = Frame(Normalized(faceNormal));
+            record.shadingFrame = Frame(Normalize(faceNormal));
         }
     }
 

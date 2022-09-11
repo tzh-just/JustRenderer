@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "Matrix4x4.h"
 #include "Geometry/Ray.h"
+#include "Geometry/Bounds.h"
 
 namespace Just {
 
@@ -19,26 +20,33 @@ struct Transform {
     Transform(const Matrix4x4& matrix, const Matrix4x4& inverse)
             : matrix(matrix), inverse(inverse) {}
 
-    //变换向量 v'=M*v
+
+    Ray TransRay(const Ray& ray) const {
+        return {TransPoint(ray.origin), TransVector(ray.direction)};
+    }
+
+    Ray TransRay(const Point3f& origin, const Vector3f& direction) const {
+        return {TransPoint(origin), TransVector(direction)};
+    }
+
     template<typename T>
-    inline Vector3<T> operator()(const Vector3<T>& vec) const {
-        Vector3<T> result;
+    Vector3<T> TransVector(const Vector3<T>& v) const {
+        Vector3f result;
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 3; ++col) {
-                result[row] += matrix[row][col] * vec[col];
+                result[row] += matrix[row][col] * v[col];
             }
         }
         return result;
     }
 
-    //变换点 p'=M*p
     template<typename T>
-    inline Point3<T> operator()(const Point3<T>& point) const {
-        T homogenized[4] = {point.x, point.y, point.z, 1.0f};
-        T result[4];
-        for (int row = 0; row < 3; ++row) {
-            for (int col = 0; col < 3; ++col) {
-                homogenized[row] += matrix[row][col] * homogenized[col];
+    Point3<T> TransPoint(const Point3<T>& point) const {
+        T homogenized[4] = {point.x, point.y, point.z, 1};
+        T result[4] = {0, 0, 0, 0};
+        for (int row = 0; row < 4; ++row) {
+            for (int col = 0; col < 4; ++col) {
+                result[row] += matrix[row][col] * homogenized[col];
             }
         }
         if (result[3] == 1) {
@@ -48,22 +56,24 @@ struct Transform {
         }
     }
 
-    //变换法线 n'=M*n
     template<typename T>
-    inline Normal3<T> operator()(const Normal3<T>& normal) const {
-        Matrix4x4 transpose = Transpose(inverse);
-        Normal3<T> result;
+    Vector3<T> TransNormal(const Vector3<T>& n) const {
+        Vector3<T> result;
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 3; ++col) {
-                result[row] += transpose[col][row] * normal[col];
+                result[row] += inverse[col][row] * n[col];
             }
         }
         return result;
     }
 
-    //变换射线 r'=M*r
-    inline Ray operator()(const Transform& t, const Ray& ray) const {
-        return {t(ray.origin), t(ray.direction)};
+    template<typename T>
+    Bounds3<T> operator()(const Bounds3<T>& bounds) const {
+        Bounds3<T> result;
+        for (int i = 0; i < 8; ++i) {
+            result = Union(result, (*this)(bounds[i]));
+        }
+        return result;
     }
 };
 
@@ -149,7 +159,7 @@ inline Transform Scale(float x, float y, float z) {
     return {mat, inv};
 }
 
-inline Transform Translate(const Point3f& delta) {
+inline Transform Translate(const Vector3f& delta) {
     Matrix4x4 mat = {
             1, 0, 0, delta.x,
             0, 1, 0, delta.y,
@@ -168,7 +178,7 @@ inline Transform Translate(const Point3f& delta) {
 inline Transform LookAt(const Point3f& origin, const Point3f& target, const Vector3f& worldUp) {
     Vector3f dir = Normalize(target - origin);
     Vector3f right = Normalize(Cross(Normalize(worldUp), dir));
-    Vector3f up = Cross(right, dir);
+    Vector3f up = Cross(dir, right);
     Matrix4x4 mat = {
             right.x, up.x, dir.x, origin.x,
             right.y, up.y, dir.y, origin.y,

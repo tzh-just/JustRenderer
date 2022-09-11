@@ -24,8 +24,9 @@ struct Color3 {
         return (&r)[i];
     }
 
-    bool HasNaNs() const {
-        return std::isnan(r) || std::isnan(g) || std::isnan(b);
+    //clear
+    void Clear() {
+        r = g = b = T();
     }
 };
 

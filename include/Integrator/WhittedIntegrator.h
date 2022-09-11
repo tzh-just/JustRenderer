@@ -16,7 +16,6 @@ Spectrum WhittedIntegrator::Li(const Ray& ray, std::shared_ptr<Scene> scene) con
     if (!scene->RayIntersect(ray, record)) {
         return Spectrum(0.0f);
     }
-    Vector3f normal = record.shadingFrame.n;
-    return {normal.x, normal.y, normal.z};
+    return {0.5f, 0, 0};
 }
 }

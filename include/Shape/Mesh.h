@@ -84,42 +84,45 @@ Bounds3f Mesh::GetFaceBounds(size_t faceIndex) {
 bool Mesh::RayIntersect(size_t faceIndex, const Ray& ray, HitRecord& record) const {
     //读取三角形顶点坐标
     auto& face = faces[faceIndex];
-    const Point3f& A = vertices[face[0]];
-    const Point3f& B = vertices[face[1]];
-    const Point3f& C = vertices[face[2]];
+    const Point3f& p0 = vertices[face[0]];
+    const Point3f& p1 = vertices[face[1]];
+    const Point3f& p2 = vertices[face[2]];
 
-    auto faceNormal = Cross(B - A, C - B);
+    const Vector3f edge1 = p1 - p0;
+    const Vector3f edge2 = p2 - p0;
 
-    //背面剔除
-    if (Dot(-ray.direction, faceNormal) < 0) {
+    //计算交点
+    const Vector3f pvec = Cross(ray.direction, edge2);
+    float det = Dot(edge1, pvec);
+    if (det < 1e-8f && det > -1e-8f) {
+        return false;
+    }
+    float invDet = 1.0f / det;
+
+    const Vector3f tvec = ray.origin - p0;
+
+    const float u = Dot(tvec, pvec) * invDet;
+    if (u < 0.0f || u > 1.0f) {
         return false;
     }
 
-    // Möller-Trumbore Algorithm
-    Vector3f D = ray.direction;
-    Vector3f S = ray.origin - A;
-    Vector3f E1 = B - A, E2 = C - A;
-    Vector3f S1 = Cross(D, E2);
-    Vector3f S2 = Cross(S, E1);
+    const Vector3f qvec = Cross(tvec, edge1);
 
-    float denom = Dot(S1, E1);
+    const float v = Dot(ray.direction, qvec) * invDet;
 
-    float hitTime = Dot(S2, E2) / denom;
-    float alpha = Dot(S1, S) / denom;
-    float beta = Dot(S2, D) / denom;
-
-    //与三角形不相交
-    if (alpha < 0.f || beta < 0.f || (alpha + beta) > 1.0f) {
+    if (v < 0.0f || u + v > 1.0f) {
         return false;
     }
 
-    //不是正向第一个相交的三角形
-    if (hitTime <= 0.f || hitTime > ray.hitTime) {
+    const float t = Dot(edge2, qvec) * invDet;
+
+    if (t < 0 || t > ray.hitTime) {
         return false;
     }
 
-    ray.hitTime = hitTime;
-    record.texcoords = Point2f(alpha, beta);
+    ray.hitTime = t;
+    record.hitTime = t;
+    record.texcoords = Point2f(u, v);
     return true;
 }
 }

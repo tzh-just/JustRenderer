@@ -19,8 +19,6 @@ struct Vector2;
 template<typename T>
 struct Vector3;
 template<typename T>
-struct Normal3;
-template<typename T>
 struct Color3;
 template<typename T>
 struct Bounds2;

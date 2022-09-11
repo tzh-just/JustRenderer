@@ -24,9 +24,7 @@ struct Film {
 
     Point2i resolution;
 
-    explicit Film(const Point2i& resolution) : resolution(resolution) {
-        frameBuffer.reserve(resolution.x * resolution.y);
-    }
+    explicit Film(const Point2i& resolution) : resolution(resolution) {}
 
     bool StoreImage(const std::string& fileName, ImageType type) const;
 };

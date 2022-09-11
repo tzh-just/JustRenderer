@@ -66,13 +66,13 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
         if (prefix == "v") {
             Point3f p;
             strStream >> p.x >> p.y >> p.z;
-            p = (*mesh->transform)(p);
+            p = mesh->transform->TransPoint(p);
             positions.push_back(p);
             mesh->bounds.Expand(p);
         } else if (prefix == "vn") {
             Vector3f vn;
             strStream >> vn.x >> vn.y >> vn.z;
-            normals.push_back(vn);
+            normals.push_back(Normalize(mesh->transform->TransNormal(vn)));
         } else if (prefix == "vt") {
             Point2f vt;
             strStream >> vt.x >> vt.y;
@@ -87,9 +87,9 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
             verts[2] = Vertex(v3);
             if (!v4.empty()) {
                 vNums = 6;
-                verts[0] = Vertex(v4);
-                verts[1] = Vertex(v2);
-                verts[2] = Vertex(v3);
+                verts[3] = Vertex(v4);
+                verts[4] = Vertex(v2);
+                verts[5] = Vertex(v3);
             }
             for (int i = 0; i < vNums; i++) {
                 const Vertex& v = verts[i];

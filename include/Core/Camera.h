@@ -10,22 +10,46 @@ namespace Just {
 
 struct Camera {
 
-    //相机位置和朝向点
-    Point3f origin, target;
-    //相机头顶向量
-    Vector3f up;
-    //近平面和远平面z坐标
-    float near, far;
-    //宽高比
-    float aspectRatio;
+    //摄像机空间到世界空间的变换
+    Transform cameraToWorld;
+    std::shared_ptr<Film> pFilm;
 
-    Camera(const Point3f& origin, const Point3f& target, const Vector3f& up,
-           float near, float far, float aspectRatio)
-            : origin(origin), target(target), up(up),
-              near(std::abs(near)), far(std::abs(far)), aspectRatio(aspectRatio) {
-    }
+    Camera(const Transform& cameraToWorld, std::shared_ptr<Film> film)
+            : cameraToWorld(cameraToWorld), pFilm(film) {}
 
     //从摄像机向视口投射光线
-    virtual float GenerateRay(const Point2f& sample, Ray& ray) const = 0;
+    virtual Ray GenerateRay(const Point2f& sample) const = 0;
+};
+
+struct ProjectiveCamera : public Camera {
+    //投影变换
+    Transform cameraToScreen;
+    //视口变换
+    Transform screenToRaster;
+    //视口变换的逆变换
+    Transform rasterToScreen;
+    //投影-视口变换的逆变换
+    Transform rasterToCamera;
+
+    ProjectiveCamera(
+            const Transform& cameraToWorld,
+            const Transform& cameraToScreen,
+            std::shared_ptr<Film> film)
+            : Camera(cameraToWorld, film), cameraToScreen(cameraToScreen) {
+        //宽高比
+        float aspect = float(film->resolution.x) / float(film->resolution.y);
+        //视口大小
+        Bounds2f screen = aspect > 1.0f ? Bounds2f(Point2f(-aspect, -1.0f), Point2f(aspect, 1.0f))
+                                        : Bounds2f(Point2f(-1.0f, -1.0f / aspect), Point2f(1.0f, 1.0f / aspect));
+        //视口变换
+        screenToRaster = Scale(float(film->resolution.x), float(film->resolution.y), 1) *
+                         Scale(1.0f / float((screen.pMax.x - screen.pMin.x)),
+                               1.0f / float((screen.pMin.y - screen.pMax.y)), 1.0f) *
+                         Translate(Vector3f(float(-screen.pMin.x), float(-screen.pMax.y), 0));
+        rasterToScreen = Inverse(screenToRaster);
+        rasterToCamera = Inverse(cameraToScreen) * rasterToScreen;
+    }
+
+    Ray GenerateRay(const Point2f& sample) const override = 0;
 };
 }

@@ -17,12 +17,9 @@ struct Point2 {
 
     explicit Point2(T val) : x(val), y(val) {}
 
-
     explicit Point2(const Point3<T>& p) : x(p.x), y(p.y) {}
 
     Point2(T x, T y) : x(x), y(y) {}
-
-
 
     //索引操作符重载
     T& operator[](size_t i) {

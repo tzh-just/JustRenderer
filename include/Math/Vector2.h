@@ -14,11 +14,6 @@ struct Vector2 {
 
     Vector2(T x, T y) : x(x), y(y) {}
 
-    //合法性判断
-    bool HasNaNs() const {
-        return std::isnan(x) || std::isnan(y);
-    }
-
     //索引操作符重载
     T& operator[](size_t i) {
         assert(i < 2);

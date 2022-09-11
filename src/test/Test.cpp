@@ -10,7 +10,6 @@
 #include <Tools/Loader.h>
 #include <Math/Matrix4x4.h>
 #include <Math/Color3.h>
-
 #include "Core/Film.h"
 
 static void TestVector();
@@ -42,7 +41,7 @@ static void ReadAndWriteImage() {
             film2.frameBuffer[i * resolution2.x + j] = texture->pixels[i * resolution2.x + j];
         }
     }
-    film2.StoreImage("test/test2.tga", ImageType::TGA);
+    film2.StoreImage("test/test3.tga", ImageType::TGA);
 }
 
 int main() {

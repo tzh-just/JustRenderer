@@ -14,11 +14,6 @@ struct Vector3 {
 
     Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
 
-    //合法性判断
-    bool HasNaNs() const {
-        return std::isnan(x) || std::isnan(y) || std::isnan(z);
-    }
-
     //索引操作符重载
     T& operator[](size_t i) {
         assert(i < 3);

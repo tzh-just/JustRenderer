@@ -29,34 +29,25 @@ struct SamplerIntegrator : public Integrator {
 
 void SamplerIntegrator::Render(std::shared_ptr<Scene> scene) {
 
-    Spectrum radiance;
-
-    //#pragma omp parallel for schedule(dynamic, 1) private(radiance)
-
-    for (int y = film->resolution.y - 1; y >= 0; --y) {
-
+    Spectrum radiance(0.0f);
+    film->frameBuffer = std::vector<RGB>(film->resolution.x * film->resolution.y, RGB(0.0f));
+#pragma omp parallel for schedule(dynamic, 1) private(radiance)
+    for (int y = 0; y < film->resolution.y; ++y) {
         for (int x = 0; x < film->resolution.x; ++x) {
-
-            std::cout << 100.0 * (film->resolution.y - 1 - y) / (film->resolution.y - 1)
+            std::cout << 100.0f * float(y) / float(film->resolution.y - 1)
                       << "%" << std::endl;
-
-            radiance = Spectrum(0.0f);
+            radiance.Clear();
             for (int i = 0; i < sampler->spp; ++i) {
-                //计算光线投射点
-                auto [sx, sy] = sampler->Sample(float(x), float(y));
-                float s = sx / float(film->resolution.x);
-                float t = sy / float(film->resolution.y);
                 //投射光线并累计颜色
-                Ray ray;
-                camera->GenerateRay(Point2f(s, t), ray);
+                Ray ray = camera->GenerateRay(Point2f(float(x), float(y)));
                 radiance += Li(ray, scene);
             }
             radiance /= sampler->spp;
-            film->frameBuffer.push_back(ToRGB(radiance));
+            film->frameBuffer[y * film->resolution.x + x] = ToRGB(radiance);
         }
     }
 
     //保存渲染结果
-    film->StoreImage("test/output.tga", ImageType::TGA);
+    film->StoreImage("test/output1.tga", ImageType::TGA);
 }
 }
