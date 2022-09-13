@@ -11,7 +11,7 @@
 #include <Tools/Loader.h>
 
 #include <Core/Film.h>
-#include <Accel/BVH.h>
+#include <Accel/BVHAccel.h>
 #include <Camera/PerspectiveCamera.h>
 #include <Integrator/NormalsIntegrator.h>
 #include <Sampler/IndependentSampler.h>
@@ -43,7 +43,7 @@ int main() {
     //场景构建
     auto trans = std::make_shared<Transform>(Matrix4x4::Identity());
     
-    auto bvh = std::make_shared<BVH>();
+    auto bvh = std::make_shared<BVHAccel>();
     
     auto cboxFloorMesh = std::make_shared<Mesh>(trans);
     Loader::LoadMesh(cboxFloorMesh, "scene/CornellBox/Mesh/Floor.obj");

@@ -12,7 +12,7 @@
 #include <Tools/Loader.h>
 
 #include <Core/Film.h>
-#include <Accel/BVH.h>
+#include <Accel/BVHAccel.h>
 #include <Camera/PerspectiveCamera.h>
 #include <Integrator/NormalsIntegrator.h>
 #include <Integrator/SimpleIntegrator.h>
@@ -46,7 +46,7 @@ int main() {
     //场景构建
     auto ajax_trans = std::make_shared<Transform>(Matrix4x4::Identity());
     auto ajax_mesh = std::make_shared<Mesh>(ajax_trans);
-    auto bvh = std::make_shared<BVH>();
+    auto bvh = std::make_shared<BVHAccel>();
     Loader::LoadMesh(ajax_mesh, "scene/ajax/meshes/ajax.obj");
     auto scene = std::make_shared<Scene>(bvh);
     scene->meshes.push_back(ajax_mesh);

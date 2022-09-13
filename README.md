@@ -59,7 +59,7 @@
 
 ### `Accelerator`
 
-- [x] BVH
+- [x] BVHAccel
 - [x] Oct-Tree
 - [ ] Kd-Tree
 

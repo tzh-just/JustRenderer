@@ -3,19 +3,19 @@
 #include "Core/Accel.h"
 
 namespace Just {
-class BVH : public Accel {
+class BVHAccel : public Accel {
 protected:
     const int kNumBuckets = 10;
 
 public:
-    BVH() : Accel(16, 32) {}
+    BVHAccel() : Accel(16, 32) {}
 
     void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
     void Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
-void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
+void BVHAccel::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     auto& node = tree[nodeIndex];
     //在最长维度排序
     size_t axis = node.bounds.MajorAxis();
@@ -72,7 +72,7 @@ void BVH::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     children.emplace_back(rightNode);
 }
 
-void BVH::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
+void BVHAccel::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
     //子节点入队
     queue.push(tree[nodeIndex].child);
     queue.push(tree[nodeIndex].child + 1);

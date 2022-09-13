@@ -3,16 +3,16 @@
 #include "Core/Accel.h"
 
 namespace Just {
-class OctTree : public Accel {
+class OctTreeAccel : public Accel {
 public:
-    OctTree() : Accel(16, 12) {}
+    OctTreeAccel() : Accel(16, 12) {}
 
     void Divide(size_t nodeIndex, std::vector<AccelNode>& children) override;
 
     void Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const override;
 };
 
-void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
+void OctTreeAccel::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     auto& node = tree[nodeIndex];
     //划分八个子节点的包围盒
     Point3f center = node.bounds.Centroid();
@@ -37,7 +37,7 @@ void OctTree::Divide(size_t nodeIndex, std::vector<AccelNode>& children) {
     }
 }
 
-void OctTree::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
+void OctTreeAccel::Traverse(const Ray& ray, size_t nodeIndex, std::queue<size_t>& queue) const {
     //初始化子节点索引
     size_t children[8];
     for (size_t i = 0; i < 8; i++) {
