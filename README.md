@@ -4,15 +4,18 @@
 <tr>
 <td>
 <p align="left"><img src="test/ajax_normal.png" alt="bunny_normal" width="100%">
-<p align="center"><b> Ajax By Normals Integrator </b></p>
+<p align="center"><b> Ajax by Normals Integrator</b></p>
+<p align="center"> 768px768p, ssp=1</p>
 </td>
 <td>
 <p align="center"><img src="test/ajax_simple.png" alt="bunny_normal" width="100%">
-<p align="center"><b> Ajax By Simple Integrator </b></p>
+<p align="center"><b> Ajax by Simple Integrator</b></p>
+<p align="center"> 768px768p, ssp=32</p>
 </td>
 <td>
 <p align="center"><img src="test/ajax_ao.png" alt="bunny_normal" width="100%">
-<p align="center"><b> Ajax By AO Integrator </b></p>
+<p align="center"><b> Ajax by AO Integrator</b></p>
+<p align="center"> 768px768p, ssp=512</p>
 </td>
 </tr>
 </table>
@@ -73,3 +76,4 @@
 
 > 1. https://wjakob.github.io/nori/
 > 2. https://www.pbr-book.org/3ed-2018/contents
+> 3. https://github.com/nothings/stb
