@@ -14,9 +14,10 @@ struct Mesh;
 
 struct HitRecord {
     Point3f point;
-    Point2f texcoords;
+    Point2f uv;
     float hitTime;
     Frame shadingFrame;
+    Frame geometryFrame;
     std::shared_ptr<Mesh> mesh;
 
     HitRecord() : hitTime(0) {}
@@ -62,7 +63,7 @@ struct VertexHash {
 struct Mesh : Shape {
     std::vector<Point3f> vertices;
     std::vector<Point3<size_t>> faces;
-    std::vector<Point2f> texcoords;
+    std::vector<Point2f> uvs;
     std::vector<Vector3f> normals;
 
     explicit Mesh(std::shared_ptr<Transform> transform) : Shape(transform) {}
@@ -122,7 +123,7 @@ bool Mesh::RayIntersect(size_t faceIndex, const Ray& ray, HitRecord& record) con
 
     ray.hitTime = t;
     record.hitTime = t;
-    record.texcoords = Point2f(u, v);
+    record.uv = Point2f(u, v);
     return true;
 }
 }

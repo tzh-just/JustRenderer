@@ -5,12 +5,11 @@
 
 namespace Just {
 struct PerspectiveCamera : public ProjectiveCamera {
-    float fov;
 
     PerspectiveCamera(const Transform& cameraToWorld,
                       std::shared_ptr<Film> film,
                       float fov)
-            : ProjectiveCamera(cameraToWorld, Perspective(fov, 1e-2, 1000.0f), film), fov(fov) {}
+            : ProjectiveCamera(cameraToWorld, Perspective(fov, 1e-4f, 1e4f), film) {}
 
     //从摄像机向视口投射光线
     Ray GenerateRay(const Point2f& sample) const override {
@@ -21,7 +20,7 @@ struct PerspectiveCamera : public ProjectiveCamera {
         //计算相机空间下的射线方向
         Vector3f dir = Normalize(pCamera - origin);
         //相机空间下的射线转为世界空间
-        return cameraToWorld.TransRay(origin, dir);
+        return cameraToWorld.TransRay(Ray(origin, dir));
     }
 };
 }

@@ -49,11 +49,7 @@ struct Transform {
                 result[row] += matrix[row][col] * homogenized[col];
             }
         }
-        if (result[3] == 1) {
-            return {result[0], result[1], result[2]};
-        } else {
-            return {result[0] / result[3], result[1] / result[3], result[2] / result[3]};
-        }
+        return Point3f(result[0], result[1], result[2]) / result[3];
     }
 
     template<typename T>
@@ -196,14 +192,14 @@ inline Transform Orthographic(float fov, float n, float f) {
 //透视投影变换
 inline Transform Perspective(float fov, float n, float f) {
     //右手系
+    float recip = 1.0f / (f - n);
+    float cot = 1.0f / std::tan(Radians(fov) / 2.0f);
     Matrix4x4 persp = {
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, f / (f - n), -f * n / (f - n),
+            cot, 0, 0, 0,
+            0, cot, 0, 0,
+            0, 0, f * recip, -f * n * recip,
             0, 0, 1, 0
     };
-    //参数far和near为远近平面的长度，即正值
-    float invTanHalfFov = 1 / std::tan(Radians(fov / 2));
-    return Scale(invTanHalfFov, invTanHalfFov, 1) * Transform(persp);
+    return Transform(persp);
 }
 }

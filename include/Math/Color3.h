@@ -173,4 +173,18 @@ inline RGB ToRGB(const Spectrum& color) {
             uint8_t(std::clamp(255.f * color.b, 0.0f, 255.0f))
     };
 }
+
+inline RGB ToSRGB(const Spectrum& color) {
+    Spectrum result;
+    for (int i = 0; i < 3; ++i) {
+        float value = color[i];
+
+        if (value <= 0.0031308f)
+            result[i] = 12.92f * value;
+        else
+            result[i] = (1.0f + 0.055f)
+                        * std::pow(value, 1.0f / 2.4f) - 0.055f;
+    }
+    return ToRGB(result);
+}
 }

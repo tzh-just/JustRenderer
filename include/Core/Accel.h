@@ -172,43 +172,37 @@ bool Accel::RayIntersect(const Ray& ray, HitRecord& record, bool isShadow = fals
 
     //击中物体，插值计算
     if (isHit) {
-        auto [alpha, beta, gamma] = std::tuple{
-                record.texcoords.x,                             //alpha
-                record.texcoords.y,                             //beta
-                1 - record.texcoords.x - record.texcoords.y     //gamma
-        };
+        //计算重心坐标
+        Vector3f bary;
+        bary.x = 1 - record.uv.x - record.uv.y;
+        bary.y = record.uv.x;
+        bary.z = record.uv.y;
 
-        auto [a, b, c] = std::tuple{
-                record.mesh->faces[f].x,    //vertex A
-                record.mesh->faces[f].y,    //vertex B
-                record.mesh->faces[f].z     //vertex C
-        };
+        //网格缓冲引用
+        const auto& V = record.mesh->vertices;
+        const auto& N = record.mesh->normals;
+        const auto& UV = record.mesh->uvs;
+        const auto& F = record.mesh->faces[f];
 
-        auto p0 = record.mesh->vertices[a];
-        auto p1 = record.mesh->vertices[b];
-        auto p2 = record.mesh->vertices[c];
+        //获取顶点索引
+        size_t idx0 = F[0], idx1 = F[1], idx2 = F[2];
 
-        //插值交点三维坐标
-        record.point = alpha * p0 + beta * p1 + gamma * p2;
+        //插值顶点
+        record.point = bary.x * V[idx0] + bary.y * V[idx1] + bary.z * V[idx2];
 
         //插值纹理坐标
-        if (!record.mesh->texcoords.empty()) {
-
-            record.texcoords = alpha * record.mesh->texcoords[a] +
-                               beta * record.mesh->texcoords[b] +
-                               gamma * record.mesh->texcoords[c];
+        if (!UV.empty()) {
+            record.uv = bary.x * UV[idx0] + bary.y * UV[idx1] + bary.z * UV[idx2];
         }
 
+        //面法线坐标系
+        record.geometryFrame = Frame(Normalize(Cross(V[idx1] - V[idx0], V[idx2] - V[idx0])));
+
+        //插值法线坐标系
         if (!record.mesh->normals.empty()) {
-            //插值法线
-            auto normal = alpha * record.mesh->normals[a] +
-                          beta * record.mesh->normals[b] +
-                          gamma * record.mesh->normals[c];
-            record.shadingFrame = Frame(Normalize(normal));
+            record.shadingFrame = Frame(Normalize(bary.x * N[idx0] + bary.y * N[idx1] + bary.z * N[idx2]));
         } else {
-            //面法线
-            auto faceNormal = Cross(p1 - p0, p2 - p0);
-            record.shadingFrame = Frame(Normalize(faceNormal));
+            record.shadingFrame = record.geometryFrame;
         }
     }
 

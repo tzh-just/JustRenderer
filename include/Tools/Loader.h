@@ -123,9 +123,9 @@ void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
     }
 
     if (!texcoords.empty()) {
-        mesh->texcoords.resize(vertices.size());
+        mesh->uvs.resize(vertices.size());
         for (size_t i = 0; i < vertices.size(); ++i) {
-            mesh->texcoords[i] = texcoords.at(vertices[i].uv - 1);
+            mesh->uvs[i] = texcoords.at(vertices[i].uv - 1);
         }
     }
 }

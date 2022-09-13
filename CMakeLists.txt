@@ -24,10 +24,14 @@ include_directories(
 
 add_executable(
         test
-        src/test/Test.cpp
+        src/test/test.cpp
 )
 
 add_executable(
-        cbox
-        src/cbox/CornellBox.cpp
+        bunny
+        src/scene/bunny.cpp
+)
+add_executable(
+        ajax
+        src/scene/ajax.cpp
 )

@@ -43,9 +43,8 @@ struct ProjectiveCamera : public Camera {
                                         : Bounds2f(Point2f(-1.0f, -1.0f / aspect), Point2f(1.0f, 1.0f / aspect));
         //视口变换
         screenToRaster = Scale(float(film->resolution.x), float(film->resolution.y), 1) *
-                         Scale(1.0f / float((screen.pMax.x - screen.pMin.x)),
-                               1.0f / float((screen.pMin.y - screen.pMax.y)), 1.0f) *
-                         Translate(Vector3f(float(-screen.pMin.x), float(-screen.pMax.y), 0));
+                         Scale(-0.5f, -0.5f * aspect, 1.0f) *
+                         Translate(Vector3f(-1.0f, -1.0f / aspect, 0.0f));
         rasterToScreen = Inverse(screenToRaster);
         rasterToCamera = Inverse(cameraToScreen) * rasterToScreen;
     }

@@ -39,12 +39,12 @@ struct Frame {
     static void CoordinateSystem(const Vector3f& v1, Vector3f& v2, Vector3f& v3) {
         if (std::abs(v1.x) > std::abs(v1.y)) {
             float invLen = 1.0f / std::sqrt(v1.x * v1.x + v1.z * v1.z);
-            v2 = Vector3f(-v1.z * invLen, 0.0f, v1.x * invLen);
+            v3 = Vector3f(-v1.z * invLen, 0.0f, v1.x * invLen);
         } else {
             float invLen = 1.0f / std::sqrt(v1.y * v1.y + v1.z * v1.z);
-            v2 = Vector3f(0.0f, v1.z * invLen, -v1.y * invLen);
+            v3 = Vector3f(0.0f, v1.z * invLen, -v1.y * invLen);
         }
-        v3 = Cross(v1, v2);
+        v2 = Cross(v1, v3);
     }
 };
 }
