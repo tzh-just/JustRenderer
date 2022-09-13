@@ -72,3 +72,7 @@
 - [ ] MSAA
 
 
+# 引用
+
+> 1. https://wjakob.github.io/nori/
+> 2. https://www.pbr-book.org/3ed-2018/contents
