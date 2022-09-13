@@ -20,7 +20,7 @@
 </td>
 <td>
 <p align="center"><img src="test/ajax_ao.png" alt="bunny_normal" width="100%">
-<p align="center"><b> By AO Integrator </b></p>
+<p align="center"><b> Ajax By AO Integrator </b></p>
 </td>
 </tr>
 </table>
