@@ -17,13 +17,13 @@
 </tr>
 </table>
 
-# 简介
+# Introduction
 
 `Just Renderer` 基于以前制作的两个玩具：软光追渲染器 `Just Tracer` 和软光栅渲染器 `Just Rasterizer`，迭代为整合离线渲染和实时渲染的软渲染器。
 
 本项目诞生于学习 `nori` 和 `pbrt` 的过程中，由于图形学的知识体系有了新的认识和纠正，于是借鉴了两款渲染器的框架和代码实现。但最终目的是迭代出个人用于复现学术论文的趁手工具以及提升个人在图形学方面的工程实践能力。
 
-# 功能
+# Features
 
 ## 纹理相关 `Common`
 
@@ -72,7 +72,7 @@
 - [ ] MSAA
 
 
-# 引用
+# References
 
 > 1. https://wjakob.github.io/nori/
 > 2. https://www.pbr-book.org/3ed-2018/contents
