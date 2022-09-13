@@ -51,5 +51,5 @@ int main() {
 
     //积分器
     auto integrator = std::make_shared<NormalsIntegrator>(camera, sampler, film);
-    integrator->Render(scene, "test/bunny_normal.tga");
+    integrator->Render(scene, "test/bunny_normal.png");
 }

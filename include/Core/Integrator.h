@@ -56,6 +56,6 @@ void SamplerIntegrator::Render(std::shared_ptr<Scene> scene, const std::string& 
     timer.End();
     std::cout << "[Render time]: " << timer.time << "ms" << std::endl;
     //保存渲染结果
-    film->StoreImage(filename, ImageType::TGA);
+    film->StoreImage(filename, ImageType::PNG);
 }
 }

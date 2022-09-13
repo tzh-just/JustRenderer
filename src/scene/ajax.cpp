@@ -55,7 +55,7 @@ int main() {
     //法线积分器
     {
         auto integrator = std::make_shared<NormalsIntegrator>(camera, sampler, film);
-        integrator->Render(scene, "test/ajax_normal.tga");
+        integrator->Render(scene, "test/ajax_normal.png");
     }
 
     //简单积分器
@@ -64,12 +64,12 @@ int main() {
         auto lightPosition = Point3f(-20, 40, 20);
         auto energy = Spectrum(3.76e4, 3.76e4, 3.76e4);
         auto integrator = std::make_shared<SimpleIntegrator>(camera, sampler, film, lightPosition, energy);
-        integrator->Render(scene, "test/ajax_simple.tga");
+        integrator->Render(scene, "test/ajax_simple.png");
     }
     //AO积分器
     {
         sampler->spp = 512;
         auto integrator = std::make_shared<AOIntegrator>(camera, sampler, film);
-        integrator->Render(scene, "test/ajax_ao.tga");
+        integrator->Render(scene, "test/ajax_ao.png");
     }
 }
