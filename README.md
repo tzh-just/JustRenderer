@@ -22,58 +22,66 @@
 
 # Introduction
 
-`Just Renderer` 计划通过不断迭代最终实现离线渲染（软光追和软光栅）和实时渲染（OpenGL）。 以往实现了玩具级的软光追渲染器和软光栅化渲染器，本项目将重新实现这两个渲染器的功能。
+`Just Renderer` 基于以往实现了的软光追和软光栅项目，提取二者可复用的部分，以实现一个整合了光线追踪和光栅化的软渲染器，并通过重构使得项目更加易于扩展和维护。
 
-在学习 `nori` 和 `pbrt` 的过程中，对离线光线追踪有了更深的认识，因此本项目借鉴了两款渲染器的框架和代码实现。实时渲染部分计划采用 `OpenGL` 搭建，会在以后学习 `OpenGL` 的过程中逐渐实现。
+为了打造一个用于复现学术论文的趁手工具以及在学习图形学的过程中提升工程实践能力，本项目对许多优秀的渲染器实现进行了模仿和借鉴，例如 `pbrt`、 `mitusba` 和 `nori`。
 
-为了打造一个用于复现学术论文的趁手工具以及在学习图形学的过程中提升工程实践能力，本项目对许多优秀的渲染器实现进行了模仿和借鉴，例如使用 `Transform` 类简化相机变换的 `pbrt`、 使用充满魔法数字的 `toSRGB` 函数的 `mitusba` 和将局部坐标系用 `Frame` 类存储的 `nori`。
 # Features
 
-## 纹理相关 `Common`
+## Common
 
-- [ ] 邻近过滤
-- [ ] 双线性插值
-- [ ] 三线性插值
+### `Texture`
+
+- [ ] Nearest Neighbor Filtering
+- [ ] Bilinear Filtering
+- [ ] Trilinear Filtering
 - [ ] Mipmap
 - [ ] Image Block
-- [ ] Filter
 
-## 相机相关 `Common`
+### `Filter`
 
-- [x] 透视投影相机
-- [ ] 正交投影相机
+- [ ] Box Filter
+- [ ] Triangle Filter
+- [ ] Gaussian Filter
+- [ ] Gaussian Filter by MinMap
 
-## 几何相关 `Common`
+### `Camera`
 
-- [x] 轴对齐包围盒
-- [ ] 非轴对齐包围盒
-- [ ] 任意边界块
+- [x] Perspective Camera
+- [ ] Orthographic Camera
 
-## 加速结构 `RayTracing`
+### `Bounds`
+
+- [x] Axis-Aligned Bounding Box
+- [ ] Oriented Bounding Box
+
+## Ray Tracing
+
+### `Accelerator`
 
 - [x] BVH
 - [x] Oct-Tree
 - [ ] Kd-Tree
 
-## 采样器 `RayTracing`
+### `Sampler`
 
-- [x] Independent Sampler
-- [x] Random Sampler
-- [x] Trapezoidal Sampler
+- [x] Independent
+- [x] Random
+- [x] Trapezoidal
 
-## 积分器 `RayTracing`
+### `Integrator`
 
-- [x] Normal Integrator
-- [x] Simple Integrator
-- [x] AO Integrator
-- [x] Whitted Integrator
+- [x] Normals
+- [x] Simple
+- [x] AO
+- [x] Whitted
 
-## BxDF `RayTracing`
+## Rasterization
 
-## 抗锯齿 `Rasterizer`
+### `Anti-Alias` 
 
-- [ ] SSAA
-- [ ] MSAA
+- [ ] Super-Sample 
+- [ ] Multi-Sample
 
 
 # References
