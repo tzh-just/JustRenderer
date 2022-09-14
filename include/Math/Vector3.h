@@ -124,6 +124,12 @@ Vector3<T> operator/(const Vector3<T>& v, U k) {
     return {v.x / k, v.y / k, v.z / k};
 }
 
+//v=k/a
+template<typename T, typename U>
+Vector3<T> operator/(U k, const Vector3<T>& v) {
+    return {k / v.x, k / v.y, k / v.z};
+}
+
 //v=a==b
 template<typename T>
 bool operator==(const Vector3<T>& v1, const Vector3<T>& v2) {

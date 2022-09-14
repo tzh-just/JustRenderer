@@ -7,7 +7,7 @@
 #include "Geometry/Bounds.h"
 
 namespace Just {
-
+//Ref: pbrt-v3
 struct Transform {
     Matrix4x4 matrix;
     Matrix4x4 inverse;

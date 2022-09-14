@@ -10,18 +10,18 @@ namespace Just {
 
 template<typename T>
 struct Bounds3 {
-    Point3 <T> pMin, pMax;
+    Point3<T> pMin, pMax;
 
     Bounds3() : pMin(std::numeric_limits<float>::max()),
                 pMax(std::numeric_limits<float>::lowest()) {}
 
     explicit Bounds3(const Point3f& p) : pMin(p), pMax(p) {}
 
-    Bounds3(const Point3 <T>& p1, const Point3 <T>& p2)
+    Bounds3(const Point3<T>& p1, const Point3<T>& p2)
             : pMin(std::min(p1.x, p2.x), std::min(p1.y, p2.y), std::min(p1.z, p2.z)),
               pMax(std::max(p1.x, p2.x), std::max(p1.y, p2.y), std::max(p1.z, p2.z)) {}
 
-    const Point3 <T>& operator[](size_t i) const {
+    const Point3<T>& operator[](size_t i) const {
         assert(i < 2);
         return (&pMin)[i];
     }
@@ -31,38 +31,24 @@ struct Bounds3 {
         return (&pMin)[i];
     }
 
-    //与射线求交
+    //Ref:RT Gems 2nd
     bool RayIntersect(const Ray& ray) const {
-        float nearTime = -std::numeric_limits<float>::infinity();
-        float farTime = std::numeric_limits<float>::infinity();
-        for (int i = 0; i < 3; i++) {
-            float origin = ray.origin[i];
-            float minVal = pMin[i], maxVal = pMax[i];
+        Vector3f invDir = 1.0f / ray.direction;
 
-            if (ray.direction[i] == 0) {
-                if (origin < minVal || origin > maxVal) {
-                    return false;
-                }
-            } else {
-                float t1 = (minVal - origin) / ray.direction[i];
-                float t2 = (maxVal - origin) / ray.direction[i];
+        Vector3f t0 = (pMin - ray.origin) * invDir;
+        Vector3f t1 = (pMax - ray.origin) * invDir;
 
-                if (t1 > t2) {
-                    std::swap(t1, t2);
-                }
-                nearTime = std::max(t1, nearTime);
-                farTime = std::min(t2, farTime);
-                if (nearTime > farTime) {
-                    return false;
-                }
-            }
-        }
+        Vector3f tMin = Min(t0, t1);
+        Vector3f tMax = Max(t0, t1);
 
-        return nearTime <= ray.tMax;
+        float tNear = std::max(MaxComponent(tMin), ray.tMin);
+        float tFar = std::min(MinComponent(tMax), ray.tMax);
+
+        return tNear <= tFar;
     }
 
     //包围盒拐角点
-    Point3 <T> Corner(int i) const {
+    Point3<T> Corner(int i) const {
         return {
                 (*this)[(i & 1)].x,
                 (*this)[(i & 2)].y,
@@ -71,43 +57,43 @@ struct Bounds3 {
     }
 
     //包围盒中心坐标点
-    Point3 <T> Centroid() const { return (pMax + pMin) * 0.5f; }
+    Point3<T> Centroid() const { return (pMax + pMin) * 0.5f; }
 
     //包围盒对角线向量
-    Vector3 <T> Diagonal() const { return pMax - pMin; }
+    Vector3<T> Diagonal() const { return pMax - pMin; }
 
     //包围盒最长维度
     size_t MajorAxis() const {
-        Vector3 < T > d = Diagonal();
+        Vector3<T> d = Diagonal();
         return (d.x > d.y) ? ((d.x > d.z) ? 0 : 2) : ((d.y > d.z) ? 1 : 2);
     }
 
     //包围盒表面积
     float SurfaceArea() const {
-        Vector3 < T > d = Diagonal();
+        Vector3<T> d = Diagonal();
         return 2 * (d.x * d.y + d.x * d.z + d.y * d.z);
     }
 
     //包围盒体积
     float Volume() const {
-        Vector3 < T > d = Diagonal();
+        Vector3<T> d = Diagonal();
         return d.x * d.y * d.z;
     }
 
-    bool Inside(const Vector3 <T>& p) const {
+    bool Inside(const Vector3<T>& p) const {
         return p.x >= pMin.x && p.x <= pMax.x &&
                p.y >= pMin.y && p.y <= pMax.y &&
                p.z >= pMin.z && p.z <= pMax.z;
     }
 
-    bool InsideExclusive(const Vector3 <T>& p) const {
+    bool InsideExclusive(const Vector3<T>& p) const {
         return p.x >= pMin.x && p.x < pMax.x &&
                p.y >= pMin.y && p.y < pMax.y &&
                p.z >= pMin.z && p.z < pMax.z;
     }
 
     //扩展包围盒
-    void Expand(const Point3 <T>& p) {
+    void Expand(const Point3<T>& p) {
         pMin = Min(pMin, p);
         pMax = Max(pMax, p);
     }

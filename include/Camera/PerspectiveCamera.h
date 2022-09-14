@@ -20,7 +20,7 @@ struct PerspectiveCamera : public ProjectiveCamera {
         //计算相机空间下的射线方向
         Vector3f dir = Normalize(pCamera - origin);
         //相机空间下的射线转为世界空间
-        return cameraToWorld.TransRay(Ray(origin, dir));
+        return cameraToWorld.TransRay(origin, dir);
     }
 };
 }

@@ -47,6 +47,7 @@ void Loader::LoadTexture(std::shared_ptr<Texture> texture, const std::string& fi
     stbi_image_free(data);
 }
 
+//Ref: Nori
 void Loader::LoadMesh(std::shared_ptr<Mesh> mesh, const std::string& filePath) {
     std::ifstream fileStream(filePath);
     std::string line;

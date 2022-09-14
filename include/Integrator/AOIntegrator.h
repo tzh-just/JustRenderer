@@ -28,6 +28,7 @@ Spectrum AOIntegrator::Li(const Ray& ray, std::shared_ptr<Scene> scene) const {
     if (scene->RayIntersect(Ray(record.point + dir * kEpsilon, dir))) {
         return Spectrum(0.0f);
     }
+
     auto cosTheta = std::max(0.0f, Dot(record.shadingFrame.n, (Normalize(dir))));
     //Li/pi * cos_theta / pdf
     return Spectrum(1.0f) * kInvPI * cosTheta / pdf;

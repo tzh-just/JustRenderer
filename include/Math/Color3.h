@@ -174,6 +174,7 @@ inline RGB ToRGB(const Spectrum& color) {
     };
 }
 
+//Ref: mitsuba
 inline RGB ToSRGB(const Spectrum& color) {
     Spectrum result;
     for (int i = 0; i < 3; ++i) {

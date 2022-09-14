@@ -3,6 +3,7 @@
 #include "Math/Vector3.h"
 
 namespace Just {
+//Ref: Nori
 struct Frame {
     Vector3f s, t, n;
 

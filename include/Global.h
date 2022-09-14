@@ -51,7 +51,6 @@ inline void Print(T first, U ... rest) {
     }
 }
 
-//角度和弧度互转
 inline float Radians(float deg) {
     return kPI / 180.0f * deg;
 }
