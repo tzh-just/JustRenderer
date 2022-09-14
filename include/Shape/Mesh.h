@@ -117,11 +117,11 @@ bool Mesh::RayIntersect(size_t faceIndex, const Ray& ray, HitRecord& record) con
 
     const float t = Dot(edge2, qvec) * invDet;
 
-    if (t < 0 || t > ray.hitTime) {
+    if (t < 0 || t > ray.tMax) {
         return false;
     }
 
-    ray.hitTime = t;
+    ray.tMax = t;
     record.hitTime = t;
     record.uv = Point2f(u, v);
     return true;

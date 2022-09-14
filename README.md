@@ -14,7 +14,7 @@
 </td>
 <td>
 <p align="center"><img src="test/ajax_ao.png" alt="bunny_normal" width="100%">
-<p align="center"><b> Ajax by Ambient Occlusion Integrator</b></p>
+<p align="center"><b> Ajax by AO Integrator</b></p>
 <p align="center"> 768px768p, ssp=512</p>
 </td>
 </tr>

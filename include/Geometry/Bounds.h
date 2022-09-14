@@ -58,7 +58,7 @@ struct Bounds3 {
             }
         }
 
-        return nearTime <= ray.hitTime;
+        return nearTime <= ray.tMax;
     }
 
     //包围盒拐角点

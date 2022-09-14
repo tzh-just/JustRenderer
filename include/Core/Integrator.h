@@ -40,7 +40,7 @@ void SamplerIntegrator::Render(std::shared_ptr<Scene> scene, const std::string& 
     //OpenMP多线程渲染
 #pragma omp parallel for schedule(dynamic) private(radiance)
     for (int y = 0; y < film->resolution.y; ++y) {
-        printf("\r%f\n", 100.0f * float(y) / float(film->resolution.y - 1));
+        //printf("\r%f\n", 100.0f * float(y) / float(film->resolution.y - 1));
         for (int x = 0; x < film->resolution.x; ++x) {
             radiance.Clear();
             for (int i = 0; i < sampler->spp; ++i) {

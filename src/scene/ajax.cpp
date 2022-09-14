@@ -52,11 +52,11 @@ int main() {
     scene->meshes.push_back(ajax_mesh);
     scene->Activate();
 
-    //法线积分器
+/*    //法线积分器
     {
         auto integrator = std::make_shared<NormalsIntegrator>(camera, sampler, film);
         integrator->Render(scene, "test/ajax_normal.png");
-    }
+    }*/
 
     //简单积分器
     {
@@ -66,10 +66,10 @@ int main() {
         auto integrator = std::make_shared<SimpleIntegrator>(camera, sampler, film, lightPosition, energy);
         integrator->Render(scene, "test/ajax_simple.png");
     }
-    //AO积分器
+/*    //AO积分器
     {
         sampler->spp = 512;
         auto integrator = std::make_shared<AOIntegrator>(camera, sampler, film);
         integrator->Render(scene, "test/ajax_ao.png");
-    }
+    }*/
 }

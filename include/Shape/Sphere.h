@@ -28,9 +28,9 @@ struct Sphere : Shape {
             return false;
         det = sqrt(det);
         record->hitTime = -h - det;
-        if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
+        if (record->hitTime < kEpsilon || record->hitTime > ray.tMax)
             record->hitTime = -h + det;
-        if (record->hitTime < kEpsilon || record->hitTime > ray.hitTime)
+        if (record->hitTime < kEpsilon || record->hitTime > ray.tMax)
             return false;
 
         //记录相交信息
