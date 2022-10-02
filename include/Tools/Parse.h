@@ -12,7 +12,7 @@ struct Parse {
     static std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiter, bool includeEmpty);
 };
 
-//Ref: Nori
+//ref: nori
 template<typename T>
 T Parse::ToNumeric(const std::string& str) {
     char* end = nullptr;
@@ -21,7 +21,7 @@ T Parse::ToNumeric(const std::string& str) {
     return result;
 }
 
-//Ref: Nori
+//ref: nori
 std::vector<std::string> Parse::Tokenize(const std::string& str, const std::string& delimiter, bool includeEmpty) {
     std::string::size_type currPos = 0;
     std::string::size_type nextPos = str.find(delimiter, currPos);

@@ -42,10 +42,22 @@ Color3<T> operator+(const Color3<T>& c1, const Color3<T>& c2) {
     return {c1.r + c2.r, c1.g + c2.g, c1.b + c2.b};
 }
 
+//c=a+k
+template<typename T, typename U>
+Color3<T> operator+(const Color3<T>& c, U k) {
+    return {c.r + k, c.g + k, c.b + k};
+}
+
 //c=a-b
 template<typename T>
 Color3<T> operator-(const Color3<T>& c1, const Color3<T>& c2) {
-    return {c1.r - c2.r, c1.g - c2.g};
+    return {c1.r - c2.r, c1.g - c2.g, c1.b - c2.b};
+}
+
+//c=a-k
+template<typename T, typename U>
+Color3<T> operator-(const Color3<T>& c, U k) {
+    return {c.r - k, c.g - k, c.b - k};
 }
 
 //c=a*b
@@ -119,6 +131,12 @@ Color3<T> operator/(const Color3<T>& c, U k) {
     return {c.r / k, c.g / k, c.b / k};
 }
 
+//c=a/b
+template<typename T>
+Color3<T> operator/(const Color3<T>& c1, const Color3<T>& c2) {
+    return {c1.r / c2.r, c1.g / c2.g, c1.b / c2.b};
+}
+
 //a==b
 template<typename T>
 bool operator==(const Color3<T>& c1, const Color3<T>& c2) {
@@ -168,13 +186,13 @@ inline Spectrum ToSpectrum(const RGB& color) {
 
 inline RGB ToRGB(const Spectrum& color) {
     return {
-            uint8_t(std::clamp(255.f * color.r, 0.0f, 255.0f)),
-            uint8_t(std::clamp(255.f * color.g, 0.0f, 255.0f)),
-            uint8_t(std::clamp(255.f * color.b, 0.0f, 255.0f))
+            uint8_t(Clamp(255.f * color.r, 0.0f, 255.0f)),
+            uint8_t(Clamp(255.f * color.g, 0.0f, 255.0f)),
+            uint8_t(Clamp(255.f * color.b, 0.0f, 255.0f))
     };
 }
 
-//Ref: mitsuba
+//ref: mitsuba
 inline RGB ToSRGB(const Spectrum& color) {
     Spectrum result;
     for (int i = 0; i < 3; ++i) {

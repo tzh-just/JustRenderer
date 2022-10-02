@@ -31,7 +31,7 @@ struct Bounds3 {
         return (&pMin)[i];
     }
 
-    //Ref:RT Gems 2nd
+    //ref:RT Gems 2nd
     bool RayIntersect(const Ray& ray) const {
         Vector3f invDir = 1.0f / ray.direction;
 

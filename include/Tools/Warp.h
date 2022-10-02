@@ -5,7 +5,7 @@
 
 namespace Just {
 
-//Ref: Nori
+//ref: nori
 struct Warp {
     //正方形均匀采样
     static Point2f SquareToUniformSquare(const Point2f& point) {

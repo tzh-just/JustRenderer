@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace Just {
-//Ref: Nori
+//ref: nori
 //离散概率密度函数 前缀和
 class DiscretePdf {
 private:

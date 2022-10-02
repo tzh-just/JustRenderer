@@ -5,7 +5,7 @@
 #include "Point3.h"
 
 namespace Just {
-//Ref: pbrt-v3
+//ref: pbrt-v3
 struct Matrix4x4 {
     //矩阵元素
     float data[4][4];

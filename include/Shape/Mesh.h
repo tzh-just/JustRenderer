@@ -51,6 +51,7 @@ struct Vertex {
     }
 };
 
+//ref: nori
 struct VertexHash {
     std::size_t operator()(const Vertex& v) const {
         size_t hash = std::hash<size_t>()(v.p);

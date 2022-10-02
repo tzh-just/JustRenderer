@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace Just {
-//Ref: The Cherno
+//ref: The Cherno
 struct Timer {
     std::chrono::time_point<std::chrono::steady_clock> start;
     std::chrono::time_point<std::chrono::steady_clock> end;

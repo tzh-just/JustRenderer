@@ -58,4 +58,10 @@ inline float Radians(float deg) {
 inline float Degrees(float rad) {
     return 180.0f / kPI * rad;
 }
+
+//ref:pbrt-v3
+template<typename T, typename U, typename V>
+inline T Clamp(T value, U low, V high) {
+    return value < low ? low : (value > high ? high : value);
+}
 }
