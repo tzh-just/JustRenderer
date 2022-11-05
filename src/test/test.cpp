@@ -48,6 +48,8 @@ int main() {
     //TestVector();
     //TestMatrix();
     ReadAndWriteImage();
+    std::vector<int> v;
+    auto arr = v.data();
 }
 
 static void TestVector() {

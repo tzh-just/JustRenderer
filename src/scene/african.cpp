@@ -31,10 +31,10 @@ int main() {
     auto film = std::make_shared<Film>(resolution);
 
     //摄像机
-    Point3f target(-64.8161, 47.2211, 23.8576);
-    Point3f origin(-65.6055, 47.5762, 24.3583);
-    Vector3f up(0.299858, 0.934836, -0.190177);
-    float fov = 30;
+    Point3f target(0.0f, 0.0f, 0.0f);
+    Point3f origin(0.0f, 0.0f, 1.0f);
+    Vector3f up(0.0f, 1.0f, 0.0f);
+    float fov = 45;
     auto camera = std::make_shared<PerspectiveCamera>(
             Transform(Inverse(LookAt(origin, target, up))),
             film, fov
@@ -45,22 +45,35 @@ int main() {
     auto sampler = std::make_shared<IndependentSampler>(spp);
 
     //场景构建
-    auto ajax_trans = std::make_shared<Transform>(Matrix4x4::Identity());
-    auto ajax_mesh = std::make_shared<Mesh>(ajax_trans);
+    auto african_trans = std::make_shared<Transform>(
+            Translate(Vector3f(0.0f, 0.0f, -3.0f)) *
+            RotateY(30.f)
+    );
+    auto african_mesh = std::make_shared<Mesh>(african_trans);
     auto bvh = std::make_shared<BVHAccel>();
-    Loader::LoadMesh(ajax_mesh, "scene/ajax/meshes/ajax.obj");
+    Loader::LoadMesh(african_mesh, "scene/african/meshes/african.obj");
     auto scene = std::make_shared<Scene>(bvh);
-    scene->meshes.push_back(ajax_mesh);
+    scene->meshes.push_back(african_mesh);
     scene->Activate();
 
+/*    //法线积分器
+    {
+        auto integrator = std::make_shared<NormalsIntegrator>(camera, sampler, film);
+        integrator->Render(scene, "test/ajax_normal.png");
+    }*/
 
     //简单积分器
     {
         sampler->spp = 1;
-        auto lightPosition = Point3f(-20, 40, 20);
-        auto energy = Spectrum(3.76e4, 3.76e4, 3.76e4);
-        auto integrator = std::make_shared<RemappingIntegraor>(camera, sampler, film, lightPosition, energy, RemappingType::Depth);
-        integrator->Render(scene, "test/ajax_remapping_depth_test.png");
+        auto lightPosition = Point3f(1, 0, 0);
+        auto energy = Spectrum(100, 100, 100);
+        auto integrator = std::make_shared<SimpleIntegrator>(camera, sampler, film, lightPosition, energy);
+        integrator->Render(scene, "test/african_simple.png");
     }
-
+/*    //AO积分器
+    {
+        sampler->spp = 512;
+        auto integrator = std::make_shared<AOIntegrator>(camera, sampler, film);
+        integrator->Render(scene, "test/ajax_ao.png");
+    }*/
 }

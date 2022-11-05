@@ -4,7 +4,6 @@
 #include "Math/Vector3.h"
 #include "Math/Point2.h"
 #include "Math/Color3.h"
-#include "Math/Color4.h"
 #include "Geometry/Bounds.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
@@ -18,7 +17,7 @@ enum class ImageType{
 };
 
 struct Film {
-    std::vector<RGB> frameBuffer;
+    std::vector<RGB8> frameBuffer;
 
     Bounds2i bounds;
 

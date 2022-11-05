@@ -26,7 +26,12 @@ struct Color3 {
 
     //clear
     void Clear() {
-        r = g = b = T();
+        r = g = b = T{};
+    }
+
+    //亮度
+    float Luminance() const {
+        return 0.212671f * r + 0.715160f * g + 0.072169f * b;
     }
 };
 
@@ -174,36 +179,45 @@ inline Color3<T> Clamp(const Color3<T>& s, float low, float high) {
 }
 
 using Spectrum = Color3<float>;
-using RGB = Color3<uint8_t>;
+using RGB8 = Color3<uint8_t>;
 
-inline Spectrum ToSpectrum(const RGB& color) {
-    return {
-            float(color.r) / 255.0f,
-            float(color.g) / 255.0f,
-            float(color.b) / 255.0f
-    };
+//颜色空间转换
+inline float LinearRGBToSRGB(float value) {
+    if (value <= 0.0031308f)
+        return 12.92f * value;
+    else
+        return (1.0f + 0.055f)
+               * std::pow(value, 1.0f / 2.4f) - 0.055f;
 }
 
-inline RGB ToRGB(const Spectrum& color) {
-    return {
-            uint8_t(Clamp(255.f * color.r, 0.0f, 255.0f)),
-            uint8_t(Clamp(255.f * color.g, 0.0f, 255.0f)),
-            uint8_t(Clamp(255.f * color.b, 0.0f, 255.0f))
-    };
+inline float SRGBToLinearRGB(float value) {
+    if (value <= 0.04045f)
+        return value / 12.92f;
+    else
+        return std::pow((value + 0.055f) / (1.0f + 0.055f), 2.4f);
 }
 
-//ref: mitsuba
-inline RGB ToSRGB(const Spectrum& color) {
-    Spectrum result;
-    for (int i = 0; i < 3; ++i) {
-        float value = color[i];
+inline uint8_t SRGBToRGB8(float value) {
+    return uint8_t(Clamp(255.f * value, 0.0f, 255.0f));
+}
 
-        if (value <= 0.0031308f)
-            result[i] = 12.92f * value;
-        else
-            result[i] = (1.0f + 0.055f)
-                        * std::pow(value, 1.0f / 2.4f) - 0.055f;
-    }
-    return ToRGB(result);
+inline float RGB8ToSRGB(uint8_t value) {
+    return Clamp(float(value) / 255.0f, 0.0f, 1.0f);
+}
+
+inline RGB8 ToRGB8(const Spectrum& s) {
+    RGB8 color;
+    color.r = SRGBToRGB8(LinearRGBToSRGB(s.r));
+    color.g = SRGBToRGB8(LinearRGBToSRGB(s.g));
+    color.b = SRGBToRGB8(LinearRGBToSRGB(s.b));
+    return color;
+}
+
+inline Spectrum ToLinearRGB(const RGB8& color) {
+    Spectrum s;
+    s.r = SRGBToLinearRGB(RGB8ToSRGB(color.r));
+    s.g = SRGBToLinearRGB(RGB8ToSRGB(color.g));
+    s.b = SRGBToLinearRGB(RGB8ToSRGB(color.b));
+    return s;
 }
 }

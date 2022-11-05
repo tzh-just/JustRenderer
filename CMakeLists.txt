@@ -35,3 +35,11 @@ add_executable(
         ajax
         src/scene/ajax.cpp
 )
+add_executable(
+        cbox
+        src/scene/cbox.cpp
+)
+add_executable(
+        african
+        src/scene/african.cpp
+)

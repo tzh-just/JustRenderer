@@ -31,7 +31,7 @@ struct SamplerIntegrator : public Integrator {
 
 void SamplerIntegrator::Render(std::shared_ptr<Scene> scene, const std::string& filename) {
     Spectrum radiance(0.0f);
-    film->frameBuffer = std::vector<RGB>(film->resolution.x * film->resolution.y, RGB(0.0f));
+    film->frameBuffer = std::vector<RGB8>(film->resolution.x * film->resolution.y);
 
     //计时器
     Timer timer;
@@ -49,7 +49,7 @@ void SamplerIntegrator::Render(std::shared_ptr<Scene> scene, const std::string& 
                 radiance += Li(ray, scene);
             }
             radiance /= sampler->spp;
-            film->frameBuffer[y * film->resolution.x + x] = ToSRGB(radiance);
+            film->frameBuffer[y * film->resolution.x + x] = ToRGB8(radiance);
         }
     }
 

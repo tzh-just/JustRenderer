@@ -5,11 +5,10 @@
 
 namespace Just {
 struct PerspectiveCamera : public ProjectiveCamera {
-
     PerspectiveCamera(const Transform& cameraToWorld,
                       std::shared_ptr<Film> film,
                       float fov)
-            : ProjectiveCamera(cameraToWorld, Perspective(fov, 1e-4f, 1e4f), film) {}
+            : ProjectiveCamera(cameraToWorld, Perspective(fov, 1e-4f, 1e4f), film){}
 
     //从摄像机向视口投射光线
     Ray GenerateRay(const Point2f& sample) const override {
